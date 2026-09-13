@@ -74,7 +74,7 @@ export async function runStructured<TSchema extends z.ZodType>(
       response_format: {
         type: 'text',
         mime_type: 'application/json',
-        schema: z.toJSONSchema(request.schema) as Record<string, unknown>,
+        schema: toGeminiSchema(request.schema),
       },
       generation_config: {
         thinking_level: request.thinkingLevel ?? 'medium',
@@ -98,6 +98,55 @@ export async function runStructured<TSchema extends z.ZodType>(
   } catch (error) {
     throw classifyGenAiError(error, request.model);
   }
+}
+
+/**
+ * Keywords stripped from the schema before it is sent to Gemini.
+ *
+ * These constrain what a value may CONTAIN. Gemini's structured output wants to know
+ * what SHAPE to produce, and rejects a schema carrying enough of them with a bare
+ * `400 Request contains an invalid argument` that names nothing. Measured on
+ * 13 September 2026: each of these is accepted in isolation, and the real nested
+ * finding schema is refused until the length and item bounds come out — so the limit
+ * is on combined complexity rather than on any single keyword, and guessing at where
+ * that threshold sits would be a fragile thing to depend on.
+ *
+ * Removing them loses nothing. The Zod schema still validates the response on the way
+ * back, so a string that is too long or an array that is too large is caught exactly
+ * as before — just one step later, by the code that owns the contract rather than by
+ * a remote service. The generation guidance that actually matters lives in the
+ * `.describe()` text, which is preserved.
+ */
+const VALIDATION_ONLY_KEYWORDS: ReadonlySet<string> = new Set([
+  '$schema',
+  'minLength',
+  'maxLength',
+  'minItems',
+  'maxItems',
+  'minimum',
+  'maximum',
+  'exclusiveMinimum',
+  'exclusiveMaximum',
+  'multipleOf',
+  'pattern',
+  'format',
+]);
+
+/** Convert a Zod schema to the JSON Schema Gemini accepts. */
+export function toGeminiSchema(schema: z.ZodType): Record<string, unknown> {
+  return prune(z.toJSONSchema(schema)) as Record<string, unknown>;
+}
+
+function prune(node: unknown): unknown {
+  if (Array.isArray(node)) return node.map(prune);
+  if (node === null || typeof node !== 'object') return node;
+
+  const out: Record<string, unknown> = {};
+  for (const [key, value] of Object.entries(node as Record<string, unknown>)) {
+    if (VALIDATION_ONLY_KEYWORDS.has(key)) continue;
+    out[key] = prune(value);
+  }
+  return out;
 }
 
 function toInputText(part: ContextPart): string {

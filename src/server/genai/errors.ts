@@ -17,6 +17,12 @@ export type GenAiFailure =
   | 'too_large'
   /** The response did not satisfy the schema. Retrying rarely helps; the prompt is wrong. */
   | 'invalid_output'
+  /**
+   * The model id is not callable by this key — typically a retired model that still
+   * appears in `models.list`. Never retryable on the same id, but a caller holding a
+   * fallback tier can usefully switch, so it is worth distinguishing from `unknown`.
+   */
+  | 'model_unavailable'
   /** Missing or rejected credentials. A deployment problem, not a runtime one. */
   | 'unauthenticated'
   | 'unknown';
@@ -56,6 +62,9 @@ export function classifyGenAiError(error: unknown, model: string): GenAiError {
   }
   if (status === 401 || status === 403) {
     return new GenAiError('unauthenticated', model, message, { cause: error });
+  }
+  if (status === 404) {
+    return new GenAiError('model_unavailable', model, message, { cause: error });
   }
 
   const lowered = message.toLowerCase();
