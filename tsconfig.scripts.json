@@ -1,0 +1,22 @@
+{
+  // Config for `tsx`-run maintenance scripts (golden recording, knowledge-base
+  // validation, smoke tests).
+  //
+  // `server-only` exists to fail a BUILD when a Client Component imports server code.
+  // Its published entry point throws unconditionally at require time, which is correct
+  // inside Next and wrong for a Node script that legitimately needs the server layer.
+  //
+  // Aliasing it here rather than in the base config means Next's bundler still resolves
+  // the real package during `npm run build`, so the guarantee that src/server never
+  // reaches the browser bundle is untouched. Scripts opt out explicitly, via
+  // `tsx --tsconfig tsconfig.scripts.json`.
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "paths": {
+      "@/*": ["./src/*"],
+      "server-only": ["./tests/stubs/server-only.ts"]
+    }
+  },
+  "include": ["scripts/**/*.ts", "src/**/*.ts"]
+}
