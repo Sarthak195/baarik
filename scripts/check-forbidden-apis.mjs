@@ -18,7 +18,7 @@
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 
-/** @type {{pattern: RegExp, why: string, roots: string[]}[]} */
+/** @type {{pattern: RegExp, why: string, roots: string[], secret?: boolean}[]} */
 const FORBIDDEN = [
   {
     pattern: /\bgenerateContent\s*\(/,
@@ -41,9 +41,19 @@ const FORBIDDEN = [
     roots: ['src', 'scripts', 'tests'],
   },
   {
-    pattern: /AIza[0-9A-Za-z_-]{10}/,
+    // Two live Google key formats. `AIza…` is the long-standing one; `AQ.…` is what
+    // AI Studio issues now, and a scanner that knew only the first would have waved
+    // this project's actual credentials straight into a public repository.
+    pattern: /AIza[0-9A-Za-z_-]{10}|\bAQ\.[A-Za-z0-9_-]{20}/,
     why: 'That looks like a Google API key. Keys belong in Secret Manager, never in git.',
-    roots: ['src', 'scripts', 'tests', 'data', 'fixtures', 'docs'],
+    secret: true,
+    roots: ['src', 'scripts', 'tests', 'data', 'fixtures', 'docs', 'golden'],
+  },
+  {
+    pattern: /\b(sk-or-v1-|gsk_[A-Za-z0-9]{20}|sk-proj-)/,
+    why: 'That looks like an OpenRouter, Groq or OpenAI key.',
+    secret: true,
+    roots: ['src', 'scripts', 'tests', 'data', 'fixtures', 'docs', 'golden'],
   },
   {
     pattern: /-----BEGIN [A-Z ]*PRIVATE KEY-----/,
@@ -72,6 +82,15 @@ function exists(root) {
   }
 }
 
+/**
+ * Strings that look like credentials but announce themselves as not being one.
+ *
+ * Tests need key-shaped values to exercise the pool, and documentation needs to quote
+ * the shape it is warning about. Narrow on purpose: a real key is random, so it will
+ * not contain any of these words, and widening this list is how a scanner goes blind.
+ */
+const PLACEHOLDER = /example|fake|placeholder|redacted|your[-_]?key|xxxx|not[-_]?real/i;
+
 /** @type {string[]} */
 const failures = [];
 
@@ -82,7 +101,10 @@ for (const rule of FORBIDDEN) {
 
     const lines = readFileSync(path, 'utf8').split('\n');
     for (const [index, line] of lines.entries()) {
-      if (rule.pattern.test(line)) {
+      if (!rule.pattern.test(line)) continue;
+      // A key-shaped string that says "example" is documentation, not a leak.
+      if (rule.secret === true && PLACEHOLDER.test(line)) continue;
+      {
         failures.push(
           `${relative(process.cwd(), path)}:${String(index + 1)}\n    ${line.trim().slice(0, 110)}\n    ${rule.why}`,
         );
