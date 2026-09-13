@@ -1,0 +1,7 @@
+# Normalise line endings in the repository so diffs stay clean across platforms.
+* text=auto eol=lf
+
+# Sample legal documents are fixtures: byte-stable input to the grounding verifier.
+# Line-ending rewriting would shift character offsets and break golden reports.
+fixtures/**/*.txt -text
+golden/**/*.json -text
