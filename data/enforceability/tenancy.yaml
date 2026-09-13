@@ -1,0 +1,45 @@
+# Enforceability rows for tenancy documents.
+#
+# READ THIS BEFORE USING THE FIRST ROW. The Model Tenancy Act, 2021 is a model
+# law circulated by the Ministry of Housing and Urban Affairs for States to adopt.
+# It is not in force anywhere by its own strength. Only a few States have enacted
+# a version of it; elsewhere the State's own Rent Control Act governs. The row
+# below is therefore carried as a published benchmark, and its verdict is
+# `context_dependent` rather than anything stronger.
+version: '2026.09.13'
+
+rules:
+  - construct: forfeiture_of_paid_amounts
+    verdict: context_dependent
+    confidence: low
+    statute:
+      act: 'Model Tenancy Act, 2021 — a model law circulated for States to adopt, not binding law unless your State has enacted it'
+      section: 'Section 11 — Security deposit (benchmark, not law in most States)'
+      text: "The security deposit to be paid in advance by the tenant shall not exceed two months' rent in the case of residential premises and six months' rent in the case of non-residential premises, and shall be refunded to the tenant on the date of taking over vacant possession of the premises, after making due deduction of any liability of the tenant."
+      url: 'https://mohua.gov.in/upload/uploadfiles/files/Model-Tenancy-Act-English-02_06_2021.pdf'
+    authorities: []
+    plainMeaning: "The Centre's model tenancy law uses two months' rent as the benchmark deposit for a home and expects the deposit back when you hand over the keys, less what you actually owe. It is a benchmark you can point to in negotiation, not a rule that applies everywhere."
+    caveats:
+      - 'The Model Tenancy Act is advisory. It binds no one unless your State has enacted its own version, and most have not.'
+      - 'Where it has not been adopted, the State Rent Control Act and the agreement itself govern, and deposit practice varies widely by city.'
+      - 'This row does not say your deposit clause is invalid; it gives you a published figure to compare it against.'
+      - 'Registration rules differ by State. In Maharashtra, for example, every leave-and-licence agreement is registrable regardless of its length.'
+      - 'If a deposit is withheld, the forum — Rent Authority, Rent Controller or consumer commission — depends on your State and on the facts.'
+    appliesTo: [rent_agreement]
+
+  - construct: self_help_remedy
+    verdict: likely_unenforceable_as_written
+    confidence: high
+    statute:
+      act: 'Specific Relief Act, 1963'
+      section: 'Section 6 — Suit by person dispossessed of immovable property'
+      text: 'If any person is dispossessed without his consent of immovable property otherwise than in due course of law, he or any person claiming through him may, by suit, recover possession thereof, notwithstanding any other title that may be set up in such suit.'
+      url: 'https://www.indiacode.nic.in/bitstream/123456789/1583/2/A196347.pdf'
+    authorities: []
+    plainMeaning: 'A clause letting the landlord change the locks, remove your belongings or put you out without going through the legal process does not sit well with this section: a person put out of premises otherwise than in due course of law can sue to be put back, whatever the paperwork says about who owns what.'
+    caveats:
+      - 'This states what the section provides. It is not advice on your tenancy or on anything already done to you.'
+      - 'A suit under this section has a short time limit — six months from the dispossession — and it is not available against the Government.'
+      - 'The section decides possession only. It does not decide who is right about the rent, the deposit or the title.'
+      - 'Cutting off electricity or water, or locking a tenant out, may also attract other remedies including a police complaint; those routes are separate from this one.'
+    appliesTo: [rent_agreement]

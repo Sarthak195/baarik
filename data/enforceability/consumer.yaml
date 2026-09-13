@@ -1,0 +1,59 @@
+# Enforceability rows under the Consumer Protection Act, 2019.
+#
+# "Unfair contract" under section 2(46) is a list of six kinds of term, not a
+# declaration that any of them is void on sight. Only the State Commission or the
+# National Commission can declare a term null and void, so every verdict here is
+# context dependent and says so.
+version: '2026.09.13'
+
+rules:
+  - construct: forfeiture_of_paid_amounts
+    verdict: context_dependent
+    confidence: medium
+    statute:
+      act: 'Consumer Protection Act, 2019'
+      section: 'Section 2(46)(i) and 2(46)(ii) — unfair contract'
+      text: '"unfair contract" means a contract between a manufacturer or trader or service provider on one hand, and a consumer on the other, having such terms which cause significant change in the rights of such consumer, including the following, namely: (i) requiring manifestly excessive security deposits to be given by a consumer for the performance of contractual obligations; (ii) imposing any penalty on the consumer, for the breach of contract thereof which is wholly disproportionate to the loss occurred due to such breach to the other party to the contract.'
+      url: 'https://www.indiacode.nic.in/show-data?actid=AC_CEN_21_44_00007_201935_1596441164903&sectionId=50027&sectionno=2&orderno=2'
+    authorities: []
+    plainMeaning: 'A deposit that is manifestly excessive, or a penalty far bigger than the loss your breach could cause, is listed in the Act as the kind of term a consumer commission can call unfair.'
+    caveats:
+      - 'Being on this list does not by itself make a term void. A State or National Commission has to declare it so; a District Commission cannot.'
+      - 'The Act protects you only where you bought goods or services as a consumer. Purchases for resale or for a commercial purpose are generally outside it, subject to the self-employment exception.'
+      - 'What counts as manifestly excessive or wholly disproportionate is decided case by case against the facts.'
+      - 'A complaint has to be filed within two years of the cause of action, and you may file where you live or work.'
+    appliesTo: [rent_agreement, loan_agreement, privacy_policy, other]
+
+  - construct: unilateral_amendment_without_notice
+    verdict: context_dependent
+    confidence: medium
+    statute:
+      act: 'Consumer Protection Act, 2019'
+      section: 'Section 2(46)(iv) and 2(46)(vi) — unfair contract'
+      text: '"unfair contract" means a contract ... having such terms which cause significant change in the rights of such consumer, including the following, namely: (iv) entitling a party to the contract to terminate such contract unilaterally, without reasonable cause; (vi) imposing on the consumer any unreasonable charge, obligation or condition which puts such consumer to disadvantage.'
+      url: 'https://www.indiacode.nic.in/show-data?actid=AC_CEN_21_44_00007_201935_1596441164903&sectionId=50027&sectionno=2&orderno=2'
+    authorities: []
+    plainMeaning: 'A term letting the other side change or end the deal on its own, or putting an unreasonable condition on you, is the kind of term the Act names as unfair and a consumer commission can examine.'
+    caveats:
+      - 'The listing describes a category. Whether this clause falls in it, and what follows, is for a consumer commission to decide.'
+      - 'Only the State or National Commission can declare a contract term null and void as unfair.'
+      - 'Continuing to use a service after terms change is often argued as acceptance; that argument is fought on the facts and is not settled by this row.'
+      - 'The Central Consumer Protection Authority can also act against unfair trade practices; that is a separate route from a complaint about your own contract.'
+    appliesTo: [privacy_policy, loan_agreement, rent_agreement, other]
+
+  - construct: class_action_waiver
+    verdict: cannot_oust_this_forum
+    confidence: medium
+    statute:
+      act: 'Consumer Protection Act, 2019'
+      section: 'Section 35(1)(c), read with section 100'
+      text: 'A complaint ... may be filed with a District Commission by (c) one or more consumers, where there are numerous consumers having the same interest, with the permission of the District Commission, on behalf of, or for the benefit of, all consumers so interested. ... The provisions of this Act shall be in addition to and not in derogation of the provisions of any other law for the time being in force.'
+      url: 'https://www.indiacode.nic.in/bitstream/123456789/16939/1/a2019-35.pdf'
+    authorities: []
+    plainMeaning: "The consumer law itself allows one or more consumers to complain on behalf of many others with the same interest, with the commission's permission. A term in the contract does not remove a right the statute gives."
+    caveats:
+      - 'This describes the statutory right. Whether a group of consumers has the same interest is decided by the commission when it gives permission.'
+      - 'The Act applies only to consumer transactions, so a waiver in a business-to-business contract is not answered by this row.'
+      - 'A waiver may still matter in arbitration or in a civil suit, which are different forums with different rules.'
+      - 'Permission under this clause is asked for at the time of filing; it is not automatic.'
+    appliesTo: [privacy_policy, loan_agreement, other]

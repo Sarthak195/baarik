@@ -1,0 +1,160 @@
+# Tier 1 — asymmetry. The same right, measured on both sides.
+#
+# Each rule divides what one party owes by what the other party owes for the
+# identical obligation, so the finding is arithmetic a reader can check rather
+# than an opinion about fairness. Ratio >= 2 is high, >= 1.5 is medium, and the
+# medium rule excludes the high band so a document is never charged twice.
+#
+# The pairing is written in whichever direction costs the reader: notice runs
+# you-over-them, cure runs them-over-you, and the liability cap is tested both
+# ways because a cap can be too high (your exposure) or too low (their promise).
+version: '2026.09.13'
+tier: asymmetry
+
+rules:
+  - id: notice_period_asymmetry_severe
+    title: You owe at least twice the notice they owe
+    appliesTo: []
+    when:
+      op: ratio_gte
+      numerator: noticeDaysYouMustGive
+      denominator: noticeDaysTheyMustGive
+      value: 2
+    severity: high
+    weight: 18
+    evidenceFrom: noticeDaysYouMustGive
+    askYourLawyer: 'Can the notice period be made the same for both sides, or a buy-out offered instead?'
+    explain:
+      en: "To walk away you must give {noticeDaysYouMustGive} days' notice, while the other side needs only {noticeDaysTheyMustGive} days. That is at least double the warning from you that you would get from them."
+      hi: 'अनुबंध छोड़ने के लिए आपको {noticeDaysYouMustGive} दिन का नोटिस देना होगा, जबकि दूसरे पक्ष को केवल {noticeDaysTheyMustGive} दिन का। यानी आपसे कम से कम दोगुना नोटिस माँगा गया है।'
+
+  - id: notice_period_asymmetry_moderate
+    title: You owe about half again the notice they owe
+    appliesTo: []
+    when:
+      op: all_of
+      of:
+        - {
+            op: ratio_gte,
+            numerator: noticeDaysYouMustGive,
+            denominator: noticeDaysTheyMustGive,
+            value: 1.5,
+          }
+        - op: not
+          of:
+            {
+              op: ratio_gte,
+              numerator: noticeDaysYouMustGive,
+              denominator: noticeDaysTheyMustGive,
+              value: 2,
+            }
+    severity: medium
+    weight: 10
+    evidenceFrom: noticeDaysYouMustGive
+    explain:
+      en: "You must give {noticeDaysYouMustGive} days' notice against their {noticeDaysTheyMustGive} days — roughly half again as much notice from you as from them."
+      hi: 'आपको {noticeDaysYouMustGive} दिन का नोटिस देना है और उन्हें {noticeDaysTheyMustGive} दिन का — यानी आपसे लगभग डेढ़ गुना नोटिस माँगा गया है।'
+
+  - id: cure_period_asymmetry_severe
+    title: They get at least twice as long to fix a breach
+    appliesTo: []
+    when:
+      op: ratio_gte
+      numerator: cureDaysTheyGet
+      denominator: cureDaysYouGet
+      value: 2
+    severity: high
+    weight: 16
+    evidenceFrom: cureDaysTheyGet
+    askYourLawyer: 'Can the time to put a breach right be made equal for both sides?'
+    explain:
+      en: 'If they break a term they get {cureDaysTheyGet} days to put it right. If you break one you get {cureDaysYouGet} days — at least twice as long for them as for you.'
+      hi: 'अगर वे कोई शर्त तोड़ते हैं तो उन्हें सुधारने के लिए {cureDaysTheyGet} दिन मिलते हैं, और आपको केवल {cureDaysYouGet} दिन — यानी उन्हें आपसे कम से कम दोगुना समय।'
+
+  - id: cure_period_asymmetry_moderate
+    title: They get about half again as long to fix a breach
+    appliesTo: []
+    when:
+      op: all_of
+      of:
+        - { op: ratio_gte, numerator: cureDaysTheyGet, denominator: cureDaysYouGet, value: 1.5 }
+        - op: not
+          of: { op: ratio_gte, numerator: cureDaysTheyGet, denominator: cureDaysYouGet, value: 2 }
+    severity: medium
+    weight: 9
+    evidenceFrom: cureDaysTheyGet
+    explain:
+      en: 'They get {cureDaysTheyGet} days to correct a breach and you get {cureDaysYouGet} — about half again as long for them.'
+      hi: 'उन्हें गलती सुधारने के लिए {cureDaysTheyGet} दिन मिलते हैं और आपको {cureDaysYouGet} दिन — यानी उन्हें लगभग डेढ़ गुना समय।'
+
+  - id: liability_cap_exceeds_a_year_of_pay
+    title: The money cap is a year of your pay or more
+    appliesTo: [employment_offer, freelance_contract]
+    when:
+      op: ratio_gte
+      numerator: liabilityCapInr
+      denominator: annualCtcInr
+      value: 1
+    severity: high
+    weight: 16
+    evidenceFrom: liabilityCapInr
+    askYourLawyer: 'Can my exposure under this contract be capped at the fees or salary actually paid to me?'
+    explain:
+      en: 'Claims under this contract are capped at Rs {liabilityCapInr}, which is a full year of your Rs {annualCtcInr} annual package or more. A single dispute can cost you everything the work pays.'
+      hi: 'इस अनुबंध में दावों की सीमा {liabilityCapInr} रुपये है, जो आपके {annualCtcInr} रुपये के सालाना पैकेज के बराबर या उससे अधिक है। एक ही विवाद आपकी पूरे साल की कमाई ले सकता है।'
+
+  - id: liability_cap_below_one_month_of_rent
+    title: Their liability is capped below one month's rent
+    appliesTo: [rent_agreement]
+    when:
+      op: not
+      of: { op: ratio_gte, numerator: liabilityCapInr, denominator: monthlyRentInr, value: 1 }
+    severity: medium
+    weight: 8
+    evidenceFrom: liabilityCapInr
+    explain:
+      en: "Liability under this agreement is capped at Rs {liabilityCapInr} — less than one month's rent of Rs {monthlyRentInr}. The cap limits what you could ever recover far more than it limits what you pay."
+      hi: 'इस अनुबंध में देनदारी की सीमा {liabilityCapInr} रुपये है, जो एक महीने के किराए {monthlyRentInr} रुपये से भी कम है। यह सीमा आपके भुगतान को नहीं, आपकी वसूली को बाँधती है।'
+
+  - id: default_interest_doubles_the_contract_rate
+    title: Late-payment charge is twice the loan's own rate
+    appliesTo: [loan_agreement, freelance_contract]
+    when:
+      op: ratio_gte
+      numerator: latePaymentPercentPerMonth
+      denominator: annualInterestPercent
+      value: 0.1667
+    severity: high
+    weight: 16
+    evidenceFrom: latePaymentPercentPerMonth
+    askYourLawyer: "Is the default charge a genuine estimate of the lender's loss, or a penalty on top of interest?"
+    explain:
+      en: "Paying late costs you {latePaymentPercentPerMonth}% a month. Over a year that is at least twice the {annualInterestPercent}% the borrowing itself carries: your delay is priced at double the money's own price."
+      hi: 'देर से भुगतान पर आपसे हर महीने {latePaymentPercentPerMonth}% लिया जाता है। सालाना हिसाब से यह ऋण की अपनी {annualInterestPercent}% दर से कम से कम दोगुना है — यानी आपकी देरी की कीमत पैसे की कीमत से दोगुनी है।'
+
+  - id: default_interest_exceeds_the_contract_rate
+    title: Late-payment charge is above the loan's own rate
+    appliesTo: [loan_agreement, freelance_contract]
+    when:
+      op: all_of
+      of:
+        - {
+            op: ratio_gte,
+            numerator: latePaymentPercentPerMonth,
+            denominator: annualInterestPercent,
+            value: 0.125,
+          }
+        - op: not
+          of:
+            {
+              op: ratio_gte,
+              numerator: latePaymentPercentPerMonth,
+              denominator: annualInterestPercent,
+              value: 0.1667,
+            }
+    severity: medium
+    weight: 9
+    evidenceFrom: latePaymentPercentPerMonth
+    explain:
+      en: 'The {latePaymentPercentPerMonth}% monthly late charge works out, over a year, to about half again the {annualInterestPercent}% rate the borrowing itself carries.'
+      hi: 'हर महीने {latePaymentPercentPerMonth}% का विलंब शुल्क सालाना हिसाब से ऋण की अपनी {annualInterestPercent}% दर से लगभग डेढ़ गुना बैठता है।'

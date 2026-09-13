@@ -1,0 +1,52 @@
+# Enforceability rows on arbitration clauses.
+#
+# Both rows are keyed to `unilateral_arbitrator_appointment` because that is the
+# construct the fact extractor reports for a one-sided arbitration clause; the
+# second row adds what the consumer law does to such a clause when the reader is
+# a consumer, and is limited by `appliesTo` to those documents.
+version: '2026.09.13'
+
+rules:
+  - construct: unilateral_arbitrator_appointment
+    verdict: likely_unenforceable_as_written
+    confidence: high
+    statute:
+      act: 'Arbitration and Conciliation Act, 1996'
+      section: 'Section 12(5), read with the Seventh Schedule'
+      text: 'Notwithstanding any prior agreement to the contrary, any person whose relationship, with the parties or counsel or the subject-matter of the dispute, falls under any of the categories specified in the Seventh Schedule shall be ineligible to be appointed as an arbitrator: Provided that parties may, subsequent to disputes having arisen between them, waive the applicability of this sub-section by an express agreement in writing.'
+      url: 'https://www.indiacode.nic.in/show-data?actid=AC_CEN_3_46_00004_199626_1517807323919&sectionId=24513&sectionno=12&orderno=13'
+    authorities:
+      - cite: 'Perkins Eastman Architects DPC v HSCC (India) Ltd, Arbitration Application No. 32 of 2019, Supreme Court (26 November 2019)'
+        holding: "A person who has an interest in the outcome of the dispute must not have the power to appoint a sole arbitrator; where the clause gave one party's managing director that power, the Court appointed an independent arbitrator instead."
+        url: 'https://indiankanoon.org/doc/155925871/'
+      - cite: 'The Seventh Schedule to the Arbitration and Conciliation Act, 1996 (See section 12(5))'
+        holding: 'Lists the relationships — employee, consultant, adviser, controlling interest and others — that make a person ineligible to act as arbitrator.'
+        url: 'https://upload.indiacode.nic.in/schedulefile?aid=AC_CEN_3_46_00004_199626_1517807323919&rid=69'
+    plainMeaning: 'When only one side gets to choose the arbitrator, courts have held that the person chosen cannot decide the dispute. The agreement to arbitrate usually survives; it is the one-sided appointment that does not.'
+    caveats:
+      - 'This states what the section and the Supreme Court have held. It is not an opinion on the clause in your document.'
+      - 'The parties can waive this by an express written agreement made after a dispute has arisen, so signing anything at that stage deserves care.'
+      - 'Setting an appointment aside is done by applying to a court, usually under section 11; the clause does not simply stop working on its own.'
+      - 'Clauses where one side supplies a panel from which the other must choose have been treated in later decisions and are not decided by this row.'
+      - 'Government and public-sector contracts have their own line of cases on departmental arbitrators.'
+    appliesTo: []
+
+  - construct: unilateral_arbitrator_appointment
+    verdict: cannot_oust_this_forum
+    confidence: high
+    statute:
+      act: 'Consumer Protection Act, 2019'
+      section: 'Section 100 — Act not in derogation of any other law'
+      text: 'The provisions of this Act shall be in addition to and not in derogation of the provisions of any other law for the time being in force.'
+      url: 'https://www.indiacode.nic.in/bitstream/123456789/16939/1/a2019-35.pdf'
+    authorities:
+      - cite: 'M/s Emaar MGF Land Ltd v Aftab Singh, Review Petition (C) Nos. 2629-2630 of 2018, Supreme Court (10 December 2018)'
+        holding: "An arbitration clause in an agreement with a consumer does not bar a complaint before the consumer forum; the review against the dismissal of the builder's section 8 application was rejected, the National Commission's view that consumer disputes are non-arbitrable being upheld."
+        url: 'https://indiankanoon.org/doc/60243004/'
+    plainMeaning: 'An arbitration clause in a consumer contract does not shut the door to the consumer commission. Courts have held that the consumer remedy sits alongside arbitration rather than being replaced by it.'
+    caveats:
+      - 'This describes the position courts have taken generally; whether you are a consumer for this Act, and whether this document is a consumer contract, are questions of fact.'
+      - 'Goods or services bought for resale or for a commercial purpose usually fall outside the Act, subject to the self-employment exception.'
+      - 'Choosing the consumer forum does not cancel the arbitration clause for every purpose; the other side may still start arbitration and a court may have to sort it out.'
+      - 'Consumer complaints have their own time limit — two years from the cause of action — which this row does not compute for you.'
+    appliesTo: [rent_agreement, loan_agreement, privacy_policy, other]

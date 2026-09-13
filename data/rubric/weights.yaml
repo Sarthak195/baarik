@@ -1,0 +1,23 @@
+# Scoring configuration for the deterministic risk rubric.
+#
+# `saturation` is `k` in `score = 100 * (1 - e^(-raw/k))`. At k = 45 a single
+# high-severity driver lands in "moderate" and three of them land in "high",
+# which is the behaviour the golden reports are asserted against.
+#
+# The tier caps exist so that no one kind of problem can carry the score alone:
+# eight missing protections must not outweigh one genuinely dangerous clause.
+version: '2026.09.13'
+saturation: 45
+
+tierCaps:
+  asymmetry: 40
+  threshold: 45
+  construct: 45
+  absence: 40
+
+# Read in order; the first band whose `upTo` the score does not exceed wins.
+bands:
+  - { upTo: 24, band: low }
+  - { upTo: 49, band: moderate }
+  - { upTo: 74, band: high }
+  - { upTo: 100, band: severe }

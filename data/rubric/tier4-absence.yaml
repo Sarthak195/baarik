@@ -1,0 +1,138 @@
+# Tier 4 — absence. The protection that is missing.
+#
+# For a consumer the dangerous clause is usually the one that was never written:
+# no date by which the deposit comes back, no way out, no forum named. This tier
+# is sound only because `construct_absent` rests on a tri-state fact — "the whole
+# document was read and this is not in it" is a different answer from "the model
+# did not look", and the second one yields `unknown`, not a finding.
+#
+# The compound rules at the end exist because missing protections combine: no way
+# out and no notice period is a worse position than either one on its own.
+version: '2026.09.13'
+tier: absence
+
+rules:
+  - id: absent_deposit_refund_timeline
+    title: No date by which your deposit comes back
+    appliesTo: [rent_agreement]
+    when: { op: construct_absent, construct: deposit_refund_timeline }
+    severity: high
+    weight: 14
+    evidenceFrom: deposit_refund_timeline
+    askYourLawyer: 'Can a clause be added fixing the refund date and interest if the deposit is returned late?'
+    explain:
+      en: 'This agreement never says when your deposit must be returned. Without a date there is nothing to be late against, and the money can sit with the other side while you argue about deductions.'
+      hi: 'इस अनुबंध में कहीं नहीं लिखा कि आपकी जमा राशि कब लौटाई जाएगी। तारीख तय न हो तो देरी साबित करने का आधार ही नहीं बचता, और कटौतियों पर बहस चलने तक पैसा दूसरे पक्ष के पास पड़ा रहता है।'
+
+  - id: absent_notice_period_for_you
+    title: No notice period written for your side
+    appliesTo: []
+    when: { op: construct_absent, construct: notice_period_for_you }
+    severity: high
+    weight: 12
+    evidenceFrom: notice_period_for_you
+    askYourLawyer: 'How much notice must I give to end this, and is that written anywhere?'
+    explain:
+      en: 'The document does not say how much notice you must give, which leaves the other side free to argue for whatever period suits it when you want to leave.'
+      hi: 'दस्तावेज़ में यह नहीं लिखा कि आपको कितने दिन का नोटिस देना होगा, जिससे आपके जाने के समय दूसरा पक्ष अपनी सुविधा के हिसाब से कोई भी अवधि माँग सकता है।'
+
+  - id: absent_exit_or_termination_route
+    title: No way out is written into the document
+    appliesTo: []
+    when: { op: construct_absent, construct: exit_or_termination_route }
+    severity: high
+    weight: 16
+    evidenceFrom: exit_or_termination_route
+    askYourLawyer: 'On what terms can I end this agreement, and what does ending it cost me?'
+    explain:
+      en: 'Nothing in this document explains how you end the arrangement. An agreement with no exit written into it is one you can only leave by negotiating from a weak position.'
+      hi: 'इस दस्तावेज़ में कहीं नहीं बताया गया कि आप यह व्यवस्था कैसे समाप्त कर सकते हैं। जिस अनुबंध में निकलने का रास्ता लिखा ही न हो, उससे निकलने के लिए कमज़ोर स्थिति से मोल-भाव करना पड़ता है।'
+
+  - id: absent_jurisdiction_clause
+    title: No court or city is named for disputes
+    appliesTo: []
+    when: { op: construct_absent, construct: jurisdiction_clause }
+    severity: medium
+    weight: 8
+    evidenceFrom: jurisdiction_clause
+    explain:
+      en: 'The document does not say which courts or which city decide a dispute, so where you would have to go, and at what cost, is unsettled before anything goes wrong.'
+      hi: 'दस्तावेज़ में यह नहीं लिखा कि विवाद का निपटारा किस अदालत या किस शहर में होगा, इसलिए गड़बड़ होने से पहले ही यह तय नहीं है कि आपको कहाँ और कितने खर्च पर जाना पड़ेगा।'
+
+  - id: absent_data_retention_limit
+    title: No limit on how long your data is kept
+    appliesTo: [privacy_policy, other]
+    when: { op: construct_absent, construct: data_retention_limit }
+    severity: high
+    weight: 12
+    evidenceFrom: data_retention_limit
+    askYourLawyer: 'How long is my data kept after I stop using this service, and how do I ask for erasure?'
+    explain:
+      en: 'This policy sets no period after which your data is deleted. Indefinite retention is the default when nothing is written, and the DPDP Act works the other way round.'
+      hi: 'इस नीति में ऐसी कोई अवधि तय नहीं है जिसके बाद आपका डेटा मिटाया जाए। जब कुछ लिखा ही न हो तो डेटा अनिश्चितकाल तक रखा जाता है, जबकि डीपीडीपी अधिनियम इसका उल्टा कहता है।'
+
+  - id: absent_liability_cap_in_your_favour
+    title: No ceiling on what you could owe
+    appliesTo: []
+    when: { op: construct_absent, construct: liability_cap_in_your_favour }
+    severity: medium
+    weight: 10
+    evidenceFrom: liability_cap_in_your_favour
+    askYourLawyer: 'Can my total liability be capped at the amount actually paid under this contract?'
+    explain:
+      en: "There is no cap on what you could be asked to pay if something goes wrong, while the other side's exposure is usually limited elsewhere in the same document."
+      hi: 'कुछ गलत होने पर आपसे कितनी रकम माँगी जा सकती है, इस पर कोई सीमा नहीं है, जबकि उसी दस्तावेज़ में दूसरे पक्ष की ज़िम्मेदारी आम तौर पर कहीं न कहीं सीमित कर दी जाती है।'
+
+  - id: absent_rent_increase_cap
+    title: No ceiling on how much the rent can rise
+    appliesTo: [rent_agreement]
+    when: { op: construct_absent, construct: rent_increase_cap }
+    severity: medium
+    weight: 10
+    evidenceFrom: rent_increase_cap
+    askYourLawyer: 'Can a maximum yearly increase be written in, and when can it be revised?'
+    explain:
+      en: 'The agreement does not cap the yearly increase, so at renewal the rent is whatever is asked and your alternative is moving out.'
+      hi: 'अनुबंध में सालाना बढ़ोतरी की कोई अधिकतम सीमा तय नहीं है, इसलिए नवीनीकरण के समय किराया वही होगा जो माँगा जाएगा, और आपके पास विकल्प केवल घर छोड़ने का बचेगा।'
+
+  - id: absent_grievance_officer_named
+    title: No grievance officer is named
+    appliesTo: [privacy_policy, other]
+    when: { op: construct_absent, construct: grievance_officer_named }
+    severity: medium
+    weight: 10
+    evidenceFrom: grievance_officer_named
+    explain:
+      en: 'No grievance officer and no contact for complaints is named, so the first step in any complaint route is missing from the document that creates the service.'
+      hi: 'न कोई शिकायत अधिकारी नामित है और न शिकायत के लिए कोई संपर्क दिया गया है, इसलिए सेवा बनाने वाले दस्तावेज़ में ही शिकायत की पहली सीढ़ी गायब है।'
+
+  - id: absent_exit_route_and_notice_period
+    title: No way out and no notice period either
+    appliesTo: []
+    when:
+      op: all_of
+      of:
+        - { op: construct_absent, construct: exit_or_termination_route }
+        - { op: construct_absent, construct: notice_period_for_you }
+    severity: critical
+    weight: 20
+    evidenceFrom: exit_or_termination_route
+    askYourLawyer: 'With neither an exit clause nor a notice period written down, what are my rights to end this and on what terms?'
+    explain:
+      en: 'Two protections are missing at once: the document neither explains how you end the arrangement nor how much notice you must give. Together they leave the timing of your exit entirely to the other side.'
+      hi: 'दो सुरक्षाएँ एक साथ गायब हैं: दस्तावेज़ न यह बताता है कि आप यह व्यवस्था कैसे समाप्त करेंगे और न यह कि कितने दिन का नोटिस देना होगा। दोनों मिलकर आपके निकलने का समय पूरी तरह दूसरे पक्ष के हाथ में छोड़ देती हैं।'
+
+  - id: absent_deposit_timeline_and_jurisdiction
+    title: No refund date and no forum to chase it in
+    appliesTo: [rent_agreement]
+    when:
+      op: all_of
+      of:
+        - { op: construct_absent, construct: deposit_refund_timeline }
+        - { op: construct_absent, construct: jurisdiction_clause }
+    severity: high
+    weight: 14
+    evidenceFrom: deposit_refund_timeline
+    explain:
+      en: 'The document fixes neither a date for returning your deposit nor a place to raise a dispute. The money has no deadline and the argument about it has no address.'
+      hi: 'दस्तावेज़ में न जमा राशि लौटाने की तारीख तय है और न विवाद उठाने की जगह। यानी पैसे की कोई समय-सीमा नहीं है और उस पर होने वाली बहस का कोई ठिकाना नहीं है।'

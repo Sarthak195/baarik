@@ -1,0 +1,142 @@
+# Tier 3 — known-bad constructs.
+#
+# Clauses whose presence is the problem, tested by name rather than by number.
+# The model's only contribution is reporting whether the construct appears; what
+# it means is decided here, and what the law says about it lives in
+# `data/enforceability/`.
+#
+# No explanation in this tier interpolates a field: a construct rule fires on
+# presence alone, so it must read correctly on a document that yielded no numbers.
+version: '2026.09.13'
+tier: construct
+
+rules:
+  - id: construct_unilateral_amendment_without_notice
+    title: They can change the terms without telling you
+    appliesTo: []
+    when: { op: construct_present, construct: unilateral_amendment_without_notice }
+    severity: high
+    weight: 16
+    evidenceFrom: unilateral_amendment_without_notice
+    askYourLawyer: 'Can any change to these terms require written notice to me and a right to exit without penalty?'
+    explain:
+      en: 'The other side can rewrite this agreement on its own, without notice to you. What you are agreeing to today is not necessarily what will bind you next month.'
+      hi: 'दूसरा पक्ष आपको सूचित किए बिना, अपनी मर्ज़ी से इस अनुबंध की शर्तें बदल सकता है। आज आप जिस बात पर सहमत हो रहे हैं, ज़रूरी नहीं कि अगले महीने वही आप पर लागू हो।'
+
+  - id: construct_unilateral_arbitrator_appointment
+    title: They alone pick the arbitrator
+    appliesTo: []
+    when: { op: construct_present, construct: unilateral_arbitrator_appointment }
+    severity: high
+    weight: 18
+    evidenceFrom: unilateral_arbitrator_appointment
+    askYourLawyer: 'Can the arbitrator be named jointly, or appointed by an institution instead of by one side?'
+    explain:
+      en: 'If a dispute arises, the person who decides it is chosen by the other side alone. The forum that judges the quarrel is picked by one of the parties to it.'
+      hi: 'विवाद होने पर उसका निर्णय करने वाला व्यक्ति केवल दूसरे पक्ष द्वारा चुना जाएगा। यानी झगड़े का फ़ैसला करने वाला मंच झगड़े के ही एक पक्ष द्वारा तय किया जाता है।'
+
+  - id: construct_contractual_limitation_period
+    title: A private deadline to bring a claim
+    appliesTo: []
+    when: { op: construct_present, construct: contractual_limitation_period }
+    severity: high
+    weight: 16
+    evidenceFrom: contractual_limitation_period
+    askYourLawyer: 'Does this clause try to cut short the time the Limitation Act otherwise gives me?'
+    explain:
+      en: 'This agreement sets its own short deadline for raising a claim, shorter than the period the general law of limitation allows.'
+      hi: 'यह अनुबंध दावा उठाने के लिए अपनी अलग, छोटी समय-सीमा तय करता है, जो परिसीमा कानून द्वारा दी गई अवधि से कम है।'
+
+  - id: construct_self_help_remedy
+    title: They can act without going to court
+    appliesTo: []
+    when: { op: construct_present, construct: self_help_remedy }
+    severity: high
+    weight: 18
+    evidenceFrom: self_help_remedy
+    askYourLawyer: 'What notice must I receive before any lock-out, cut-off or repossession, and who decides the default?'
+    explain:
+      en: 'The other side may lock the premises, cut off a service or take back property on its own say-so, without a court first deciding that you were in the wrong.'
+      hi: 'दूसरा पक्ष अपनी ही बात पर परिसर पर ताला लगा सकता है, सेवा बंद कर सकता है या सामान वापस ले सकता है — बिना किसी अदालत के यह तय किए कि गलती आपकी थी।'
+
+  - id: construct_forfeiture_of_paid_amounts
+    title: Money you have already paid can be kept
+    appliesTo: []
+    when: { op: construct_present, construct: forfeiture_of_paid_amounts }
+    severity: high
+    weight: 16
+    evidenceFrom: forfeiture_of_paid_amounts
+    askYourLawyer: 'What loss is this forfeiture meant to make good, and can it be limited to that loss?'
+    explain:
+      en: 'If things go wrong, amounts you have already handed over stay with the other side. Under section 74 of the Contract Act a named sum is recoverable only up to the loss actually proved.'
+      hi: 'कुछ गड़बड़ होने पर आपके द्वारा पहले ही दी जा चुकी रकम दूसरे पक्ष के पास रह जाती है। अनुबंध अधिनियम की धारा 74 के अनुसार तय की गई रकम केवल सिद्ध हुए नुकसान की सीमा तक ही वसूली जा सकती है।'
+
+  - id: construct_sole_discretion_on_payment
+    title: Money owed to you is left to their discretion
+    appliesTo: []
+    when: { op: construct_present, construct: sole_discretion_on_payment }
+    severity: high
+    weight: 15
+    evidenceFrom: sole_discretion_on_payment
+    askYourLawyer: "Can payment be tied to a measurable event and a date instead of the other side's satisfaction?"
+    explain:
+      en: "A payment you are meant to receive depends on the other side's sole discretion or satisfaction, so there is no test you can point to and say the money is due."
+      hi: 'आपको मिलने वाला भुगतान पूरी तरह दूसरे पक्ष की मर्ज़ी या संतुष्टि पर निर्भर है, इसलिए ऐसी कोई कसौटी नहीं बचती जिसके आधार पर आप कह सकें कि पैसा देय हो गया है।'
+
+  - id: construct_unlimited_indemnity
+    title: You cover their losses with no ceiling
+    appliesTo: []
+    when: { op: construct_present, construct: unlimited_indemnity }
+    severity: critical
+    weight: 18
+    evidenceFrom: unlimited_indemnity
+    askYourLawyer: "Can the indemnity be capped at the fees paid, and exclude losses caused by the other side's own acts?"
+    explain:
+      en: "You promise to make good the other side's losses with no upper limit, and in many drafts that covers losses their own conduct caused."
+      hi: 'आप दूसरे पक्ष के नुकसान की भरपाई का वादा करते हैं, और उस पर कोई ऊपरी सीमा नहीं है। कई मसौदों में इसमें वे नुकसान भी शामिल होते हैं जो उनके अपने आचरण से हुए हों।'
+
+  - id: construct_automatic_renewal_without_notice
+    title: It renews itself without warning you
+    appliesTo: []
+    when: { op: construct_present, construct: automatic_renewal_without_notice }
+    severity: medium
+    weight: 10
+    evidenceFrom: automatic_renewal_without_notice
+    explain:
+      en: 'The agreement rolls over on its own and nobody has to remind you before it does, so the next term can begin while you are still deciding.'
+      hi: 'अनुबंध अपने आप आगे बढ़ जाता है और उससे पहले आपको याद दिलाने की किसी की ज़िम्मेदारी नहीं है, इसलिए अगली अवधि तब शुरू हो सकती है जब आप अभी सोच ही रहे हों।'
+
+  - id: construct_assignment_of_future_ip
+    title: Work you have not made yet is already theirs
+    appliesTo: []
+    when: { op: construct_present, construct: assignment_of_future_ip }
+    severity: high
+    weight: 15
+    evidenceFrom: assignment_of_future_ip
+    askYourLawyer: 'Does this cover work made in my own time and on my own equipment, and can that be carved out?'
+    explain:
+      en: 'Work you create later belongs to the other side the moment it exists, and such clauses are often written wide enough to catch what you build outside this engagement.'
+      hi: 'आगे चलकर आप जो भी काम बनाएँगे, वह बनते ही दूसरे पक्ष का हो जाएगा; ऐसी शर्तें अक्सर इतनी व्यापक लिखी जाती हैं कि इस काम के बाहर बनाई गई चीज़ें भी उनकी चपेट में आ जाती हैं।'
+
+  - id: construct_class_action_waiver
+    title: You give up joining others with the same complaint
+    appliesTo: []
+    when: { op: construct_present, construct: class_action_waiver }
+    severity: high
+    weight: 14
+    evidenceFrom: class_action_waiver
+    explain:
+      en: 'You agree not to join other people with the same grievance in a single case, so a small loss suffered by thousands has to be fought one person at a time.'
+      hi: 'आप यह मान लेते हैं कि एक जैसी शिकायत वाले अन्य लोगों के साथ मिलकर एक ही मुकदमा नहीं करेंगे, इसलिए हज़ारों लोगों को हुआ छोटा नुकसान भी हर व्यक्ति को अलग-अलग लड़ना पड़ता है।'
+
+  - id: construct_cross_default
+    title: A default somewhere else counts as a default here
+    appliesTo: []
+    when: { op: construct_present, construct: cross_default }
+    severity: high
+    weight: 14
+    evidenceFrom: cross_default
+    askYourLawyer: 'Which other agreements does this clause reach, and can it be limited to defaults above a threshold?'
+    explain:
+      en: 'Falling behind on some other agreement counts as breaking this one too, so a single missed payment elsewhere can trigger everything in this contract at once.'
+      hi: 'किसी दूसरे अनुबंध में चूक को इस अनुबंध का उल्लंघन भी माना जाएगा, इसलिए कहीं और छूटी एक किस्त इस अनुबंध की सारी शर्तें एक साथ सक्रिय कर सकती है।'

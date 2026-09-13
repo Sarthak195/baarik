@@ -1,0 +1,234 @@
+# Tier 2 — absolute thresholds.
+#
+# A number in the document measured against a number a reader can look up. Where
+# the threshold comes from a published source the rule carries a `benchmark`;
+# where it is this project's own judgement it carries none, because a fabricated
+# citation would be worse than an honest bare number.
+#
+# Medium bands exclude their high band, so a document is charged once per signal.
+version: '2026.09.13'
+tier: threshold
+
+rules:
+  - id: security_deposit_three_months_rent_or_more
+    title: Security deposit of three months' rent or more
+    appliesTo: [rent_agreement]
+    when:
+      op: multiple_gte
+      field: securityDepositInr
+      of: monthlyRentInr
+      value: 3
+    severity: high
+    weight: 16
+    evidenceFrom: securityDepositInr
+    askYourLawyer: "Can the deposit come down to two months' rent, with a dated refund promise?"
+    benchmark:
+      source: 'Model Tenancy Act, 2021, section 11 — a model law, binding only where a State has enacted it'
+      url: 'https://mohua.gov.in/upload/uploadfiles/files/Model-Tenancy-Act-English-02_06_2021.pdf'
+      text: "The security deposit paid in advance by the tenant shall not exceed two months' rent in the case of residential premises."
+    explain:
+      en: "The deposit is Rs {securityDepositInr} against rent of Rs {monthlyRentInr} a month — three months' rent or more. The Centre's model tenancy law uses two months as the benchmark for a home."
+      hi: 'जमा राशि {securityDepositInr} रुपये है, जबकि किराया {monthlyRentInr} रुपये प्रति माह है — यानी तीन महीने का किराया या उससे अधिक। केंद्र के आदर्श किरायेदारी कानून में घर के लिए दो महीने का मानक रखा गया है।'
+
+  - id: security_deposit_two_to_three_months_rent
+    title: Security deposit of two to three months' rent
+    appliesTo: [rent_agreement]
+    when:
+      op: all_of
+      of:
+        - op: multiple_gte
+          field: securityDepositInr
+          of: monthlyRentInr
+          value: 2
+        - op: not
+          of:
+            op: multiple_gte
+            field: securityDepositInr
+            of: monthlyRentInr
+            value: 3
+    severity: medium
+    weight: 8
+    evidenceFrom: securityDepositInr
+    explain:
+      en: 'The deposit is Rs {securityDepositInr}, between two and three months of the Rs {monthlyRentInr} monthly rent.'
+      hi: 'जमा राशि {securityDepositInr} रुपये है, जो {monthlyRentInr} रुपये मासिक किराए के दो से तीन महीने के बराबर है।'
+
+  - id: lock_in_longer_than_six_months
+    title: Lock-in longer than six months
+    appliesTo: [rent_agreement, employment_offer, freelance_contract]
+    when: { op: gt, field: lockInMonths, value: 6 }
+    severity: high
+    weight: 15
+    evidenceFrom: lockInMonths
+    askYourLawyer: 'What exactly do I owe if I leave during the lock-in, and can that be capped?'
+    explain:
+      en: 'You are tied in for {lockInMonths} months. Leaving early usually means paying for the rest of that period even when you are no longer there.'
+      hi: 'आप {lockInMonths} महीने के लिए बँधे हुए हैं। जल्दी छोड़ने पर आम तौर पर बची हुई अवधि का भुगतान करना पड़ता है, चाहे आप वहाँ रहें या नहीं।'
+
+  - id: lock_in_four_to_six_months
+    title: Lock-in of four to six months
+    appliesTo: [rent_agreement, employment_offer, freelance_contract]
+    when:
+      op: all_of
+      of:
+        - { op: gte, field: lockInMonths, value: 4 }
+        - { op: not, of: { op: gt, field: lockInMonths, value: 6 } }
+    severity: medium
+    weight: 8
+    evidenceFrom: lockInMonths
+    explain:
+      en: 'You are tied in for {lockInMonths} months before you can leave without paying for the remainder.'
+      hi: 'बची हुई अवधि का भुगतान किए बिना निकलने से पहले आपको {lockInMonths} महीने तक बँधा रहना होगा।'
+
+  - id: rent_escalation_above_ten_percent
+    title: Rent rises by more than 10% a year
+    appliesTo: [rent_agreement]
+    when: { op: gt, field: annualRentIncreasePercent, value: 10 }
+    severity: high
+    weight: 14
+    evidenceFrom: annualRentIncreasePercent
+    askYourLawyer: 'Can the yearly increase be capped, or tied to an index instead of a flat percentage?'
+    explain:
+      en: 'Rent goes up {annualRentIncreasePercent}% every year. Compounded, that roughly doubles what you pay within about seven years.'
+      hi: 'किराया हर साल {annualRentIncreasePercent}% बढ़ता है। चक्रवृद्धि हिसाब से यह लगभग सात साल में दोगुना हो जाता है।'
+
+  - id: employment_bond_above_six_months_ctc
+    title: Bond worth six months of your CTC or more
+    appliesTo: [employment_offer]
+    when:
+      op: multiple_gte
+      field: bondAmountInr
+      of: annualCtcInr
+      divideBaseBy: 12
+      value: 6
+    severity: high
+    weight: 16
+    evidenceFrom: bondAmountInr
+    askYourLawyer: 'What training or cost is this bond said to recover, and what proof of that cost exists?'
+    explain:
+      en: 'The bond is Rs {bondAmountInr}, six months or more of your Rs {annualCtcInr} annual package. Section 74 of the Contract Act allows recovery of a named sum only up to the loss actually shown.'
+      hi: 'बॉन्ड की राशि {bondAmountInr} रुपये है, जो आपके {annualCtcInr} रुपये के सालाना पैकेज के छह महीने या उससे अधिक के बराबर है। अनुबंध अधिनियम की धारा 74 के अनुसार तय की गई रकम केवल सिद्ध हुए नुकसान की सीमा तक ही वसूली जा सकती है।'
+
+  - id: employment_bond_three_to_six_months_ctc
+    title: Bond worth three to six months of your CTC
+    appliesTo: [employment_offer]
+    when:
+      op: all_of
+      of:
+        - op: multiple_gte
+          field: bondAmountInr
+          of: annualCtcInr
+          divideBaseBy: 12
+          value: 3
+        - op: not
+          of:
+            op: multiple_gte
+            field: bondAmountInr
+            of: annualCtcInr
+            divideBaseBy: 12
+            value: 6
+    severity: medium
+    weight: 9
+    evidenceFrom: bondAmountInr
+    explain:
+      en: 'The bond is Rs {bondAmountInr}, between three and six months of your Rs {annualCtcInr} annual package.'
+      hi: 'बॉन्ड की राशि {bondAmountInr} रुपये है, जो आपके {annualCtcInr} रुपये सालाना पैकेज के तीन से छह महीने के बराबर है।'
+
+  - id: confidentiality_beyond_five_years_or_perpetual
+    title: Confidentiality beyond five years, or with no end
+    appliesTo: [nda, employment_offer, freelance_contract]
+    when: { op: gt, field: confidentialityMonths, value: 60 }
+    severity: high
+    weight: 14
+    evidenceFrom: confidentialityMonths
+    askYourLawyer: 'Can the confidentiality term be limited to a few years, with trade secrets carved out separately?'
+    explain:
+      en: 'You must keep this information confidential for {confidentialityMonths} months. Ordinary commercial information usually carries a three-to-five-year term; a perpetual obligation is written as a period that never runs out.'
+      hi: 'आपको यह जानकारी {confidentialityMonths} महीने तक गोपनीय रखनी होगी। सामान्य कारोबारी जानकारी के लिए आम तौर पर तीन से पाँच साल की अवधि रखी जाती है; हमेशा के लिए चलने वाली बाध्यता ऐसी अवधि के रूप में लिखी जाती है जो कभी खत्म नहीं होती।'
+
+  - id: payment_terms_longer_than_forty_five_days
+    title: You are paid more than 45 days after invoicing
+    appliesTo: [freelance_contract, other]
+    when: { op: gt, field: paymentTermDays, value: 45 }
+    severity: high
+    weight: 15
+    evidenceFrom: paymentTermDays
+    askYourLawyer: 'Am I registered on Udyam, and does the 45-day rule under the MSMED Act apply to my invoices?'
+    benchmark:
+      source: 'Micro, Small and Medium Enterprises Development Act, 2006, section 15'
+      url: 'https://www.indiacode.nic.in/show-data?actid=AC_CEN_46_77_00002_200627_1517807324919&sectionId=9897&sectionno=15&orderno=15'
+      text: 'Provided that in no case the period agreed upon between the supplier and the buyer in writing shall exceed forty-five days from the day of acceptance or the day of deemed acceptance.'
+    explain:
+      en: 'Payment falls due {paymentTermDays} days after you invoice. For a registered micro or small enterprise the MSMED Act does not allow an agreed period beyond 45 days.'
+      hi: 'बिल देने के {paymentTermDays} दिन बाद भुगतान देय होता है। पंजीकृत सूक्ष्म या लघु उद्यम के लिए एमएसएमईडी अधिनियम 45 दिन से अधिक की सहमत अवधि की अनुमति नहीं देता।'
+
+  - id: loan_interest_above_thirty_six_percent
+    title: Interest above 36% a year
+    appliesTo: [loan_agreement]
+    when: { op: gt, field: annualInterestPercent, value: 36 }
+    severity: high
+    weight: 18
+    evidenceFrom: annualInterestPercent
+    askYourLawyer: 'What is the all-in yearly cost of this loan once fees and charges are added to the stated rate?'
+    explain:
+      en: 'The stated rate is {annualInterestPercent}% a year, before processing fees and default charges. At this level the interest can outgrow the amount borrowed within a few years.'
+      hi: 'बताई गई दर {annualInterestPercent}% सालाना है, और यह प्रोसेसिंग शुल्क तथा विलंब शुल्क से अलग है। इस स्तर पर ब्याज कुछ ही वर्षों में मूल राशि से भी बड़ा हो सकता है।'
+
+  - id: loan_interest_twenty_four_to_thirty_six_percent
+    title: Interest of 24-36% a year
+    appliesTo: [loan_agreement]
+    when:
+      op: all_of
+      of:
+        - { op: gte, field: annualInterestPercent, value: 24 }
+        - { op: not, of: { op: gt, field: annualInterestPercent, value: 36 } }
+    severity: medium
+    weight: 10
+    evidenceFrom: annualInterestPercent
+    explain:
+      en: 'The stated rate is {annualInterestPercent}% a year, well above what a bank charges on a secured loan.'
+      hi: 'बताई गई दर {annualInterestPercent}% सालाना है, जो बैंक के सुरक्षित ऋण की दर से काफी अधिक है।'
+
+  - id: penal_charge_above_twenty_four_percent_a_year
+    title: Late-payment charge above 24% a year
+    appliesTo: [loan_agreement, rent_agreement, freelance_contract]
+    when: { op: gt, field: latePaymentPercentPerMonth, value: 2 }
+    severity: high
+    weight: 14
+    evidenceFrom: latePaymentPercentPerMonth
+    askYourLawyer: 'Is this charge a genuine pre-estimate of the loss caused by delay, or a penalty on top of interest?'
+    explain:
+      en: 'Late payment carries {latePaymentPercentPerMonth}% a month, which is more than 24% a year on its own, separate from any interest already running.'
+      hi: 'देर से भुगतान पर हर महीने {latePaymentPercentPerMonth}% लगता है, जो अकेले ही सालाना 24% से अधिक बैठता है और पहले से चल रहे ब्याज से अलग है।'
+
+  - id: data_retention_beyond_five_years
+    title: Your data is kept for more than five years
+    appliesTo: [privacy_policy, other]
+    when: { op: gt, field: dataRetentionDays, value: 1825 }
+    severity: high
+    weight: 13
+    evidenceFrom: dataRetentionDays
+    askYourLawyer: 'What purpose still needs my data after this period, and how do I ask for it to be erased?'
+    benchmark:
+      source: 'Digital Personal Data Protection Act, 2023, section 8(7)'
+      url: 'https://indiacode.nic.in/show-data?abv=CEN&actid=AC_CEN_45_0_00003_2023-22_1763464807080&orderno=8&orgactid=AC_CEN_45_0_00003_2023-22_1763464807080&sectionId=101274&sectionno=8&statehandle=123456789%2F1362'
+      text: 'A Data Fiduciary shall erase personal data upon the Data Principal withdrawing her consent or as soon as it is reasonable to assume that the specified purpose is no longer being served, whichever is earlier, unless retention is necessary for compliance with any law for the time being in force.'
+    explain:
+      en: 'This policy keeps your data for {dataRetentionDays} days — over five years. The DPDP Act works the other way round: data goes once the purpose it was collected for is over.'
+      hi: 'यह नीति आपका डेटा {dataRetentionDays} दिन तक रखती है — यानी पाँच साल से अधिक। डीपीडीपी अधिनियम इसका उल्टा कहता है: जिस उद्देश्य के लिए डेटा लिया गया था, वह पूरा होते ही डेटा मिटाया जाना चाहिए।'
+
+  - id: post_employment_non_compete_term_stated
+    title: A non-compete period is written into the contract
+    appliesTo: [employment_offer, nda, freelance_contract]
+    when: { op: gt, field: nonCompeteMonths, value: 0 }
+    severity: high
+    weight: 12
+    evidenceFrom: nonCompeteMonths
+    askYourLawyer: 'Which parts of this restriction survive after I leave, and which fall under section 27?'
+    benchmark:
+      source: 'Indian Contract Act, 1872, section 27'
+      url: 'https://www.indiacode.nic.in/show-data?actid=AC_CEN_3_20_00035_187209_1523268996428&sectionId=38631&sectionno=27&orderno=28'
+      text: 'Every agreement by which any one is restrained from exercising a lawful profession, trade or business of any kind, is to that extent void.'
+    explain:
+      en: 'The contract restrains you from competing for {nonCompeteMonths} months after it ends. Section 27 treats a restraint on lawful work as void to that extent, and Indian law has no reasonableness test that saves one.'
+      hi: 'अनुबंध समाप्त होने के बाद {nonCompeteMonths} महीने तक आपके प्रतिस्पर्धा करने पर रोक लगाई गई है। धारा 27 वैध पेशे पर लगी ऐसी रोक को उसी हद तक शून्य मानती है, और भारतीय कानून में इसे बचाने वाली उचितता की कोई कसौटी नहीं है।'
