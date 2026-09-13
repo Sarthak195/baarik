@@ -1,0 +1,210 @@
+@import 'tailwindcss';
+
+/* Automatic source detection walks up from the project root; naming `src` explicitly
+   keeps the scan off `data/`, `fixtures/` and `docs/`, where a stray word like `block`
+   inside a statute quote would otherwise generate a utility nobody asked for. */
+@source '../';
+
+/* ---------------------------------------------------------------------------
+   Tokens.
+
+   Two palettes, one set of names. Nothing below this block ever names a colour;
+   it names a role. That is what makes the dark theme a twenty-line diff rather
+   than an audit of every component.
+
+   The palette is warm and restrained on purpose. This is a document reader: the
+   page should feel like paper under a desk lamp, and the only saturated colour on
+   screen should be a risk signal, so that a risk signal is noticeable.
+   --------------------------------------------------------------------------- */
+:root {
+  --paper: #fbfaf7;
+  --surface: #ffffff;
+  --surface-sunken: #f3f0e9;
+  --ink: #17150f;
+  --ink-muted: #5d5748;
+  --ink-faint: #837c6c;
+  --rule: #e5dfd3;
+  --rule-strong: #cec6b4;
+  --accent: #27406e;
+  --accent-ink: #ffffff;
+  --focus: #1a5fb4;
+
+  /* Severity. Never used alone — every one of these ships with an icon, a shape and
+     a word. See `src/lib/severity.ts` and ADR 0005. */
+  --challenged: #8f1d14;
+  --challenged-bg: #fbeceb;
+  --risky: #7a5200;
+  --risky-bg: #faf2df;
+  --standard: #4a5361;
+  --standard-bg: #f1f0ec;
+  --favour: #1c5c46;
+  --favour-bg: #e8f3ed;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #131211;
+    --surface: #1b1a17;
+    --surface-sunken: #232120;
+    --ink: #ece7dd;
+    --ink-muted: #a8a193;
+    --ink-faint: #867f71;
+    --rule: #302d28;
+    --rule-strong: #46423a;
+    --accent: #a8bee6;
+    --accent-ink: #10131a;
+    --focus: #7fb4ff;
+
+    --challenged: #f4a49d;
+    --challenged-bg: #331917;
+    --risky: #ebc476;
+    --risky-bg: #2d2414;
+    --standard: #bcc3ce;
+    --standard-bg: #24262a;
+    --favour: #93d6b6;
+    --favour-bg: #142720;
+  }
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-sunken: var(--surface-sunken);
+  --color-ink: var(--ink);
+  --color-muted: var(--ink-muted);
+  --color-faint: var(--ink-faint);
+  --color-rule: var(--rule);
+  --color-rule-strong: var(--rule-strong);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+
+  --color-challenged: var(--challenged);
+  --color-challenged-bg: var(--challenged-bg);
+  --color-risky: var(--risky);
+  --color-risky-bg: var(--risky-bg);
+  --color-standard: var(--standard);
+  --color-standard-bg: var(--standard-bg);
+  --color-favour: var(--favour);
+  --color-favour-bg: var(--favour-bg);
+
+  /* No webfont is loaded anywhere in this application. A 200 KB font file is a
+     second of blank text on a 3G connection, and the reader came here to read one
+     specific document rather than to admire the letterforms. The hierarchy below is
+     built from size, weight, colour and space instead — all of which are free. */
+  --font-sans:
+    system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', 'Noto Sans Devanagari', sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, 'Times New Roman', serif;
+  --font-mono: ui-monospace, 'Cascadia Mono', 'Segoe UI Mono', 'Roboto Mono', monospace;
+}
+
+@layer base {
+  html {
+    /* Stops mobile Safari inflating text in landscape and breaking the 320px layout. */
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    /* Hyphenation matters more than usual here: verbatim contract quotes contain long
+       unbreakable tokens, and an unbroken token is what causes horizontal scroll at
+       320px. `overflow-wrap` is the guarantee; hyphens are the polish. */
+    overflow-wrap: break-word;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    letter-spacing: -0.011em;
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* The disclosure triangle is replaced by a drawn caret in `Disclosure.tsx`, which
+     needs the native marker gone in both rendering engines. */
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary {
+    list-style: none;
+  }
+  .caret {
+    transition: transform 150ms ease;
+  }
+  details[open] > summary .caret {
+    transform: rotate(90deg);
+  }
+
+  mark {
+    background-color: var(--risky-bg);
+    color: var(--ink);
+    padding: 0.05em 0.15em;
+    border-radius: 2px;
+    box-decoration-break: clone;
+  }
+}
+
+/* Hatched fill for the Taraazu meter. The two bars must be distinguishable with no
+   colour at all — printed in greyscale, or read by someone with either common form of
+   colour blindness — so the distinction is carried by texture, and the numbers are
+   repeated in text next to the bar for anyone reading with neither. */
+@utility hatched {
+  background-image: repeating-linear-gradient(
+    45deg,
+    currentColor 0 2px,
+    color-mix(in srgb, currentColor 12%, transparent) 2px 6px
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* The report has no server-side PDF renderer by design — `window.print()` into "Save
+   as PDF" prints better and costs nothing. These rules are what make that output
+   readable: chrome off, links resolved, cards kept whole across a page break. */
+@media print {
+  :root {
+    --paper: #ffffff;
+    --surface: #ffffff;
+    --ink: #000000;
+    --ink-muted: #333333;
+    --rule: #bbbbbb;
+  }
+
+  [data-print='hide'] {
+    display: none !important;
+  }
+
+  article,
+  section {
+    break-inside: avoid;
+  }
+
+  a[href^='http']::after {
+    content: ' (' attr(href) ')';
+    font-size: 0.75em;
+    word-break: break-all;
+  }
+}
