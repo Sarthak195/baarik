@@ -111,10 +111,17 @@ export default tseslint.config(
 
   // Scripts and tests are ordinary Node programs; the core restrictions do not apply.
   {
-    files: ['scripts/**/*.{ts,mjs}', 'tests/**/*.ts', '*.config.{ts,mjs}'],
+    files: ['scripts/**/*.{ts,mts,mjs}', 'tests/**/*.ts', '*.config.{ts,mts,mjs}'],
     rules: {
       'no-console': 'off',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
     },
+  },
+
+  // Plain-JavaScript tooling files sit outside the TypeScript program, so type-aware
+  // rules have no type information to work from and would only report parse failures.
+  {
+    files: ['**/*.mjs', '**/*.js'],
+    extends: [tseslint.configs.disableTypeChecked],
   },
 );
