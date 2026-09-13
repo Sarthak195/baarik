@@ -1,0 +1,49 @@
+# --- secrets: never commit, never recoverable from history ---
+.env
+.env.*
+!.env.example
+*.pem
+*-key.json
+service-account*.json
+
+# --- dependencies & build output ---
+node_modules/
+.next/
+out/
+dist/
+build/
+*.tsbuildinfo
+
+# --- test & coverage artefacts ---
+coverage/
+.nyc_output/
+test-results/
+
+# --- tooling state ---
+.antigravitycli/
+.vercel/
+.wrangler/
+.eslintcache
+
+# --- planning notes: research working files, not product documentation ---
+.planning/
+
+# --- binaries & media: keep the repo under the 10 MB contest limit ---
+# Screenshots belong on GitHub's CDN (drag into an issue comment), never in git.
+*.mp4
+*.webm
+*.mov
+*.zip
+*.png
+*.jpg
+*.jpeg
+*.gif
+!public/favicon.ico
+
+# Sample legal documents are committed as plain .txt only — never as PDFs.
+*.pdf
+*.docx
+
+# --- OS noise ---
+.DS_Store
+Thumbs.db
