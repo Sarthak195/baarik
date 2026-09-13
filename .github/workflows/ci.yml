@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# The entire suite runs offline. There is no GEMINI_API_KEY in this workflow and
+# there must never be one: model output is replayed from committed fixtures through
+# the LlmGateway interface, and tests/setup.ts stubs fetch to throw. A test that
+# needs the network is a test that will be flaky and will cost money.
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Full history, because check-repo-size inspects every reachable object —
+          # a shallow clone would report a reassuring but meaningless number.
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+
+      - run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Validate the legal knowledge base
+        run: npm run validate
+
+      - name: Test
+        run: npm run test
+
+      - name: Enforce the 250-line file cap
+        run: npm run check:size
+
+      - name: Check for forbidden patterns and leaked keys
+        run: npm run check:api
+
+      - name: Check repository size against the contest limit
+        run: npm run check:repo
+
+      - name: Build
+        run: npm run build
