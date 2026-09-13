@@ -1,0 +1,98 @@
+# What never enters the build context.
+#
+# The context is packed and uploaded before a single instruction runs — to the local
+# daemon on `docker build`, and to Cloud Build on `gcloud run deploy --source .`. The
+# tracked repository is a few megabytes; `node_modules/` on its own is several hundred.
+# So this file is most of the difference between a deploy that takes a minute and one
+# that takes twenty.
+#
+# Two things it is NOT. It does not decide what ends up in the image — the runner stage
+# copies five paths by name and ignores everything else. And it does not control what
+# `gcloud` uploads: that is `.gcloudignore`, which gcloud derives from `.gitignore` when
+# no `.gcloudignore` exists. See docs/DEPLOYMENT.md.
+
+
+# --- rebuilt inside the image, never copied in ---------------------------------------
+#
+# `npm ci` and `next build` produce both of these in the `deps` and `builder` stages.
+# Excluding node_modules is also what stops `COPY . .` overwriting the tree that `deps`
+# resolved: a host `node_modules` from Windows or macOS carries native binaries for the
+# wrong platform, and the result is an image that builds cleanly and crashes on boot.
+node_modules
+.next
+out
+dist
+build
+
+# --- history, not source -------------------------------------------------------------
+#
+# Megabytes of packfile that no build step reads.
+.git
+.gitignore
+.gitattributes
+.github
+
+# --- secrets -------------------------------------------------------------------------
+#
+# The Dockerfile passes no key at any stage and no ARG accepts one; this is the second
+# lock rather than the first, and it is load-bearing.
+#
+# Verified, not assumed: a local `next build` with a `.env` present copies that file
+# into `.next/standalone/.env`. The runner stage copies the whole standalone directory,
+# so a `.env` left in the build context would put six live Gemini keys inside a public
+# image as a plain file. This line is what stops that.
+.env
+.env.*
+
+# --- test and coverage artefacts -------------------------------------------------------
+#
+# The runner copies none of them and no request reads them. CI is where a failing test
+# stops a release — not a deploy that has already uploaded its context and paid for a
+# builder.
+#
+# Worth knowing rather than discovering: `next build` type-checks against tsconfig.json,
+# whose `include` is `**/*.ts`, so it does compile `tests/` when they are present.
+# Excluding them here means the image build checks a smaller set than CI does. That is
+# the intended direction — CI is the gate and runs the whole suite; the image build's job
+# is to produce an image — but it does mean a green `docker build` is not a green CI.
+tests
+coverage
+vitest.config.mts
+
+# --- research working files, never product ---------------------------------------------
+.planning
+
+# --- sample legal documents ------------------------------------------------------------
+#
+# Excluded, though at ~84 KB keeping them would cost nothing measurable.
+#
+# The reason is not size. `fixtures/` is read only by `src/server/samples/fixtures.ts`,
+# whose sole importer is `scripts/record-golden.ts` — the recorder that regenerates
+# `golden/` on a developer machine with a live key. Nothing under `src/app/` imports it,
+# so no request can reach it and the standalone trace never touches it.
+#
+# Leaving it out keeps the image a closed set: everything present is something the
+# server actually reads. That is the property which makes the two deliberate copies in
+# the Dockerfile, `data/` and `golden/`, legible as deliberate rather than as leftovers.
+fixtures
+
+# --- prose ------------------------------------------------------------------------------
+#
+# Read by people, on GitHub. LICENSE has no extension and is kept.
+docs
+*.md
+
+# --- build cache and editor state --------------------------------------------------------
+*.tsbuildinfo
+.eslintcache
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+
+# --- this build's own inputs -----------------------------------------------------------
+#
+# Docker reads the Dockerfile separately, so excluding it here is safe and means editing
+# a comment in it cannot invalidate the `npm ci` layer.
+Dockerfile
+.dockerignore

@@ -50,13 +50,13 @@ export async function GET(): Promise<Response> {
     problems.push(`golden/ did not load: ${describe(error)}`);
   }
 
-  // Imported here rather than at the top of the module: `config/env` validates the
-  // environment as it loads and throws when no key is configured. A health endpoint
-  // that cannot start because the thing it reports on is broken reports nothing.
+  // Imported here rather than at the top of the module, and called inside the try:
+  // `getGeminiKeys` throws when nothing is configured, and a health endpoint that
+  // cannot start because the thing it reports on is broken reports nothing.
   let geminiKeys = 0;
   try {
-    const { geminiKeys: keys } = await import('@/server/config/env');
-    geminiKeys = keys.length;
+    const { getGeminiKeys } = await import('@/server/config/env');
+    geminiKeys = getGeminiKeys().length;
   } catch (error) {
     problems.push(`no usable Gemini key: ${describe(error)}`);
   }

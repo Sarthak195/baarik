@@ -5,14 +5,17 @@ import type { RawExtraction } from '@/core/document/types';
 import type { OutputLanguage } from '@/schemas/document-type';
 import { parseLanguage, withLanguage } from '@/i18n';
 import { toReportView } from '@/lib/report-view';
-import { geminiKeyPool } from '@/server/config/env';
+import { getGeminiKeyPool } from '@/server/config/env';
 import { LIMITS } from '@/server/config/limits';
 import { GenAiError } from '@/server/genai/errors';
 import { callWithFallback } from '@/server/genai/gateway';
 import { detectAndExtract, IngestError } from '@/server/ingest/detect';
 import { loadKnowledge } from '@/server/knowledge/repository';
+import { analysisLog } from '@/server/observability/analysis-log';
+import type { FailureReason } from '@/server/observability/logger';
 import { analyseDocument } from '@/server/pipeline/analyse-document';
 import type { LlmGateway } from '@/server/pipeline/stages';
+import { checkRateLimit } from '@/server/ratelimit/token-bucket';
 import { putReport } from '@/server/store/report-store';
 
 /**
@@ -33,6 +36,14 @@ import { putReport } from '@/server/store/report-store';
 export const maxDuration = 300;
 
 export async function POST(request: Request): Promise<Response> {
+  const startedAt = Date.now();
+
+  // First, before the body is read and long before a model is called. A limiter that
+  // runs after the work has been done protects nothing: the quota is already spent,
+  // and quota is the scarce resource this endpoint is guarding.
+  const decision = checkRateLimit(request.headers, startedAt);
+  if (!decision.allowed) return tooManyRequests(decision.retryAfterSeconds);
+
   const form = await request.formData();
   const language = parseLanguage(readField(form, 'lang'));
 
@@ -47,8 +58,23 @@ export async function POST(request: Request): Promise<Response> {
     // whole analysis. The exhausted set is per-request here; sharing it process-wide
     // belongs with the analysis cache and is a later change.
     const exhausted = new Set<string>();
+    // Asked for here rather than imported as a value: resolving the keys at module
+    // load made `next build` require a credential it has no business holding.
+    const keys = getGeminiKeyPool();
+
+    // Which model actually answered, and whether it was the first choice, are known
+    // only to the gateway. Captured on the way past so the log line reports what
+    // happened rather than what was requested.
+    let answeredBy = 'unknown';
+    let degraded = false;
+
     const llm: LlmGateway = {
-      structured: (req) => callWithFallback(req, { keys: geminiKeyPool, exhausted }),
+      structured: async (req) => {
+        const result = await callWithFallback(req, { keys, exhausted });
+        answeredBy = result.model;
+        if (result.degraded) degraded = true;
+        return result;
+      },
     };
 
     const outcome = await analyseDocument(
@@ -83,8 +109,23 @@ export async function POST(request: Request): Promise<Response> {
     });
 
     putReport(outcome.report.reportId, view, Date.now());
+
+    // Counts and durations, never content. The report id is left out too: it is the
+    // URL of a document somebody is reading, and a log line should not be a way to
+    // find one.
+    analysisLog.analysisCompleted({
+      documentType: outcome.report.documentType,
+      findingCount: outcome.report.grounding.total,
+      groundedCount: outcome.report.grounding.grounded,
+      rejectedCount: outcome.report.grounding.rejected,
+      durationMs: Date.now() - startedAt,
+      model: answeredBy,
+      degraded,
+    });
+
     return redirect(request, withLanguage(`/report/${outcome.report.reportId}`, language));
   } catch (error) {
+    analysisLog.analysisFailed({ reason: reasonFor(error), durationMs: Date.now() - startedAt });
     return redirect(request, backToForm(messageFor(error), 'error', language));
   }
 }
@@ -127,6 +168,36 @@ function redirect(request: Request, target: string): Response {
 }
 
 /**
+ * The refusal, in plain text with the wait attached.
+ *
+ * Not a redirect back to the form like the other failures: this answer is produced
+ * before the body has been read, so the form's language is unknown, and sending the
+ * browser back to a form is an invitation to post the document again. `Retry-After`
+ * carries the real figure from the bucket rather than a round number, because a client
+ * that honours it should be told the truth and one that ignores it gains nothing.
+ *
+ * The sample documents are the point of the message. They are complete worked
+ * analyses served from `golden/`, cost no quota, and work while this endpoint will
+ * not — so the suggestion is a way through rather than an apology.
+ */
+function tooManyRequests(retryAfterSeconds: number): Response {
+  return new Response(
+    'Too many analyses from this connection.\n\n' +
+      `Please try again in ${String(retryAfterSeconds)} seconds. The sample documents on ` +
+      'the home page are complete worked analyses that cost no quota, so they work right ' +
+      'now.\n',
+    {
+      status: 429,
+      headers: {
+        'retry-after': String(retryAfterSeconds),
+        'content-type': 'text/plain; charset=utf-8',
+        'cache-control': 'no-store',
+      },
+    },
+  );
+}
+
+/**
  * Turn a failure into something a person can act on.
  *
  * An ingest failure already knows what went wrong and says so. A quota failure is the
@@ -139,6 +210,20 @@ function messageFor(error: unknown): string {
     return 'Analysis is rate limited right now. The sample documents are fully worked and need no quota.';
   }
   return 'Something went wrong analysing that document. Please try again.';
+}
+
+/**
+ * The same failure, as the label the log line is allowed to carry.
+ *
+ * Separate from `messageFor` because the two answer different questions: that one is
+ * read by the person who uploaded the document, this one by whoever is on call. An
+ * error's own message is not usable here — an ingest failure can name a file and a
+ * model error can quote the payload that provoked it, and neither belongs in a log.
+ */
+function reasonFor(error: unknown): FailureReason {
+  if (error instanceof IngestError) return 'ingest';
+  if (error instanceof GenAiError) return error.failure === 'rate_limited' ? 'quota' : 'model';
+  return 'unknown';
 }
 
 /**

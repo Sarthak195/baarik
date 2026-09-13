@@ -5,15 +5,16 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 vi.mock('server-only', () => ({}));
 
 /**
- * `env.ts` validates at module load on purpose, so every case here arranges `process.env`
- * and then imports the module fresh. `vi.resetModules()` is what makes the second import
- * re-run the parse rather than hand back the first one's cached result — and it means
- * these tests exercise the boot-time failure itself rather than a stand-in for it.
+ * `env.ts` parses the shape of the environment at module load and resolves credentials
+ * on first use, so every case here arranges `process.env` and then imports the module
+ * fresh. `vi.resetModules()` is what makes the second import re-run the parse and drop
+ * the memoised keys rather than hand back the first one's result — and it means these
+ * tests exercise the real failures rather than stand-ins for them.
  */
 
 /** Only the variables this module reads are disturbed; wiping `process.env` wholesale
  * would take PATH and the runner's own configuration with it. */
-const MANAGED = /^(?:GEMINI_API_KEY|ENABLE_LAW_CHECK|LOG_LEVEL|NODE_ENV)/;
+const MANAGED = /^(?:GEMINI_API_KEY|LOG_LEVEL|NODE_ENV)/;
 
 const ORIGINAL_ENV = { ...process.env };
 
@@ -43,64 +44,83 @@ afterEach(() => {
   }
 });
 
-describe('geminiKeys', () => {
+describe('getGeminiKeys', () => {
   it('splits a comma-separated list, trimming and dropping empties', async () => {
     setEnv({ GEMINI_API_KEY: ` ${A_KEY} , ${B_KEY} ,, ` });
 
-    const { geminiKeys } = await import('@/server/config/env');
-    expect(geminiKeys).toEqual([A_KEY, B_KEY]);
+    const { getGeminiKeys } = await import('@/server/config/env');
+    expect(getGeminiKeys()).toEqual([A_KEY, B_KEY]);
   });
 
   it('accepts whitespace as a separator, because that is what a paste produces', async () => {
     setEnv({ GEMINI_API_KEY: `${A_KEY}\n${B_KEY}` });
 
-    const { geminiKeys } = await import('@/server/config/env');
-    expect(geminiKeys).toEqual([A_KEY, B_KEY]);
+    const { getGeminiKeys } = await import('@/server/config/env');
+    expect(getGeminiKeys()).toEqual([A_KEY, B_KEY]);
   });
 
   it('collects numbered variants it was never told about', async () => {
     setEnv({ GEMINI_API_KEY: A_KEY, GEMINI_API_KEY6: B_KEY, GEMINI_API_KEY7: C_KEY });
 
-    const { geminiKeys } = await import('@/server/config/env');
-    expect(geminiKeys).toEqual([A_KEY, B_KEY, C_KEY]);
+    const { getGeminiKeys } = await import('@/server/config/env');
+    expect(getGeminiKeys()).toEqual([A_KEY, B_KEY, C_KEY]);
   });
 
   it('de-duplicates across both shapes while preserving declaration order', async () => {
     setEnv({ GEMINI_API_KEY: `${A_KEY},${B_KEY}`, GEMINI_API_KEY2: A_KEY, GEMINI_API_KEY3: C_KEY });
 
-    const { geminiKeys } = await import('@/server/config/env');
-    expect(geminiKeys).toEqual([A_KEY, B_KEY, C_KEY]);
+    const { getGeminiKeys } = await import('@/server/config/env');
+    expect(getGeminiKeys()).toEqual([A_KEY, B_KEY, C_KEY]);
   });
 
   it('works when only numbered variants are set and the bare variable is absent', async () => {
     setEnv({ GEMINI_API_KEY6: B_KEY });
 
-    const { geminiKeys, geminiKeyPool } = await import('@/server/config/env');
-    expect(geminiKeys).toEqual([B_KEY]);
-    expect(geminiKeyPool.next()).toBe(B_KEY);
+    const { getGeminiKeys, getGeminiKeyPool } = await import('@/server/config/env');
+    expect(getGeminiKeys()).toEqual([B_KEY]);
+    expect(getGeminiKeyPool().next()).toBe(B_KEY);
   });
 
   it('accepts a key of any shape, because only the network can say a key is bad', async () => {
     setEnv({ GEMINI_API_KEY: 'not-shaped-like-any-google-key' });
 
-    const { geminiKeys } = await import('@/server/config/env');
-    expect(geminiKeys).toEqual(['not-shaped-like-any-google-key']);
+    const { getGeminiKeys } = await import('@/server/config/env');
+    expect(getGeminiKeys()).toEqual(['not-shaped-like-any-google-key']);
   });
 });
 
 describe('module-load validation', () => {
-  it('refuses to boot with no key at all, naming both accepted shapes', async () => {
+  it('imports cleanly with no key at all, because a build machine has none', async () => {
     setEnv({});
 
-    await expect(import('@/server/config/env')).rejects.toThrow(
-      /GEMINI_API_KEY[\s\S]*GEMINI_API_KEY2/,
-    );
+    // The regression this pins: `next build` evaluates every route module to collect
+    // page data, so a module that threw here turned a missing credential into a build
+    // failure — and CI, which is offline by design and holds no secret, went red.
+    await expect(import('@/server/config/env')).resolves.toBeDefined();
+  });
+
+  it('refuses on first use with no key at all, naming both accepted shapes', async () => {
+    setEnv({});
+
+    const { getGeminiKeys } = await import('@/server/config/env');
+    expect(() => getGeminiKeys()).toThrow(/GEMINI_API_KEY[\s\S]*GEMINI_API_KEY2/);
   });
 
   it('treats a blank key as no key', async () => {
     setEnv({ GEMINI_API_KEY: '   ' });
 
-    await expect(import('@/server/config/env')).rejects.toThrow(/No Gemini API key/);
+    const { getGeminiKeyPool } = await import('@/server/config/env');
+    expect(() => getGeminiKeyPool()).toThrow(/No Gemini API key/);
+  });
+
+  it('does not remember the absence, so a late-mounted secret is picked up', async () => {
+    setEnv({});
+
+    const { getGeminiKeys } = await import('@/server/config/env');
+    expect(() => getGeminiKeys()).toThrow(/No Gemini API key/);
+
+    process.env.GEMINI_API_KEY = A_KEY;
+    expect(getGeminiKeys()).toEqual([A_KEY]);
   });
 
   it('rejects an unknown LOG_LEVEL by name', async () => {
@@ -121,38 +141,23 @@ describe('module-load validation', () => {
   });
 });
 
-describe('features', () => {
-  it('defaults lawCheck off, so the extra model call is opted into', async () => {
-    setEnv({ GEMINI_API_KEY: A_KEY });
-
-    const { features } = await import('@/server/config/env');
-    expect(features.lawCheck).toBe(false);
-  });
-
-  it('turns lawCheck on for exactly "true"', async () => {
-    setEnv({ GEMINI_API_KEY: A_KEY, ENABLE_LAW_CHECK: 'true' });
-
-    const { features } = await import('@/server/config/env');
-    expect(features.lawCheck).toBe(true);
-  });
-
-  it('rejects a value that is neither true nor false rather than guessing', async () => {
-    setEnv({ GEMINI_API_KEY: A_KEY, ENABLE_LAW_CHECK: '1' });
-
-    await expect(import('@/server/config/env')).rejects.toThrow(/ENABLE_LAW_CHECK/);
-  });
-});
-
-describe('geminiKeyPool', () => {
+describe('getGeminiKeyPool', () => {
   it('is a single shared pool over the collected keys', async () => {
     setEnv({ GEMINI_API_KEY: `${A_KEY},${B_KEY}` });
 
-    const { geminiKeyPool } = await import('@/server/config/env');
-    expect(geminiKeyPool.size).toBe(2);
-    expect([geminiKeyPool.next(), geminiKeyPool.next(), geminiKeyPool.next()]).toEqual([
-      A_KEY,
-      B_KEY,
-      A_KEY,
-    ]);
+    const { getGeminiKeyPool } = await import('@/server/config/env');
+    const pool = getGeminiKeyPool();
+    expect(pool.size).toBe(2);
+    expect([pool.next(), pool.next(), pool.next()]).toEqual([A_KEY, B_KEY, A_KEY]);
+  });
+
+  it('hands every caller the same pool, so round-robin is actually round-robin', async () => {
+    setEnv({ GEMINI_API_KEY: `${A_KEY},${B_KEY}` });
+
+    const { getGeminiKeyPool } = await import('@/server/config/env');
+    // Two consumers each holding their own pool would both start at the first key and
+    // exhaust it together, which is the failure this memoisation exists to prevent.
+    expect(getGeminiKeyPool().next()).toBe(A_KEY);
+    expect(getGeminiKeyPool().next()).toBe(B_KEY);
   });
 });

@@ -74,9 +74,11 @@ function stageOf(system: string): GoldenStage | null {
 async function main(): Promise<void> {
   loadDotEnv('.env');
 
-  // Imported here rather than at the top: the module validates the environment as it
-  // loads and throws when no key is configured, which must happen after `.env` is read.
-  const { geminiKeyPool } = await import('../src/server/config/env');
+  // Imported here rather than at the top: the module parses the environment as it
+  // loads, which must happen after `.env` is read. Keys are resolved on first use, so
+  // the throw for a missing key lands on this line rather than on the import.
+  const { getGeminiKeyPool } = await import('../src/server/config/env');
+  const keyPool = getGeminiKeyPool();
 
   const request = parseArgs(process.argv.slice(2));
   if (request === null) return;
@@ -101,7 +103,7 @@ async function main(): Promise<void> {
       // `callWithFallback` rather than a bare call, so recording benefits from the same
       // (model x key) ladder the product uses: a 429 costs a substitution, not a fixture.
       async structured<TSchema extends z.ZodType>(request_: StructuredRequest<TSchema>) {
-        const result = await callWithFallback(request_, { keys: geminiKeyPool, exhausted });
+        const result = await callWithFallback(request_, { keys: keyPool, exhausted });
         const stage = stageOf(request_.system);
         if (stage !== null) stages.set(stage, { model: result.model, value: result.value });
         return { value: result.value, model: result.model, cachedTokens: result.cachedTokens };
