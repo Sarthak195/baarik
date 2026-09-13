@@ -1,0 +1,1031 @@
+{
+  "kind": "report",
+  "report": {
+    "reportId": "offer-letter-meridian",
+    "documentHash": "fd0001bec01c672fbd2bf574f5ea9701ba25ddbf509e77225611cae994caa130",
+    "documentType": "employment_offer",
+    "language": "en",
+    "risk": {
+      "score": 85,
+      "band": "severe",
+      "drivers": [
+        {
+          "ruleId": "construct_unilateral_arbitrator_appointment",
+          "tier": "construct",
+          "severity": "high",
+          "title": "They alone pick the arbitrator",
+          "explain": "If a dispute arises, the person who decides it is chosen by the other side alone. The forum that judges the quarrel is picked by one of the parties to it.",
+          "points": 18,
+          "evidence": {
+            "start": 6032,
+            "end": 6291,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "Any dispute, difference or claim arising out of or in connection with your\nemployment or this letter shall be referred to arbitration under the Arbitration and\nConciliation Act, 1996, before a sole arbitrator appointed by the Managing Director of\nthe Company."
+          },
+          "askYourLawyer": "Can the arbitrator be named jointly, or appointed by an institution instead of by one side?"
+        },
+        {
+          "ruleId": "notice_period_asymmetry_severe",
+          "tier": "asymmetry",
+          "severity": "high",
+          "title": "You owe at least twice the notice they owe",
+          "explain": "To walk away you must give 90 days' notice, while the other side needs only 30 days. That is at least double the warning from you that you would get from them.",
+          "points": 18,
+          "evidence": {
+            "start": 2528,
+            "end": 2652,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "If you wish to resign from the services of the Company, you shall give the Company\nprior written notice of ninety (90) days."
+          },
+          "askYourLawyer": "Can the notice period be made the same for both sides, or a buy-out offered instead?"
+        },
+        {
+          "ruleId": "construct_contractual_limitation_period",
+          "tier": "construct",
+          "severity": "high",
+          "title": "A private deadline to bring a claim",
+          "explain": "This agreement sets its own short deadline for raising a claim, shorter than the period the general law of limitation allows.",
+          "points": 16,
+          "evidence": {
+            "start": 6489,
+            "end": 6786,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "No claim, demand or proceeding arising out of or relating to your employment or\nto this letter shall be entertained, and every right in respect of such claim shall\nstand extinguished, unless the claim is raised in writing within six (6) months of the\ndate on which the cause of action first arose."
+          },
+          "askYourLawyer": "Does this clause try to cut short the time the Limitation Act otherwise gives me?"
+        },
+        {
+          "ruleId": "construct_assignment_of_future_ip",
+          "tier": "construct",
+          "severity": "high",
+          "title": "Work you have not made yet is already theirs",
+          "explain": "Work you create later belongs to the other side the moment it exists, and such clauses are often written wide enough to catch what you build outside this engagement.",
+          "points": 15,
+          "evidence": {
+            "start": 5311,
+            "end": 5708,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "All inventions, discoveries, designs, drawings, source code, works of authorship\nand other intellectual property conceived, created or reduced to practice by you at\nany time during your employment — whether or not during working hours, whether or not\nusing the Company's premises, equipment or data, and whether or not related to the\nbusiness of the Company — shall vest absolutely in the Company."
+          },
+          "askYourLawyer": "Does this cover work made in my own time and on my own equipment, and can that be carved out?"
+        },
+        {
+          "ruleId": "construct_sole_discretion_on_payment",
+          "tier": "construct",
+          "severity": "high",
+          "title": "Money owed to you is left to their discretion",
+          "explain": "A payment you are meant to receive depends on the other side's sole discretion or satisfaction, so there is no test you can point to and say the money is due.",
+          "points": 15,
+          "evidence": {
+            "start": 1810,
+            "end": 1895,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "Any annual increment or performance bonus is discretionary and is not an\nentitlement."
+          },
+          "askYourLawyer": "Can payment be tied to a measurable event and a date instead of the other side's satisfaction?"
+        },
+        {
+          "ruleId": "post_employment_non_compete_term_stated",
+          "tier": "threshold",
+          "severity": "high",
+          "title": "A non-compete period is written into the contract",
+          "explain": "The contract restrains you from competing for 24 months after it ends. Section 27 treats a restraint on lawful work as void to that extent, and Indian law has no reasonableness test that saves one.",
+          "points": 12,
+          "evidence": {
+            "start": 4002,
+            "end": 4262,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "For a period of twenty-four (24) months after the cessation of your employment,\nfor any reason whatsoever, you shall not directly or indirectly join, be employed by,\nadvise, consult for, or hold any interest in any competing business in the territory\nof India."
+          },
+          "askYourLawyer": "Which parts of this restriction survive after I leave, and which fall under section 27?"
+        },
+        {
+          "ruleId": "absent_liability_cap_in_your_favour",
+          "tier": "absence",
+          "severity": "medium",
+          "title": "No ceiling on what you could owe",
+          "explain": "There is no cap on what you could be asked to pay if something goes wrong, while the other side's exposure is usually limited elsewhere in the same document.",
+          "points": 10,
+          "evidence": null,
+          "askYourLawyer": "Can my total liability be capped at the amount actually paid under this contract?"
+        }
+      ],
+      "topDrivers": [
+        {
+          "ruleId": "construct_unilateral_arbitrator_appointment",
+          "tier": "construct",
+          "severity": "high",
+          "title": "They alone pick the arbitrator",
+          "explain": "If a dispute arises, the person who decides it is chosen by the other side alone. The forum that judges the quarrel is picked by one of the parties to it.",
+          "points": 18,
+          "evidence": {
+            "start": 6032,
+            "end": 6291,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "Any dispute, difference or claim arising out of or in connection with your\nemployment or this letter shall be referred to arbitration under the Arbitration and\nConciliation Act, 1996, before a sole arbitrator appointed by the Managing Director of\nthe Company."
+          },
+          "askYourLawyer": "Can the arbitrator be named jointly, or appointed by an institution instead of by one side?"
+        },
+        {
+          "ruleId": "notice_period_asymmetry_severe",
+          "tier": "asymmetry",
+          "severity": "high",
+          "title": "You owe at least twice the notice they owe",
+          "explain": "To walk away you must give 90 days' notice, while the other side needs only 30 days. That is at least double the warning from you that you would get from them.",
+          "points": 18,
+          "evidence": {
+            "start": 2528,
+            "end": 2652,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "If you wish to resign from the services of the Company, you shall give the Company\nprior written notice of ninety (90) days."
+          },
+          "askYourLawyer": "Can the notice period be made the same for both sides, or a buy-out offered instead?"
+        },
+        {
+          "ruleId": "construct_contractual_limitation_period",
+          "tier": "construct",
+          "severity": "high",
+          "title": "A private deadline to bring a claim",
+          "explain": "This agreement sets its own short deadline for raising a claim, shorter than the period the general law of limitation allows.",
+          "points": 16,
+          "evidence": {
+            "start": 6489,
+            "end": 6786,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "No claim, demand or proceeding arising out of or relating to your employment or\nto this letter shall be entertained, and every right in respect of such claim shall\nstand extinguished, unless the claim is raised in writing within six (6) months of the\ndate on which the cause of action first arose."
+          },
+          "askYourLawyer": "Does this clause try to cut short the time the Limitation Act otherwise gives me?"
+        }
+      ],
+      "unknowns": [
+        {
+          "ruleId": "cure_period_asymmetry_severe",
+          "missing": [
+            "cureDaysTheyGet",
+            "cureDaysYouGet"
+          ],
+          "question": "Can the time to put a breach right be made equal for both sides?"
+        },
+        {
+          "ruleId": "cure_period_asymmetry_moderate",
+          "missing": [
+            "cureDaysTheyGet",
+            "cureDaysYouGet",
+            "cureDaysTheyGet",
+            "cureDaysYouGet"
+          ],
+          "question": "The document did not make this clear: They get about half again as long to fix a breach."
+        },
+        {
+          "ruleId": "liability_cap_exceeds_a_year_of_pay",
+          "missing": [
+            "liabilityCapInr"
+          ],
+          "question": "Can my exposure under this contract be capped at the fees or salary actually paid to me?"
+        },
+        {
+          "ruleId": "lock_in_longer_than_six_months",
+          "missing": [
+            "lockInMonths"
+          ],
+          "question": "What exactly do I owe if I leave during the lock-in, and can that be capped?"
+        },
+        {
+          "ruleId": "lock_in_four_to_six_months",
+          "missing": [
+            "lockInMonths",
+            "lockInMonths"
+          ],
+          "question": "The document did not make this clear: Lock-in of four to six months."
+        },
+        {
+          "ruleId": "confidentiality_beyond_five_years_or_perpetual",
+          "missing": [
+            "confidentialityMonths"
+          ],
+          "question": "Can the confidentiality term be limited to a few years, with trade secrets carved out separately?"
+        },
+        {
+          "ruleId": "construct_unilateral_amendment_without_notice",
+          "missing": [
+            "unilateral_amendment_without_notice"
+          ],
+          "question": "Can any change to these terms require written notice to me and a right to exit without penalty?"
+        }
+      ],
+      "tierTotals": {
+        "asymmetry": 18,
+        "threshold": 12,
+        "construct": 45,
+        "absence": 10
+      },
+      "rubricVersion": "2026.09.13"
+    },
+    "findings": [
+      {
+        "id": "f1",
+        "category": "other",
+        "exactQuote": "Your place of work shall be the Company's Bengaluru office. The Company may transfer you to any of its offices, branches or client locations in India at its discretion.",
+        "clauseLabel": "1.3",
+        "plainSummary": "The company can transfer your work location to any of its offices or client places in India whenever it chooses.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 1022,
+          "end": 1190,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "Your place of work shall be the Company's Bengaluru office. The Company may\ntransfer you to any of its offices, branches or client locations in India at its\ndiscretion."
+        },
+        "segmentId": "seg-4-1.3",
+        "pageNumber": null
+      },
+      {
+        "id": "f2",
+        "category": "payment",
+        "exactQuote": "Your annual cost to company shall be Rupees Twelve Lakh (Rs. 12,00,000) per annum (₹1,00,000 per month), payable monthly in arrears, subject to deduction of tax at source and to such other deductions as may be required by law.",
+        "clauseLabel": "3.1",
+        "plainSummary": "The company must pay you a salary of Rupees Twelve Lakh per year, divided into monthly payments after deducting legal taxes.",
+        "obligationOn": "counterparty",
+        "benefits": "you",
+        "isUnusual": false,
+        "location": {
+          "start": 1578,
+          "end": 1804,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "Your annual cost to company shall be Rupees Twelve Lakh (Rs. 12,00,000) per\nannum (₹1,00,000 per month), payable monthly in arrears, subject to deduction of tax\nat source and to such other deductions as may be required by law."
+        },
+        "segmentId": "seg-9-3.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f3",
+        "category": "other",
+        "exactQuote": "Normal working hours are 9:30 a.m. to 6:30 p.m., Monday to Friday. You shall work beyond these hours, and on weekends where required by project needs, without any additional remuneration.",
+        "clauseLabel": "4.1",
+        "plainSummary": "You must work extra hours and on weekends without any additional payment whenever project requirements demand it.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 2146,
+          "end": 2333,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "Normal working hours are 9:30 a.m. to 6:30 p.m., Monday to Friday. You shall work\nbeyond these hours, and on weekends where required by project needs, without any\nadditional remuneration."
+        },
+        "segmentId": "seg-13-4.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f4",
+        "category": "restraint_of_trade",
+        "exactQuote": "You shall not, during your employment, engage in any other employment, consultancy, freelance assignment or business, whether or not for gain.",
+        "clauseLabel": "4.2",
+        "plainSummary": "You are not allowed to take up any other job, freelance work, or business while employed, even if you are not paid for it.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 2339,
+          "end": 2481,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "You shall not, during your employment, engage in any other employment,\nconsultancy, freelance assignment or business, whether or not for gain."
+        },
+        "segmentId": "seg-14-4.2",
+        "pageNumber": null
+      },
+      {
+        "id": "f5",
+        "category": "termination",
+        "exactQuote": "If you wish to resign from the services of the Company, you shall give the Company prior written notice of ninety (90) days.",
+        "clauseLabel": "5.1",
+        "plainSummary": "You must give the company ninety days written notice if you decide to resign from your job.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 2528,
+          "end": 2652,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "If you wish to resign from the services of the Company, you shall give the Company\nprior written notice of ninety (90) days."
+        },
+        "segmentId": "seg-16-5.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f6",
+        "category": "termination",
+        "exactQuote": "If the Company wishes to bring your employment to an end, it shall give you prior written notice of thirty (30) days.",
+        "clauseLabel": "5.2",
+        "plainSummary": "The company only needs to give you thirty days written notice if it decides to end your job.",
+        "obligationOn": "counterparty",
+        "benefits": "you",
+        "isUnusual": true,
+        "location": {
+          "start": 2658,
+          "end": 2775,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "If the Company wishes to bring your employment to an end, it shall give you prior\nwritten notice of thirty (30) days."
+        },
+        "segmentId": "seg-17-5.2",
+        "pageNumber": null
+      },
+      {
+        "id": "f7",
+        "category": "termination",
+        "exactQuote": "The Company may at its discretion require you, during the whole or any part of your notice period, to remain away from the Company's premises, systems and colleagues (\"garden leave\"). No salary, allowance or benefit shall be payable to you in respect of any period of garden leave.",
+        "clauseLabel": "5.3",
+        "plainSummary": "The company can make you stay away from work during your notice period without paying you any salary or benefits.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 2781,
+          "end": 3062,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "The Company may at its discretion require you, during the whole or any part of\nyour notice period, to remain away from the Company's premises, systems and\ncolleagues (\"garden leave\"). No salary, allowance or benefit shall be payable to you\nin respect of any period of garden leave."
+        },
+        "segmentId": "seg-18-5.3",
+        "pageNumber": null
+      },
+      {
+        "id": "f8",
+        "category": "termination",
+        "exactQuote": "Your notice period shall run from the date the Company acknowledges your resignation in writing, not from the date of your letter.",
+        "clauseLabel": "5.4",
+        "plainSummary": "Your notice period only begins after the company formally confirms receiving your resignation in writing, not when you hand it in.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 3068,
+          "end": 3198,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "Your notice period shall run from the date the Company acknowledges your\nresignation in writing, not from the date of your letter."
+        },
+        "segmentId": "seg-19-5.4",
+        "pageNumber": null
+      },
+      {
+        "id": "f9",
+        "category": "lock_in",
+        "exactQuote": "In consideration of that training, you agree to remain in the continuous service of the Company for a period of twenty-four (24) months from your date of joining.",
+        "clauseLabel": "6.2",
+        "plainSummary": "You must continue working for the company for at least twenty-four continuous months from your joining date.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 3387,
+          "end": 3549,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "In consideration of that training, you agree to remain in the continuous service\nof the Company for a period of twenty-four (24) months from your date of joining."
+        },
+        "segmentId": "seg-22-6.2",
+        "pageNumber": null
+      },
+      {
+        "id": "f10",
+        "category": "penalty",
+        "exactQuote": "If you resign, or if your employment ends for any reason attributable to you, before the expiry of the said twenty-four (24) months, you shall pay the Company Rupees Two Lakh (Rs. 2,00,000) as agreed and liquidated damages and not as a penalty. The said sum shall be payable in full irrespective of the service actually completed, and shall be recoverable from your full and final settlement or as a debt.",
+        "clauseLabel": "6.3",
+        "plainSummary": "If you leave before completing twenty-four months, you must pay the company Rupees Two Lakh, and this amount is not reduced for the time you have already worked.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 3555,
+          "end": 3960,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "If you resign, or if your employment ends for any reason attributable to you,\nbefore the expiry of the said twenty-four (24) months, you shall pay the Company\nRupees Two Lakh (Rs. 2,00,000) as agreed and liquidated damages and not as a penalty.\nThe said sum shall be payable in full irrespective of the service actually completed,\nand shall be recoverable from your full and final settlement or as a debt."
+        },
+        "segmentId": "seg-23-6.3",
+        "pageNumber": null
+      },
+      {
+        "id": "f11",
+        "category": "restraint_of_trade",
+        "exactQuote": "For a period of twenty-four (24) months after the cessation of your employment, for any reason whatsoever, you shall not directly or indirectly join, be employed by, advise, consult for, or hold any interest in any competing business in the territory of India.",
+        "clauseLabel": "7.1",
+        "plainSummary": "You cannot work for, advise, or invest in any competing software business in India for twenty-four months after your employment ends.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 4002,
+          "end": 4262,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "For a period of twenty-four (24) months after the cessation of your employment,\nfor any reason whatsoever, you shall not directly or indirectly join, be employed by,\nadvise, consult for, or hold any interest in any competing business in the territory\nof India."
+        },
+        "segmentId": "seg-25-7.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f12",
+        "category": "restraint_of_trade",
+        "exactQuote": "For the purposes of Clause 7.1, \"competing business\" means any business which develops, markets, resells or supplies enterprise software or software services of any description.",
+        "clauseLabel": "7.2",
+        "plainSummary": "A competing business is defined broadly as any business that develops, sells, or supplies any kind of business software or software services.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 4268,
+          "end": 4445,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "For the purposes of Clause 7.1, \"competing business\" means any business which\ndevelops, markets, resells or supplies enterprise software or software services of\nany description."
+        },
+        "segmentId": "seg-26-7.2",
+        "pageNumber": null
+      },
+      {
+        "id": "f13",
+        "category": "restraint_of_trade",
+        "exactQuote": "For a period of twelve (12) months after the cessation of your employment, you shall not solicit, canvass or entice away any employee, consultant, customer or prospective customer of the Company with whom you dealt during the last twelve (12) months of your employment.",
+        "clauseLabel": "8.1",
+        "plainSummary": "For twelve months after leaving, you must not try to hire company staff or take away clients you worked with in your last year.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 4680,
+          "end": 4949,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "For a period of twelve (12) months after the cessation of your employment, you\nshall not solicit, canvass or entice away any employee, consultant, customer or\nprospective customer of the Company with whom you dealt during the last twelve (12)\nmonths of your employment."
+        },
+        "segmentId": "seg-29-8.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f14",
+        "category": "confidentiality",
+        "exactQuote": "You shall keep confidential, both during and after your employment, all technical, commercial, financial and customer information of the Company and its clients which comes to your knowledge.",
+        "clauseLabel": "9.1",
+        "plainSummary": "You must keep all technical, business, and customer information of the company and its clients secret both during and after your job.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 4975,
+          "end": 5166,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "You shall keep confidential, both during and after your employment, all technical,\ncommercial, financial and customer information of the Company and its clients which\ncomes to your knowledge."
+        },
+        "segmentId": "seg-31-9.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f15",
+        "category": "ip_assignment",
+        "exactQuote": "All inventions, discoveries, designs, drawings, source code, works of authorship and other intellectual property conceived, created or reduced to practice by you at any time during your employment — whether or not during working hours, whether or not using the Company's premises, equipment or data, and whether or not related to the business of the Company — shall vest absolutely in the Company.",
+        "clauseLabel": "10.1",
+        "plainSummary": "Every invention, piece of software code, or creative work you produce while employed belongs to the company, even if you make it outside work hours, on your own equipment, and for an unrelated topic.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 5311,
+          "end": 5708,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "All inventions, discoveries, designs, drawings, source code, works of authorship\nand other intellectual property conceived, created or reduced to practice by you at\nany time during your employment — whether or not during working hours, whether or not\nusing the Company's premises, equipment or data, and whether or not related to the\nbusiness of the Company — shall vest absolutely in the Company."
+        },
+        "segmentId": "seg-34-10.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f16",
+        "category": "ip_assignment",
+        "exactQuote": "You irrevocably assign to the Company all moral rights in every such work.",
+        "clauseLabel": "10.3",
+        "plainSummary": "You permanently give up your moral rights, which are your personal rights to be named as the author or creator of your work.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 5912,
+          "end": 5986,
+          "method": "exact",
+          "similarity": 1,
+          "matchedText": "You irrevocably assign to the Company all moral rights in every such work."
+        },
+        "segmentId": "seg-36-10.3",
+        "pageNumber": null
+      },
+      {
+        "id": "f17",
+        "category": "dispute_resolution",
+        "exactQuote": "Any dispute, difference or claim arising out of or in connection with your employment or this letter shall be referred to arbitration under the Arbitration and Conciliation Act, 1996, before a sole arbitrator appointed by the Managing Director of the Company. The seat of arbitration shall be Bengaluru.",
+        "clauseLabel": "11.1",
+        "plainSummary": "Any legal disagreement must be decided through arbitration, which is an out-of-court dispute process, by a single decider picked only by the company's managing director.",
+        "obligationOn": "both",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 6032,
+          "end": 6335,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "Any dispute, difference or claim arising out of or in connection with your\nemployment or this letter shall be referred to arbitration under the Arbitration and\nConciliation Act, 1996, before a sole arbitrator appointed by the Managing Director of\nthe Company. The seat of arbitration shall be Bengaluru."
+        },
+        "segmentId": "seg-38-11.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f18",
+        "category": "dispute_resolution",
+        "exactQuote": "The costs of the arbitration, including the arbitrator's fees, shall be borne by the party raising the dispute, irrespective of the outcome.",
+        "clauseLabel": "11.2",
+        "plainSummary": "Whichever party starts a formal dispute must pay all the arbitration fees, even if that party wins the case.",
+        "obligationOn": "both",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 6342,
+          "end": 6482,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "The costs of the arbitration, including the arbitrator's fees, shall be borne by\nthe party raising the dispute, irrespective of the outcome."
+        },
+        "segmentId": "seg-39-11.2",
+        "pageNumber": null
+      },
+      {
+        "id": "f19",
+        "category": "dispute_resolution",
+        "exactQuote": "No claim, demand or proceeding arising out of or relating to your employment or to this letter shall be entertained, and every right in respect of such claim shall stand extinguished, unless the claim is raised in writing within six (6) months of the date on which the cause of action first arose.",
+        "clauseLabel": "11.3",
+        "plainSummary": "You lose your right to make any legal claim against the company unless you file it in writing within six months of the problem happening.",
+        "obligationOn": "both",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 6489,
+          "end": 6786,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "No claim, demand or proceeding arising out of or relating to your employment or\nto this letter shall be entertained, and every right in respect of such claim shall\nstand extinguished, unless the claim is raised in writing within six (6) months of the\ndate on which the cause of action first arose."
+        },
+        "segmentId": "seg-40-11.3",
+        "pageNumber": null
+      },
+      {
+        "id": "f20",
+        "category": "jurisdiction",
+        "exactQuote": "Subject to Clause 11.1, the courts at Bengaluru alone shall have jurisdiction.",
+        "clauseLabel": "11.4",
+        "plainSummary": "Any court cases relating to this agreement must be brought exclusively in the courts in Bengaluru.",
+        "obligationOn": "both",
+        "benefits": "both",
+        "isUnusual": false,
+        "location": {
+          "start": 6793,
+          "end": 6871,
+          "method": "exact",
+          "similarity": 1,
+          "matchedText": "Subject to Clause 11.1, the courts at Bengaluru alone shall have jurisdiction."
+        },
+        "segmentId": "seg-41-11.4",
+        "pageNumber": null
+      },
+      {
+        "id": "f21",
+        "category": "unilateral_change",
+        "exactQuote": "This letter, together with the Company's employee handbook as amended from time to time, supersedes all prior discussions and communications.",
+        "clauseLabel": "12.1",
+        "plainSummary": "This contract replaces earlier talks and binds you to the company handbook, which the company can update at any time.",
+        "obligationOn": "both",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 6891,
+          "end": 7032,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "This letter, together with the Company's employee handbook as amended from time\nto time, supersedes all prior discussions and communications."
+        },
+        "segmentId": "seg-43-12.1",
+        "pageNumber": null
+      }
+    ],
+    "rejected": [],
+    "grounding": {
+      "total": 21,
+      "grounded": 21,
+      "exact": 2,
+      "normalised": 19,
+      "fuzzy": 0,
+      "rejected": 0,
+      "rejectionsByReason": {
+        "quote_empty": 0,
+        "quote_too_short": 0,
+        "not_found": 0,
+        "below_threshold": 0,
+        "ambiguous": 0,
+        "duplicate": 0
+      }
+    },
+    "enforceability": [
+      {
+        "construct": "contractual_limitation_period",
+        "verdict": "likely_void",
+        "confidence": "high",
+        "statute": {
+          "act": "Indian Contract Act, 1872",
+          "section": "Section 28(b), read with section 28(a) — Agreements in restraint of legal proceedings, void",
+          "text": "Every agreement, (a) by which any party thereto is restricted absolutely from enforcing his rights under or in respect of any contract, by the usual legal proceedings in the ordinary tribunals, or which limits the time within which he may thus enforce his rights; or (b) which extinguishes the rights of any party thereto, or discharges any party thereto from any liability, under or in respect of any contract on the expiry of a specified period so as to restrict any party from enforcing his rights, is void to that extent.",
+          "url": "https://www.indiacode.nic.in/show-data?actid=AC_CEN_3_20_00035_187209_1523268996428&sectionId=38632&sectionno=28&orderno=29"
+        },
+        "authorities": [],
+        "plainMeaning": "A clause that gives you only thirty or ninety days to raise a claim, or that says your rights disappear after a short period, does not usually take away the time the general law of limitation gives you.",
+        "caveats": [
+          "This describes the section, not your contract. Whether a particular clause falls inside it is for a court to decide.",
+          "Clause (b) was added by the 1997 amendment; decisions from before 1997 that upheld clauses extinguishing rights on expiry pre-date that change.",
+          "The section does not extend the time the Limitation Act gives you. That clock runs from when your cause of action arose, whatever the contract says.",
+          "Arbitration clauses that set a period for commencing arbitration are treated separately and are not all caught by this section."
+        ],
+        "appliesTo": [],
+        "evidence": {
+          "start": 6489,
+          "end": 6786,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "No claim, demand or proceeding arising out of or relating to your employment or\nto this letter shall be entertained, and every right in respect of such claim shall\nstand extinguished, unless the claim is raised in writing within six (6) months of the\ndate on which the cause of action first arose."
+        }
+      },
+      {
+        "construct": "post_employment_non_compete",
+        "verdict": "likely_void",
+        "confidence": "high",
+        "statute": {
+          "act": "Indian Contract Act, 1872",
+          "section": "Section 27 — Agreement in restraint of trade, void",
+          "text": "Every agreement by which any one is restrained from exercising a lawful profession, trade or business of any kind, is to that extent void.",
+          "url": "https://www.indiacode.nic.in/show-data?actid=AC_CEN_3_20_00035_187209_1523268996428&sectionId=38631&sectionno=27&orderno=28"
+        },
+        "authorities": [
+          {
+            "cite": "Niranjan Shankar Golikari v The Century Spinning and Mfg Co Ltd, AIR 1967 SC 1098 (17 January 1967)",
+            "holding": "A restraint that operates while the employment is still running was upheld; the Supreme Court treated restrictions that bite after the employment ends as standing on a different footing under section 27.",
+            "url": "https://indiankanoon.org/doc/452434/"
+          },
+          {
+            "cite": "Varun Tyagi v Daffodil Software Private Limited, FAO 167/2025, Delhi High Court (25 June 2025)",
+            "holding": "A clause barring the employee from working with a business associate of the employer after the employment ended was held void under section 27; confidentiality and trade-secret protection was treated as the legitimate route instead.",
+            "url": "https://indiankanoon.org/doc/187332526/"
+          }
+        ],
+        "plainMeaning": "Indian law generally does not enforce a promise not to work for a competitor after your job ends. India has no test of reasonableness that saves such a promise, unlike England or the United States. The confidentiality promise sitting next to it is a separate thing and usually does still hold.",
+        "caveats": [
+          "This describes what the section says and how courts have read it. It is not an opinion about your contract or your situation.",
+          "A restraint that applies while you are still employed is treated differently and is often enforced.",
+          "Protection of trade secrets, client data and confidential information can bind you after you leave, even when the non-compete does not.",
+          "The other side can still sue. Only a court can decide what this clause does on your facts, and defending a suit costs time and money.",
+          "Garden leave, notice buy-outs and non-solicitation clauses raise separate questions this row does not cover."
+        ],
+        "appliesTo": [
+          "employment_offer",
+          "nda",
+          "freelance_contract"
+        ],
+        "evidence": {
+          "start": 4002,
+          "end": 4262,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "For a period of twenty-four (24) months after the cessation of your employment,\nfor any reason whatsoever, you shall not directly or indirectly join, be employed by,\nadvise, consult for, or hold any interest in any competing business in the territory\nof India."
+        }
+      },
+      {
+        "construct": "unilateral_arbitrator_appointment",
+        "verdict": "likely_unenforceable_as_written",
+        "confidence": "high",
+        "statute": {
+          "act": "Arbitration and Conciliation Act, 1996",
+          "section": "Section 12(5), read with the Seventh Schedule",
+          "text": "Notwithstanding any prior agreement to the contrary, any person whose relationship, with the parties or counsel or the subject-matter of the dispute, falls under any of the categories specified in the Seventh Schedule shall be ineligible to be appointed as an arbitrator: Provided that parties may, subsequent to disputes having arisen between them, waive the applicability of this sub-section by an express agreement in writing.",
+          "url": "https://www.indiacode.nic.in/show-data?actid=AC_CEN_3_46_00004_199626_1517807323919&sectionId=24513&sectionno=12&orderno=13"
+        },
+        "authorities": [
+          {
+            "cite": "Perkins Eastman Architects DPC v HSCC (India) Ltd, Arbitration Application No. 32 of 2019, Supreme Court (26 November 2019)",
+            "holding": "A person who has an interest in the outcome of the dispute must not have the power to appoint a sole arbitrator; where the clause gave one party's managing director that power, the Court appointed an independent arbitrator instead.",
+            "url": "https://indiankanoon.org/doc/155925871/"
+          },
+          {
+            "cite": "The Seventh Schedule to the Arbitration and Conciliation Act, 1996 (See section 12(5))",
+            "holding": "Lists the relationships — employee, consultant, adviser, controlling interest and others — that make a person ineligible to act as arbitrator.",
+            "url": "https://upload.indiacode.nic.in/schedulefile?aid=AC_CEN_3_46_00004_199626_1517807323919&rid=69"
+          }
+        ],
+        "plainMeaning": "When only one side gets to choose the arbitrator, courts have held that the person chosen cannot decide the dispute. The agreement to arbitrate usually survives; it is the one-sided appointment that does not.",
+        "caveats": [
+          "This states what the section and the Supreme Court have held. It is not an opinion on the clause in your document.",
+          "The parties can waive this by an express written agreement made after a dispute has arisen, so signing anything at that stage deserves care.",
+          "Setting an appointment aside is done by applying to a court, usually under section 11; the clause does not simply stop working on its own.",
+          "Clauses where one side supplies a panel from which the other must choose have been treated in later decisions and are not decided by this row.",
+          "Government and public-sector contracts have their own line of cases on departmental arbitrators."
+        ],
+        "appliesTo": [],
+        "evidence": {
+          "start": 6032,
+          "end": 6291,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "Any dispute, difference or claim arising out of or in connection with your\nemployment or this letter shall be referred to arbitration under the Arbitration and\nConciliation Act, 1996, before a sole arbitrator appointed by the Managing Director of\nthe Company."
+        }
+      },
+      {
+        "construct": "sole_discretion_on_payment",
+        "verdict": "context_dependent",
+        "confidence": "medium",
+        "statute": {
+          "act": "Indian Contract Act, 1872",
+          "section": "Section 23 — What considerations and objects are lawful, and what not",
+          "text": "The consideration or object of an agreement is lawful, unless it is forbidden by law; or is of such a nature that, if permitted, it would defeat the provisions of any law; or is fraudulent; or involves or implies injury to the person or property of another; or the Court regards it as immoral, or opposed to public policy. In each of these cases, the consideration or object of an agreement is said to be unlawful. Every agreement of which the object or consideration is unlawful is void.",
+          "url": "https://indiacode.nic.in/show-data?actid=AC_CEN_3_20_00035_187209_1523268996428&orderno=24&sectionId=38627&sectionno=23"
+        },
+        "authorities": [
+          {
+            "cite": "Central Inland Water Transport Corporation Ltd v Brojo Nath Ganguly, (1986) 3 SCC 156 (6 April 1986)",
+            "holding": "A term in a printed standard-form contract between parties of unequal bargaining power, which is unfair, unreasonable and unconscionable, was held void under section 23 as opposed to public policy.",
+            "url": "https://indiankanoon.org/doc/477313/"
+          }
+        ],
+        "plainMeaning": "Courts have struck down terms in standard printed contracts where one side had no real chance to negotiate and the term was grossly one-sided. Whether a particular term is of that kind depends on the bargaining position of the two sides.",
+        "caveats": [
+          "This is the general principle, not a ruling on your clause. Only a court applying it to your facts can say whether the term stands.",
+          "Brojo Nath concerned an instrumentality of the State; later decisions have been cautious about extending it to contracts between commercial parties of comparable strength.",
+          "Showing unequal bargaining power is part of the case and has to be proved, not assumed.",
+          "A consumer complaint about an unfair contract term may be a quicker route than a civil suit; the routes are separate."
+        ],
+        "appliesTo": [
+          "employment_offer",
+          "freelance_contract",
+          "other"
+        ],
+        "evidence": {
+          "start": 1810,
+          "end": 1895,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "Any annual increment or performance bonus is discretionary and is not an\nentitlement."
+        }
+      }
+    ],
+    "inconsistencies": [
+      {
+        "kind": "conflicting_quantity",
+        "severity": "high",
+        "title": "The notice period is stated differently in two clauses",
+        "detail": "The notice period is stated as \"ninety (90) days\" in clause 5.1 and as \"thirty (30) days\" in clause 5.2. If the two clauses bind different parties this may be deliberate, and it is then worth checking which one applies to you.",
+        "at": {
+          "start": 2758,
+          "end": 2774,
+          "quote": "thirty (30) days",
+          "segmentId": "seg-17-5.2",
+          "segmentLabel": "5.2",
+          "pageNumber": null
+        },
+        "counterpart": {
+          "start": 2635,
+          "end": 2651,
+          "quote": "ninety (90) days",
+          "segmentId": "seg-16-5.1",
+          "segmentLabel": "5.1",
+          "pageNumber": null
+        }
+      }
+    ],
+    "nextSteps": [
+      {
+        "forum": {
+          "id": "labour_conciliation",
+          "name": "Conciliation Officer or Labour Commissioner, then the Labour Court",
+          "handles": "Unpaid or delayed wages, illegal termination, retrenchment, gratuity and provident fund.",
+          "statute": "Code on Wages, 2019, s.17; Industrial Relations Code, 2020; Industrial Disputes Act, 1947, s.2A",
+          "statuteUrl": "https://www.indiacode.nic.in/",
+          "portal": {
+            "name": "SAMADHAN, the Ministry of Labour and Employment's dispute portal",
+            "url": "https://samadhan.labour.gov.in/"
+          },
+          "helpline": null,
+          "fee": {
+            "summary": "Free. Raising a dispute and the conciliation that follows cost nothing.",
+            "amountInr": 0,
+            "freeForClaimsUpToInr": null
+          },
+          "filingPlace": "With the Conciliation Officer or Labour Commissioner having jurisdiction over the establishment. SAMADHAN routes the complaint to the right office.",
+          "lawyerRequired": false,
+          "prerequisites": [
+            {
+              "step": "Raise the dispute before the Conciliation Officer first. s.2A(2) allows a direct application to the Labour Court only after this.",
+              "waitDays": 45,
+              "url": null
+            },
+            {
+              "step": "Provident fund grievances go to EPFiGMS instead, which is run by the EPFO and answers separately.",
+              "waitDays": null,
+              "url": "https://epfigms.gov.in/"
+            }
+          ],
+          "entitlements": [
+            "Code on Wages, 2019, s.17(2) — where an employee is removed, dismissed, retrenched or resigns, the wages payable must be paid within two working days.",
+            "Industrial Disputes Act, 1947, s.25F — retrenchment without one month's notice or notice pay, and without retrenchment compensation, is invalid. The Industrial Relations Code, 2020 carries the same conditions forward."
+          ],
+          "limitationRuleId": "id-act-1947-s2a3",
+          "triggers": {
+            "documentTypes": [
+              "employment_offer"
+            ],
+            "problems": [
+              "unpaid_salary_or_termination"
+            ],
+            "constructs": [],
+            "verdicts": [],
+            "driverSeverities": [
+              "high",
+              "critical"
+            ],
+            "situations": [],
+            "universal": false
+          },
+          "caveats": [
+            "The four Labour Codes were brought into force on 21 November 2025 and the Industrial Disputes Act, 1947 no longer stands on its own. Rights that had accrued and proceedings already begun are saved, and the corresponding provision of the Industrial Relations Code, 2020 governs a termination after that date — confirm which applies to your dates before relying on the period shown.",
+            "State rules under the Codes have been notified unevenly, so what the office in front of you follows may still be the older procedure.",
+            "The conciliation route is open to a workman as defined in s.2(s) of the 1947 Act and the corresponding definition in the Code. Mainly supervisory or managerial work above the wage threshold falls outside it.",
+            "Gratuity is claimed separately, from the Controlling Authority."
+          ]
+        },
+        "limitationRule": {
+          "id": "id-act-1947-s2a3",
+          "causeOfAction": "The date of discharge, dismissal, retrenchment or other termination of service.",
+          "period": {
+            "unit": "months",
+            "count": 36
+          },
+          "statute": "Industrial Disputes Act, 1947, s.2A(3)",
+          "statuteUrl": "https://www.indiacode.nic.in/",
+          "condonationPossible": false,
+          "stages": [
+            {
+              "label": "Wait after applying to the Conciliation Officer before going to the Labour Court",
+              "days": 45,
+              "from": "the date the application for conciliation is made",
+              "statute": "Industrial Disputes Act, 1947, s.2A(2)"
+            }
+          ]
+        },
+        "clock": null,
+        "signals": [
+          {
+            "kind": "risk_driver",
+            "detail": "high"
+          }
+        ],
+        "priority": 10
+      },
+      {
+        "forum": {
+          "id": "legal_services_authority",
+          "name": "District or State Legal Services Authority",
+          "handles": "Free legal advice, drafting and representation by a panel advocate for anyone within s.12 of the Legal Services Authorities Act, 1987.",
+          "statute": "Legal Services Authorities Act, 1987, ss.12 and 13",
+          "statuteUrl": "https://www.indiacode.nic.in/",
+          "portal": {
+            "name": "NALSA",
+            "url": "https://nalsa.gov.in/"
+          },
+          "helpline": "15100 — NALSA legal services helpline",
+          "fee": {
+            "summary": "Free, including court fees, process fees and the panel advocate, for anyone eligible under s.12.",
+            "amountInr": 0,
+            "freeForClaimsUpToInr": null
+          },
+          "filingPlace": "At the District Legal Services Authority in your district court complex, which accepts walk-in applications, or online through the NALSA portal.",
+          "lawyerRequired": false,
+          "prerequisites": [],
+          "entitlements": [
+            "s.12(c) and s.12(f) entitle every woman, every child and every industrial workman to free legal services irrespective of what they earn.",
+            "s.12(h) entitles a person whose annual income is below the ceiling their State has fixed, and Rs 5,00,000 applies to Supreme Court matters.",
+            "Tele-Law connects you to a panel lawyer free of charge through a Common Service Centre or the Tele-Law app (tele-law.in), which is offered in 22 languages."
+          ],
+          "limitationRuleId": null,
+          "triggers": {
+            "documentTypes": [],
+            "problems": [],
+            "constructs": [],
+            "verdicts": [],
+            "driverSeverities": [],
+            "situations": [
+              "cannot_afford_lawyer"
+            ],
+            "universal": true
+          },
+          "caveats": [
+            "Eligibility is decided by the Authority on the application and the documents filed with it.",
+            "Applying for free legal aid does not stop the limitation period for the underlying claim from running."
+          ]
+        },
+        "limitationRule": null,
+        "clock": null,
+        "signals": [
+          {
+            "kind": "universal",
+            "detail": "legal_services_authority"
+          }
+        ],
+        "priority": 0
+      },
+      {
+        "forum": {
+          "id": "lok_adalat",
+          "name": "Lok Adalat",
+          "handles": "Settlement by consent of a pending case or of a dispute before any case is filed, organised by the Legal Services Authority.",
+          "statute": "Legal Services Authorities Act, 1987, ss.19 to 22B",
+          "statuteUrl": "https://www.indiacode.nic.in/",
+          "portal": {
+            "name": "NALSA",
+            "url": "https://nalsa.gov.in/"
+          },
+          "helpline": "15100 — NALSA legal services helpline",
+          "fee": {
+            "summary": "Free, and s.21 refunds the court fee already paid when a pending case is settled.",
+            "amountInr": 0,
+            "freeForClaimsUpToInr": null
+          },
+          "filingPlace": "Through the District Legal Services Authority, which publishes the dates of the National Lok Adalat held each quarter.",
+          "lawyerRequired": false,
+          "prerequisites": [],
+          "entitlements": [
+            "s.21 — an award of a Lok Adalat is deemed to be a decree of a civil court, is final, and no appeal lies against it.",
+            "s.21(1) proviso — the court fee paid in a pending case is refunded when the matter is settled in a Lok Adalat.",
+            "s.22B — a Permanent Lok Adalat hears public utility service disputes up to Rs 1,00,00,000 and may decide the matter on merits if no settlement is reached."
+          ],
+          "limitationRuleId": null,
+          "triggers": {
+            "documentTypes": [],
+            "problems": [],
+            "constructs": [],
+            "verdicts": [],
+            "driverSeverities": [],
+            "situations": [
+              "prefers_settlement"
+            ],
+            "universal": true
+          },
+          "caveats": [
+            "A Lok Adalat records a settlement both sides agree to. Apart from a Permanent Lok Adalat under s.22C, it decides nothing by itself.",
+            "Because an award is final and no appeal lies from it, what is agreed there cannot later be reopened.",
+            "Waiting for a Lok Adalat date does not stop the limitation period for filing from running."
+          ]
+        },
+        "limitationRule": null,
+        "clock": null,
+        "signals": [
+          {
+            "kind": "universal",
+            "detail": "lok_adalat"
+          }
+        ],
+        "priority": 0
+      }
+    ],
+    "meta": {
+      "rubricVersion": "2026.09.13",
+      "modelsUsed": [
+        "gemini-3.8-flash"
+      ],
+      "stageTimingsMs": {
+        "classify": 0,
+        "extract": 0
+      },
+      "truncated": false,
+      "readAsScan": false,
+      "generatedAt": "2026-09-13T00:00:00.000Z"
+    }
+  }
+}

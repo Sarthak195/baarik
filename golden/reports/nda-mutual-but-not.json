@@ -1,0 +1,543 @@
+{
+  "kind": "report",
+  "report": {
+    "reportId": "nda-mutual-but-not",
+    "documentHash": "31e2d8a3e4ea5498ee9237f0a560269deb3b358eccd133b74874a4def9f57e8c",
+    "documentType": "nda",
+    "language": "en",
+    "risk": {
+      "score": 85,
+      "band": "severe",
+      "drivers": [
+        {
+          "ruleId": "absent_exit_route_and_notice_period",
+          "tier": "absence",
+          "severity": "critical",
+          "title": "No way out and no notice period either",
+          "explain": "Two protections are missing at once: the document neither explains how you end the arrangement nor how much notice you must give. Together they leave the timing of your exit entirely to the other side.",
+          "points": 20,
+          "evidence": null,
+          "askYourLawyer": "With neither an exit clause nor a notice period written down, what are my rights to end this and on what terms?"
+        },
+        {
+          "ruleId": "construct_unlimited_indemnity",
+          "tier": "construct",
+          "severity": "critical",
+          "title": "You cover their losses with no ceiling",
+          "explain": "You promise to make good the other side's losses with no upper limit, and in many drafts that covers losses their own conduct caused.",
+          "points": 18,
+          "evidence": {
+            "start": 2377,
+            "end": 2546,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "The Recipient shall indemnify Halcyon against all losses, costs and expenses,\nincluding legal fees on a full indemnity basis, arising out of any breach by the\nRecipient."
+          },
+          "askYourLawyer": "Can the indemnity be capped at the fees paid, and exclude losses caused by the other side's own acts?"
+        },
+        {
+          "ruleId": "absent_exit_or_termination_route",
+          "tier": "absence",
+          "severity": "high",
+          "title": "No way out is written into the document",
+          "explain": "Nothing in this document explains how you end the arrangement. An agreement with no exit written into it is one you can only leave by negotiating from a weak position.",
+          "points": 16,
+          "evidence": null,
+          "askYourLawyer": "On what terms can I end this agreement, and what does ending it cost me?"
+        },
+        {
+          "ruleId": "confidentiality_beyond_five_years_or_perpetual",
+          "tier": "threshold",
+          "severity": "high",
+          "title": "Confidentiality beyond five years, or with no end",
+          "explain": "You must keep this information confidential for 9,999 months. Ordinary commercial information usually carries a three-to-five-year term; a perpetual obligation is written as a period that never runs out.",
+          "points": 14,
+          "evidence": {
+            "start": 1419,
+            "end": 1575,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "The obligations in this Clause 2 shall continue in perpetuity and shall survive\nthe termination of this Agreement and of any engagement between the parties."
+          },
+          "askYourLawyer": "Can the confidentiality term be limited to a few years, with trade secrets carved out separately?"
+        },
+        {
+          "ruleId": "absent_notice_period_for_you",
+          "tier": "absence",
+          "severity": "high",
+          "title": "No notice period written for your side",
+          "explain": "The document does not say how much notice you must give, which leaves the other side free to argue for whatever period suits it when you want to leave.",
+          "points": 12,
+          "evidence": null,
+          "askYourLawyer": "How much notice must I give to end this, and is that written anywhere?"
+        },
+        {
+          "ruleId": "post_employment_non_compete_term_stated",
+          "tier": "threshold",
+          "severity": "high",
+          "title": "A non-compete period is written into the contract",
+          "explain": "The contract restrains you from competing for 60 months after it ends. Section 27 treats a restraint on lawful work as void to that extent, and Indian law has no reasonableness test that saves one.",
+          "points": 12,
+          "evidence": {
+            "start": 1863,
+            "end": 2060,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "For a period of five (5) years from the date of this Agreement, the Recipient\nshall not, directly or indirectly, solicit, employ or engage any employee, contractor,\ncustomer or supplier of Halcyon."
+          },
+          "askYourLawyer": "Which parts of this restriction survive after I leave, and which fall under section 27?"
+        },
+        {
+          "ruleId": "absent_liability_cap_in_your_favour",
+          "tier": "absence",
+          "severity": "medium",
+          "title": "No ceiling on what you could owe",
+          "explain": "There is no cap on what you could be asked to pay if something goes wrong, while the other side's exposure is usually limited elsewhere in the same document.",
+          "points": 10,
+          "evidence": null,
+          "askYourLawyer": "Can my total liability be capped at the amount actually paid under this contract?"
+        }
+      ],
+      "topDrivers": [
+        {
+          "ruleId": "absent_exit_route_and_notice_period",
+          "tier": "absence",
+          "severity": "critical",
+          "title": "No way out and no notice period either",
+          "explain": "Two protections are missing at once: the document neither explains how you end the arrangement nor how much notice you must give. Together they leave the timing of your exit entirely to the other side.",
+          "points": 20,
+          "evidence": null,
+          "askYourLawyer": "With neither an exit clause nor a notice period written down, what are my rights to end this and on what terms?"
+        },
+        {
+          "ruleId": "construct_unlimited_indemnity",
+          "tier": "construct",
+          "severity": "critical",
+          "title": "You cover their losses with no ceiling",
+          "explain": "You promise to make good the other side's losses with no upper limit, and in many drafts that covers losses their own conduct caused.",
+          "points": 18,
+          "evidence": {
+            "start": 2377,
+            "end": 2546,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "The Recipient shall indemnify Halcyon against all losses, costs and expenses,\nincluding legal fees on a full indemnity basis, arising out of any breach by the\nRecipient."
+          },
+          "askYourLawyer": "Can the indemnity be capped at the fees paid, and exclude losses caused by the other side's own acts?"
+        },
+        {
+          "ruleId": "absent_exit_or_termination_route",
+          "tier": "absence",
+          "severity": "high",
+          "title": "No way out is written into the document",
+          "explain": "Nothing in this document explains how you end the arrangement. An agreement with no exit written into it is one you can only leave by negotiating from a weak position.",
+          "points": 16,
+          "evidence": null,
+          "askYourLawyer": "On what terms can I end this agreement, and what does ending it cost me?"
+        }
+      ],
+      "unknowns": [
+        {
+          "ruleId": "notice_period_asymmetry_severe",
+          "missing": [
+            "noticeDaysYouMustGive",
+            "noticeDaysTheyMustGive"
+          ],
+          "question": "Can the notice period be made the same for both sides, or a buy-out offered instead?"
+        },
+        {
+          "ruleId": "notice_period_asymmetry_moderate",
+          "missing": [
+            "noticeDaysYouMustGive",
+            "noticeDaysTheyMustGive",
+            "noticeDaysYouMustGive",
+            "noticeDaysTheyMustGive"
+          ],
+          "question": "The document did not make this clear: You owe about half again the notice they owe."
+        },
+        {
+          "ruleId": "cure_period_asymmetry_severe",
+          "missing": [
+            "cureDaysTheyGet",
+            "cureDaysYouGet"
+          ],
+          "question": "Can the time to put a breach right be made equal for both sides?"
+        },
+        {
+          "ruleId": "cure_period_asymmetry_moderate",
+          "missing": [
+            "cureDaysTheyGet",
+            "cureDaysYouGet",
+            "cureDaysTheyGet",
+            "cureDaysYouGet"
+          ],
+          "question": "The document did not make this clear: They get about half again as long to fix a breach."
+        },
+        {
+          "ruleId": "construct_unilateral_amendment_without_notice",
+          "missing": [
+            "unilateral_amendment_without_notice"
+          ],
+          "question": "Can any change to these terms require written notice to me and a right to exit without penalty?"
+        }
+      ],
+      "tierTotals": {
+        "asymmetry": 0,
+        "threshold": 26,
+        "construct": 18,
+        "absence": 40
+      },
+      "rubricVersion": "2026.09.13"
+    },
+    "findings": [
+      {
+        "id": "f1",
+        "category": "confidentiality",
+        "exactQuote": "The Recipient shall hold all Confidential Information in strict confidence and\nshall not disclose it to any person.",
+        "clauseLabel": "2.1",
+        "plainSummary": "You must keep all secret information strictly private and not share it with anyone.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 1003,
+          "end": 1118,
+          "method": "exact",
+          "similarity": 1,
+          "matchedText": "The Recipient shall hold all Confidential Information in strict confidence and\nshall not disclose it to any person."
+        },
+        "segmentId": "seg-4-2.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f2",
+        "category": "confidentiality",
+        "exactQuote": "The Recipient shall use the Confidential Information solely for the Purpose.",
+        "clauseLabel": "2.2",
+        "plainSummary": "You can only use the shared information to evaluate a potential consulting role with the company.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 1124,
+          "end": 1200,
+          "method": "exact",
+          "similarity": 1,
+          "matchedText": "The Recipient shall use the Confidential Information solely for the Purpose."
+        },
+        "segmentId": "seg-5-2.2",
+        "pageNumber": null
+      },
+      {
+        "id": "f3",
+        "category": "confidentiality",
+        "exactQuote": "The Recipient shall not copy, reproduce or store the Confidential Information\nexcept as strictly necessary for the Purpose, and shall destroy all copies within\nseven (7) days of a written request by Halcyon.",
+        "clauseLabel": "2.3",
+        "plainSummary": "You cannot copy or save the information unless needed for the discussion, and you must destroy all copies within 7 days if the company asks in writing.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 1206,
+          "end": 1413,
+          "method": "exact",
+          "similarity": 1,
+          "matchedText": "The Recipient shall not copy, reproduce or store the Confidential Information\nexcept as strictly necessary for the Purpose, and shall destroy all copies within\nseven (7) days of a written request by Halcyon."
+        },
+        "segmentId": "seg-6-2.3",
+        "pageNumber": null
+      },
+      {
+        "id": "f4",
+        "category": "confidentiality",
+        "exactQuote": "The obligations in this Clause 2 shall continue in perpetuity and shall survive\nthe termination of this Agreement and of any engagement between the parties.",
+        "clauseLabel": "2.4",
+        "plainSummary": "Your duty to keep information secret lasts forever, even after this agreement ends or your work relationship finishes.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 1419,
+          "end": 1575,
+          "method": "exact",
+          "similarity": 1,
+          "matchedText": "The obligations in this Clause 2 shall continue in perpetuity and shall survive\nthe termination of this Agreement and of any engagement between the parties."
+        },
+        "segmentId": "seg-7-2.4",
+        "pageNumber": null
+      },
+      {
+        "id": "f5",
+        "category": "confidentiality",
+        "exactQuote": "The Recipient shall not be relieved of any obligation under Clause 2 on the ground\nthat the information is or becomes publicly known, was independently developed, was\nalready in the Recipient's possession, or is required to be disclosed.",
+        "clauseLabel": "3.1",
+        "plainSummary": "You remain bound to secrecy even if the information becomes public, you knew it beforehand, you made it yourself, or the law requires you to share it.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 1599,
+          "end": 1836,
+          "method": "exact",
+          "similarity": 1,
+          "matchedText": "The Recipient shall not be relieved of any obligation under Clause 2 on the ground\nthat the information is or becomes publicly known, was independently developed, was\nalready in the Recipient's possession, or is required to be disclosed."
+        },
+        "segmentId": "seg-9-3.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f6",
+        "category": "restraint_of_trade",
+        "exactQuote": "For a period of five (5) years from the date of this Agreement, the Recipient\nshall not, directly or indirectly, solicit, employ or engage any employee, contractor,\ncustomer or supplier of Halcyon.",
+        "clauseLabel": "4.1",
+        "plainSummary": "For 5 years, you cannot hire, work with, or approach any of the company's workers, contractors, customers, or suppliers.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 1863,
+          "end": 2060,
+          "method": "exact",
+          "similarity": 1,
+          "matchedText": "For a period of five (5) years from the date of this Agreement, the Recipient\nshall not, directly or indirectly, solicit, employ or engage any employee, contractor,\ncustomer or supplier of Halcyon."
+        },
+        "segmentId": "seg-11-4.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f7",
+        "category": "dispute_resolution",
+        "exactQuote": "The Recipient acknowledges that any breach of this Agreement would cause Halcyon\nirreparable harm for which damages would not be an adequate remedy, and that Halcyon\nshall be entitled to injunctive relief without proof of loss and without furnishing\nany security or undertaking as to damages.",
+        "clauseLabel": "5.1",
+        "plainSummary": "If you break the rules, the company can ask a court for an immediate stop order (injunction) without having to prove financial loss or deposit any money.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 2079,
+          "end": 2371,
+          "method": "exact",
+          "similarity": 1,
+          "matchedText": "The Recipient acknowledges that any breach of this Agreement would cause Halcyon\nirreparable harm for which damages would not be an adequate remedy, and that Halcyon\nshall be entitled to injunctive relief without proof of loss and without furnishing\nany security or undertaking as to damages."
+        },
+        "segmentId": "seg-13-5.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f8",
+        "category": "indemnity",
+        "exactQuote": "The Recipient shall indemnify Halcyon against all losses, costs and expenses,\nincluding legal fees on a full indemnity basis, arising out of any breach by the\nRecipient.",
+        "clauseLabel": "5.2",
+        "plainSummary": "You must repay the company for all losses, costs, and full lawyer fees if you breach this contract.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 2377,
+          "end": 2546,
+          "method": "exact",
+          "similarity": 1,
+          "matchedText": "The Recipient shall indemnify Halcyon against all losses, costs and expenses,\nincluding legal fees on a full indemnity basis, arising out of any breach by the\nRecipient."
+        },
+        "segmentId": "seg-14-5.2",
+        "pageNumber": null
+      },
+      {
+        "id": "f9",
+        "category": "liability",
+        "exactQuote": "No licence or right in the Confidential Information is granted to the Recipient.\nHalcyon gives no representation or warranty as to the accuracy or completeness of any\nConfidential Information disclosed.",
+        "clauseLabel": "6.1",
+        "plainSummary": "You receive no ownership rights in the information, and the company does not promise that the information is accurate or complete.",
+        "obligationOn": "unclear",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 2579,
+          "end": 2781,
+          "method": "exact",
+          "similarity": 1,
+          "matchedText": "No licence or right in the Confidential Information is granted to the Recipient.\nHalcyon gives no representation or warranty as to the accuracy or completeness of any\nConfidential Information disclosed."
+        },
+        "segmentId": "seg-16-6.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f10",
+        "category": "jurisdiction",
+        "exactQuote": "This Agreement shall be governed by the laws of India, and the courts at Gurugram\nshall have exclusive jurisdiction.",
+        "clauseLabel": "7.1",
+        "plainSummary": "Any court dispute relating to this agreement must be handled only by the courts in Gurugram under Indian law.",
+        "obligationOn": "both",
+        "benefits": "both",
+        "isUnusual": false,
+        "location": {
+          "start": 2799,
+          "end": 2915,
+          "method": "exact",
+          "similarity": 1,
+          "matchedText": "This Agreement shall be governed by the laws of India, and the courts at Gurugram\nshall have exclusive jurisdiction."
+        },
+        "segmentId": "seg-18-7.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f11",
+        "category": "unilateral_change",
+        "exactQuote": "Halcyon may amend this Agreement by written notice to the Recipient.",
+        "clauseLabel": "7.2",
+        "plainSummary": "The company can change the terms of this agreement on its own simply by sending you a written notice.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 2921,
+          "end": 2989,
+          "method": "exact",
+          "similarity": 1,
+          "matchedText": "Halcyon may amend this Agreement by written notice to the Recipient."
+        },
+        "segmentId": "seg-19-7.2",
+        "pageNumber": null
+      }
+    ],
+    "rejected": [],
+    "grounding": {
+      "total": 11,
+      "grounded": 11,
+      "exact": 11,
+      "normalised": 0,
+      "fuzzy": 0,
+      "rejected": 0,
+      "rejectionsByReason": {
+        "quote_empty": 0,
+        "quote_too_short": 0,
+        "not_found": 0,
+        "below_threshold": 0,
+        "ambiguous": 0,
+        "duplicate": 0
+      }
+    },
+    "enforceability": [],
+    "inconsistencies": [],
+    "nextSteps": [
+      {
+        "forum": {
+          "id": "legal_services_authority",
+          "name": "District or State Legal Services Authority",
+          "handles": "Free legal advice, drafting and representation by a panel advocate for anyone within s.12 of the Legal Services Authorities Act, 1987.",
+          "statute": "Legal Services Authorities Act, 1987, ss.12 and 13",
+          "statuteUrl": "https://www.indiacode.nic.in/",
+          "portal": {
+            "name": "NALSA",
+            "url": "https://nalsa.gov.in/"
+          },
+          "helpline": "15100 — NALSA legal services helpline",
+          "fee": {
+            "summary": "Free, including court fees, process fees and the panel advocate, for anyone eligible under s.12.",
+            "amountInr": 0,
+            "freeForClaimsUpToInr": null
+          },
+          "filingPlace": "At the District Legal Services Authority in your district court complex, which accepts walk-in applications, or online through the NALSA portal.",
+          "lawyerRequired": false,
+          "prerequisites": [],
+          "entitlements": [
+            "s.12(c) and s.12(f) entitle every woman, every child and every industrial workman to free legal services irrespective of what they earn.",
+            "s.12(h) entitles a person whose annual income is below the ceiling their State has fixed, and Rs 5,00,000 applies to Supreme Court matters.",
+            "Tele-Law connects you to a panel lawyer free of charge through a Common Service Centre or the Tele-Law app (tele-law.in), which is offered in 22 languages."
+          ],
+          "limitationRuleId": null,
+          "triggers": {
+            "documentTypes": [],
+            "problems": [],
+            "constructs": [],
+            "verdicts": [],
+            "driverSeverities": [],
+            "situations": [
+              "cannot_afford_lawyer"
+            ],
+            "universal": true
+          },
+          "caveats": [
+            "Eligibility is decided by the Authority on the application and the documents filed with it.",
+            "Applying for free legal aid does not stop the limitation period for the underlying claim from running."
+          ]
+        },
+        "limitationRule": null,
+        "clock": null,
+        "signals": [
+          {
+            "kind": "universal",
+            "detail": "legal_services_authority"
+          }
+        ],
+        "priority": 0
+      },
+      {
+        "forum": {
+          "id": "lok_adalat",
+          "name": "Lok Adalat",
+          "handles": "Settlement by consent of a pending case or of a dispute before any case is filed, organised by the Legal Services Authority.",
+          "statute": "Legal Services Authorities Act, 1987, ss.19 to 22B",
+          "statuteUrl": "https://www.indiacode.nic.in/",
+          "portal": {
+            "name": "NALSA",
+            "url": "https://nalsa.gov.in/"
+          },
+          "helpline": "15100 — NALSA legal services helpline",
+          "fee": {
+            "summary": "Free, and s.21 refunds the court fee already paid when a pending case is settled.",
+            "amountInr": 0,
+            "freeForClaimsUpToInr": null
+          },
+          "filingPlace": "Through the District Legal Services Authority, which publishes the dates of the National Lok Adalat held each quarter.",
+          "lawyerRequired": false,
+          "prerequisites": [],
+          "entitlements": [
+            "s.21 — an award of a Lok Adalat is deemed to be a decree of a civil court, is final, and no appeal lies against it.",
+            "s.21(1) proviso — the court fee paid in a pending case is refunded when the matter is settled in a Lok Adalat.",
+            "s.22B — a Permanent Lok Adalat hears public utility service disputes up to Rs 1,00,00,000 and may decide the matter on merits if no settlement is reached."
+          ],
+          "limitationRuleId": null,
+          "triggers": {
+            "documentTypes": [],
+            "problems": [],
+            "constructs": [],
+            "verdicts": [],
+            "driverSeverities": [],
+            "situations": [
+              "prefers_settlement"
+            ],
+            "universal": true
+          },
+          "caveats": [
+            "A Lok Adalat records a settlement both sides agree to. Apart from a Permanent Lok Adalat under s.22C, it decides nothing by itself.",
+            "Because an award is final and no appeal lies from it, what is agreed there cannot later be reopened.",
+            "Waiting for a Lok Adalat date does not stop the limitation period for filing from running."
+          ]
+        },
+        "limitationRule": null,
+        "clock": null,
+        "signals": [
+          {
+            "kind": "universal",
+            "detail": "lok_adalat"
+          }
+        ],
+        "priority": 0
+      }
+    ],
+    "meta": {
+      "rubricVersion": "2026.09.13",
+      "modelsUsed": [
+        "gemini-3.8-flash"
+      ],
+      "stageTimingsMs": {
+        "classify": 0,
+        "extract": 0
+      },
+      "truncated": false,
+      "readAsScan": false,
+      "generatedAt": "2026-09-13T00:00:00.000Z"
+    }
+  }
+}

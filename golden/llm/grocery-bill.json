@@ -1,0 +1,16 @@
+{
+  "fixtureId": "grocery-bill",
+  "recordedAt": "2026-09-13T00:00:00.000Z",
+  "models": {
+    "classification": "gemini-3.1-flash-lite"
+  },
+  "stages": {
+    "classification": {
+      "isLegalDocument": false,
+      "documentType": "other",
+      "language": "en",
+      "notLegalReason": "This document is a retail sales receipt for grocery items.",
+      "confidence": "high"
+    }
+  }
+}

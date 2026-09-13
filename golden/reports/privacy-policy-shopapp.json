@@ -1,0 +1,904 @@
+{
+  "kind": "report",
+  "report": {
+    "reportId": "privacy-policy-shopapp",
+    "documentHash": "75291029d336d2b3fc872e708457958e27d41b3bc8533e7d4f310d8d30b4603f",
+    "documentType": "privacy_policy",
+    "language": "en",
+    "risk": {
+      "score": 85,
+      "band": "severe",
+      "drivers": [
+        {
+          "ruleId": "absent_exit_route_and_notice_period",
+          "tier": "absence",
+          "severity": "critical",
+          "title": "No way out and no notice period either",
+          "explain": "Two protections are missing at once: the document neither explains how you end the arrangement nor how much notice you must give. Together they leave the timing of your exit entirely to the other side.",
+          "points": 20,
+          "evidence": null,
+          "askYourLawyer": "With neither an exit clause nor a notice period written down, what are my rights to end this and on what terms?"
+        },
+        {
+          "ruleId": "absent_exit_or_termination_route",
+          "tier": "absence",
+          "severity": "high",
+          "title": "No way out is written into the document",
+          "explain": "Nothing in this document explains how you end the arrangement. An agreement with no exit written into it is one you can only leave by negotiating from a weak position.",
+          "points": 16,
+          "evidence": null,
+          "askYourLawyer": "On what terms can I end this agreement, and what does ending it cost me?"
+        },
+        {
+          "ruleId": "construct_contractual_limitation_period",
+          "tier": "construct",
+          "severity": "high",
+          "title": "A private deadline to bring a claim",
+          "explain": "This agreement sets its own short deadline for raising a claim, shorter than the period the general law of limitation allows.",
+          "points": 16,
+          "evidence": {
+            "start": 5306,
+            "end": 5408,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "No claim may be brought more than one hundred and eighty (180) days after the\nevent giving rise to it."
+          },
+          "askYourLawyer": "Does this clause try to cut short the time the Limitation Act otherwise gives me?"
+        },
+        {
+          "ruleId": "construct_unilateral_amendment_without_notice",
+          "tier": "construct",
+          "severity": "high",
+          "title": "They can change the terms without telling you",
+          "explain": "The other side can rewrite this agreement on its own, without notice to you. What you are agreeing to today is not necessarily what will bind you next month.",
+          "points": 16,
+          "evidence": {
+            "start": 642,
+            "end": 880,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "We may add to, remove from, or otherwise modify this Policy at any time, at our\nsole discretion, and the modified Policy takes effect from the moment it is posted on\nthe Platform.\n\n1.2 We are not obliged to notify you of any modification."
+          },
+          "askYourLawyer": "Can any change to these terms require written notice to me and a right to exit without penalty?"
+        },
+        {
+          "ruleId": "construct_class_action_waiver",
+          "tier": "construct",
+          "severity": "high",
+          "title": "You give up joining others with the same complaint",
+          "explain": "You agree not to join other people with the same grievance in a single case, so a small loss suffered by thousands has to be fought one person at a time.",
+          "points": 14,
+          "evidence": {
+            "start": 5040,
+            "end": 5299,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "You agree that you will bring any claim against us only in your individual\ncapacity, and not as a plaintiff or class member in any purported class,\nrepresentative, collective or consolidated proceeding. You waive any right to\nparticipate in such a proceeding."
+          },
+          "askYourLawyer": null
+        },
+        {
+          "ruleId": "absent_data_retention_limit",
+          "tier": "absence",
+          "severity": "high",
+          "title": "No limit on how long your data is kept",
+          "explain": "This policy sets no period after which your data is deleted. Indefinite retention is the default when nothing is written, and the DPDP Act works the other way round.",
+          "points": 12,
+          "evidence": null,
+          "askYourLawyer": "How long is my data kept after I stop using this service, and how do I ask for erasure?"
+        },
+        {
+          "ruleId": "absent_notice_period_for_you",
+          "tier": "absence",
+          "severity": "high",
+          "title": "No notice period written for your side",
+          "explain": "The document does not say how much notice you must give, which leaves the other side free to argue for whatever period suits it when you want to leave.",
+          "points": 12,
+          "evidence": null,
+          "askYourLawyer": "How much notice must I give to end this, and is that written anywhere?"
+        },
+        {
+          "ruleId": "absent_grievance_officer_named",
+          "tier": "absence",
+          "severity": "medium",
+          "title": "No grievance officer is named",
+          "explain": "No grievance officer and no contact for complaints is named, so the first step in any complaint route is missing from the document that creates the service.",
+          "points": 10,
+          "evidence": null,
+          "askYourLawyer": null
+        },
+        {
+          "ruleId": "absent_liability_cap_in_your_favour",
+          "tier": "absence",
+          "severity": "medium",
+          "title": "No ceiling on what you could owe",
+          "explain": "There is no cap on what you could be asked to pay if something goes wrong, while the other side's exposure is usually limited elsewhere in the same document.",
+          "points": 10,
+          "evidence": null,
+          "askYourLawyer": "Can my total liability be capped at the amount actually paid under this contract?"
+        }
+      ],
+      "topDrivers": [
+        {
+          "ruleId": "absent_exit_route_and_notice_period",
+          "tier": "absence",
+          "severity": "critical",
+          "title": "No way out and no notice period either",
+          "explain": "Two protections are missing at once: the document neither explains how you end the arrangement nor how much notice you must give. Together they leave the timing of your exit entirely to the other side.",
+          "points": 20,
+          "evidence": null,
+          "askYourLawyer": "With neither an exit clause nor a notice period written down, what are my rights to end this and on what terms?"
+        },
+        {
+          "ruleId": "absent_exit_or_termination_route",
+          "tier": "absence",
+          "severity": "high",
+          "title": "No way out is written into the document",
+          "explain": "Nothing in this document explains how you end the arrangement. An agreement with no exit written into it is one you can only leave by negotiating from a weak position.",
+          "points": 16,
+          "evidence": null,
+          "askYourLawyer": "On what terms can I end this agreement, and what does ending it cost me?"
+        },
+        {
+          "ruleId": "construct_contractual_limitation_period",
+          "tier": "construct",
+          "severity": "high",
+          "title": "A private deadline to bring a claim",
+          "explain": "This agreement sets its own short deadline for raising a claim, shorter than the period the general law of limitation allows.",
+          "points": 16,
+          "evidence": {
+            "start": 5306,
+            "end": 5408,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "No claim may be brought more than one hundred and eighty (180) days after the\nevent giving rise to it."
+          },
+          "askYourLawyer": "Does this clause try to cut short the time the Limitation Act otherwise gives me?"
+        }
+      ],
+      "unknowns": [
+        {
+          "ruleId": "notice_period_asymmetry_severe",
+          "missing": [
+            "noticeDaysYouMustGive",
+            "noticeDaysTheyMustGive"
+          ],
+          "question": "Can the notice period be made the same for both sides, or a buy-out offered instead?"
+        },
+        {
+          "ruleId": "notice_period_asymmetry_moderate",
+          "missing": [
+            "noticeDaysYouMustGive",
+            "noticeDaysTheyMustGive",
+            "noticeDaysYouMustGive",
+            "noticeDaysTheyMustGive"
+          ],
+          "question": "The document did not make this clear: You owe about half again the notice they owe."
+        },
+        {
+          "ruleId": "cure_period_asymmetry_severe",
+          "missing": [
+            "cureDaysTheyGet",
+            "cureDaysYouGet"
+          ],
+          "question": "Can the time to put a breach right be made equal for both sides?"
+        },
+        {
+          "ruleId": "cure_period_asymmetry_moderate",
+          "missing": [
+            "cureDaysTheyGet",
+            "cureDaysYouGet",
+            "cureDaysTheyGet",
+            "cureDaysYouGet"
+          ],
+          "question": "The document did not make this clear: They get about half again as long to fix a breach."
+        },
+        {
+          "ruleId": "data_retention_beyond_five_years",
+          "missing": [
+            "dataRetentionDays"
+          ],
+          "question": "What purpose still needs my data after this period, and how do I ask for it to be erased?"
+        }
+      ],
+      "tierTotals": {
+        "asymmetry": 0,
+        "threshold": 0,
+        "construct": 45,
+        "absence": 40
+      },
+      "rubricVersion": "2026.09.13"
+    },
+    "findings": [
+      {
+        "id": "f1",
+        "category": "unilateral_change",
+        "exactQuote": "We may add to, remove from, or otherwise modify this Policy at any time, at our sole discretion, and the modified Policy takes effect from the moment it is posted on the Platform.",
+        "clauseLabel": "1.1",
+        "plainSummary": "The company can change this privacy policy whenever it wants, and the changes apply immediately when posted.",
+        "obligationOn": "counterparty",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 642,
+          "end": 821,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "We may add to, remove from, or otherwise modify this Policy at any time, at our\nsole discretion, and the modified Policy takes effect from the moment it is posted on\nthe Platform."
+        },
+        "segmentId": "seg-2-1.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f2",
+        "category": "unilateral_change",
+        "exactQuote": "We are not obliged to notify you of any modification. It is your responsibility to review this Policy each time you use the Platform. Your continued use of the Platform after any modification constitutes your acceptance of the modified Policy.",
+        "clauseLabel": "1.2",
+        "plainSummary": "The company will not tell you when rules change, so you must check the policy yourself every time you use the app.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 827,
+          "end": 1070,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "We are not obliged to notify you of any modification. It is your responsibility to\nreview this Policy each time you use the Platform. Your continued use of the Platform\nafter any modification constitutes your acceptance of the modified Policy."
+        },
+        "segmentId": "seg-3-1.2",
+        "pageNumber": null
+      },
+      {
+        "id": "f3",
+        "category": "data_use",
+        "exactQuote": "when you grant them, we access your precise location (including in the background), contacts, camera, photo gallery, installed application list and SMS for the purpose of reading one-time passwords.",
+        "clauseLabel": "2.4",
+        "plainSummary": "If permissions are granted, the company tracks your location even when the app is closed, reads your contacts, photos, text messages, and list of installed apps.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 1651,
+          "end": 1849,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "when you grant them, we access your precise location (including in\nthe background), contacts, camera, photo gallery, installed application list and SMS\nfor the purpose of reading one-time passwords."
+        },
+        "segmentId": "seg-8-2.4",
+        "pageNumber": null
+      },
+      {
+        "id": "f4",
+        "category": "data_use",
+        "exactQuote": "To personalise the Platform, to recommend products, to determine the prices, offers, coupons and delivery charges shown to you, and to decide your eligibility for pay-later and no-cost instalment facilities.",
+        "clauseLabel": "3.2",
+        "plainSummary": "The company uses your personal information to decide what prices, discounts, and delivery fees to charge you specifically.",
+        "obligationOn": "counterparty",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 2202,
+          "end": 2409,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "To personalise the Platform, to recommend products, to determine the prices,\noffers, coupons and delivery charges shown to you, and to decide your eligibility for\npay-later and no-cost instalment facilities."
+        },
+        "segmentId": "seg-12-3.2",
+        "pageNumber": null
+      },
+      {
+        "id": "f5",
+        "category": "data_use",
+        "exactQuote": "To send you promotional communications by SMS, e-mail, push notification, WhatsApp and voice call, including on behalf of third parties.",
+        "clauseLabel": "3.3",
+        "plainSummary": "The company can send you marketing messages and phone calls for itself and for other businesses.",
+        "obligationOn": "counterparty",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 2415,
+          "end": 2551,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "To send you promotional communications by SMS, e-mail, push notification,\nWhatsApp and voice call, including on behalf of third parties."
+        },
+        "segmentId": "seg-13-3.3",
+        "pageNumber": null
+      },
+      {
+        "id": "f6",
+        "category": "data_use",
+        "exactQuote": "We share your information with our affiliates and partners, with logistics and payment service providers, with sellers listing on the Platform, with marketing and analytics service providers, and with advertising networks.",
+        "clauseLabel": "4.1",
+        "plainSummary": "The company shares your details with third parties, including sellers, delivery providers, payment companies, and advertising networks.",
+        "obligationOn": "counterparty",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 2687,
+          "end": 2909,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "We share your information with our affiliates and partners, with logistics and\npayment service providers, with sellers listing on the Platform, with marketing and\nanalytics service providers, and with advertising networks."
+        },
+        "segmentId": "seg-16-4.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f7",
+        "category": "data_use",
+        "exactQuote": "We may store and process your information on servers located in India, Singapore and the United States, and you consent to such transfer.",
+        "clauseLabel": "4.4",
+        "plainSummary": "You agree that the company can transfer and keep your personal data on computers in Singapore and the United States.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 3185,
+          "end": 3322,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "We may store and process your information on servers located in India, Singapore\nand the United States, and you consent to such transfer."
+        },
+        "segmentId": "seg-19-4.4",
+        "pageNumber": null
+      },
+      {
+        "id": "f8",
+        "category": "data_use",
+        "exactQuote": "We retain your information for as long as it is necessary for the purposes set out in this Policy, for our business purposes, and for such further period as we consider appropriate.",
+        "clauseLabel": "5.1",
+        "plainSummary": "The company keeps your personal data for as long as it feels necessary for its business.",
+        "obligationOn": "counterparty",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 3342,
+          "end": 3523,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "We retain your information for as long as it is necessary for the purposes set out\nin this Policy, for our business purposes, and for such further period as we consider\nappropriate."
+        },
+        "segmentId": "seg-21-5.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f9",
+        "category": "data_use",
+        "exactQuote": "Deleting the application does not delete your account or your information. If you request deletion of your account, we may retain your information in our archives.",
+        "clauseLabel": "5.2",
+        "plainSummary": "Removing the app or asking to delete your account does not mean the company will completely remove your personal information.",
+        "obligationOn": "counterparty",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 3529,
+          "end": 3692,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "Deleting the application does not delete your account or your information. If you\nrequest deletion of your account, we may retain your information in our archives."
+        },
+        "segmentId": "seg-22-5.2",
+        "pageNumber": null
+      },
+      {
+        "id": "f10",
+        "category": "liability",
+        "exactQuote": "We adopt reasonable security practices. However, no method of transmission or storage is completely secure, and we do not guarantee the security of your information. You use the Platform at your own risk.",
+        "clauseLabel": "8.1",
+        "plainSummary": "The company does not promise that your information is completely safe, and you take the risk when using the app.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 4178,
+          "end": 4382,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "We adopt reasonable security practices. However, no method of transmission or\nstorage is completely secure, and we do not guarantee the security of your\ninformation. You use the Platform at your own risk."
+        },
+        "segmentId": "seg-29-8.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f11",
+        "category": "dispute_resolution",
+        "exactQuote": "Any dispute, claim or controversy arising out of or relating to this Policy, the Platform or your use of it shall be referred to and finally resolved by arbitration administered in Singapore, before a sole arbitrator, in the English language. The seat of arbitration shall be Singapore.",
+        "clauseLabel": "11.1",
+        "plainSummary": "Any disagreement must be resolved through arbitration—a private legal process to settle disputes outside of court—held in Singapore in English.",
+        "obligationOn": "both",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 4747,
+          "end": 5033,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "Any dispute, claim or controversy arising out of or relating to this Policy, the\nPlatform or your use of it shall be referred to and finally resolved by arbitration\nadministered in Singapore, before a sole arbitrator, in the English language. The\nseat of arbitration shall be Singapore."
+        },
+        "segmentId": "seg-35-11.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f12",
+        "category": "dispute_resolution",
+        "exactQuote": "You agree that you will bring any claim against us only in your individual capacity, and not as a plaintiff or class member in any purported class, representative, collective or consolidated proceeding. You waive any right to participate in such a proceeding.",
+        "clauseLabel": "11.2",
+        "plainSummary": "You agree to complain only on your own and give up your right to join group legal actions against the company.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 5040,
+          "end": 5299,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "You agree that you will bring any claim against us only in your individual\ncapacity, and not as a plaintiff or class member in any purported class,\nrepresentative, collective or consolidated proceeding. You waive any right to\nparticipate in such a proceeding."
+        },
+        "segmentId": "seg-36-11.2",
+        "pageNumber": null
+      },
+      {
+        "id": "f13",
+        "category": "dispute_resolution",
+        "exactQuote": "No claim may be brought more than one hundred and eighty (180) days after the event giving rise to it.",
+        "clauseLabel": "11.3",
+        "plainSummary": "You lose the right to make any legal claim against the company if you do not bring it within 180 days of the problem happening.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 5306,
+          "end": 5408,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "No claim may be brought more than one hundred and eighty (180) days after the\nevent giving rise to it."
+        },
+        "segmentId": "seg-37-11.3",
+        "pageNumber": null
+      }
+    ],
+    "rejected": [],
+    "grounding": {
+      "total": 13,
+      "grounded": 13,
+      "exact": 0,
+      "normalised": 13,
+      "fuzzy": 0,
+      "rejected": 0,
+      "rejectionsByReason": {
+        "quote_empty": 0,
+        "quote_too_short": 0,
+        "not_found": 0,
+        "below_threshold": 0,
+        "ambiguous": 0,
+        "duplicate": 0
+      }
+    },
+    "enforceability": [
+      {
+        "construct": "contractual_limitation_period",
+        "verdict": "likely_void",
+        "confidence": "high",
+        "statute": {
+          "act": "Indian Contract Act, 1872",
+          "section": "Section 28(b), read with section 28(a) — Agreements in restraint of legal proceedings, void",
+          "text": "Every agreement, (a) by which any party thereto is restricted absolutely from enforcing his rights under or in respect of any contract, by the usual legal proceedings in the ordinary tribunals, or which limits the time within which he may thus enforce his rights; or (b) which extinguishes the rights of any party thereto, or discharges any party thereto from any liability, under or in respect of any contract on the expiry of a specified period so as to restrict any party from enforcing his rights, is void to that extent.",
+          "url": "https://www.indiacode.nic.in/show-data?actid=AC_CEN_3_20_00035_187209_1523268996428&sectionId=38632&sectionno=28&orderno=29"
+        },
+        "authorities": [],
+        "plainMeaning": "A clause that gives you only thirty or ninety days to raise a claim, or that says your rights disappear after a short period, does not usually take away the time the general law of limitation gives you.",
+        "caveats": [
+          "This describes the section, not your contract. Whether a particular clause falls inside it is for a court to decide.",
+          "Clause (b) was added by the 1997 amendment; decisions from before 1997 that upheld clauses extinguishing rights on expiry pre-date that change.",
+          "The section does not extend the time the Limitation Act gives you. That clock runs from when your cause of action arose, whatever the contract says.",
+          "Arbitration clauses that set a period for commencing arbitration are treated separately and are not all caught by this section."
+        ],
+        "appliesTo": [],
+        "evidence": {
+          "start": 5306,
+          "end": 5408,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "No claim may be brought more than one hundred and eighty (180) days after the\nevent giving rise to it."
+        }
+      },
+      {
+        "construct": "class_action_waiver",
+        "verdict": "cannot_oust_this_forum",
+        "confidence": "medium",
+        "statute": {
+          "act": "Consumer Protection Act, 2019",
+          "section": "Section 35(1)(c), read with section 100",
+          "text": "A complaint ... may be filed with a District Commission by (c) one or more consumers, where there are numerous consumers having the same interest, with the permission of the District Commission, on behalf of, or for the benefit of, all consumers so interested. ... The provisions of this Act shall be in addition to and not in derogation of the provisions of any other law for the time being in force.",
+          "url": "https://www.indiacode.nic.in/bitstream/123456789/16939/1/a2019-35.pdf"
+        },
+        "authorities": [],
+        "plainMeaning": "The consumer law itself allows one or more consumers to complain on behalf of many others with the same interest, with the commission's permission. A term in the contract does not remove a right the statute gives.",
+        "caveats": [
+          "This describes the statutory right. Whether a group of consumers has the same interest is decided by the commission when it gives permission.",
+          "The Act applies only to consumer transactions, so a waiver in a business-to-business contract is not answered by this row.",
+          "A waiver may still matter in arbitration or in a civil suit, which are different forums with different rules.",
+          "Permission under this clause is asked for at the time of filing; it is not automatic."
+        ],
+        "appliesTo": [
+          "privacy_policy",
+          "loan_agreement",
+          "other"
+        ],
+        "evidence": {
+          "start": 5040,
+          "end": 5299,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "You agree that you will bring any claim against us only in your individual\ncapacity, and not as a plaintiff or class member in any purported class,\nrepresentative, collective or consolidated proceeding. You waive any right to\nparticipate in such a proceeding."
+        }
+      },
+      {
+        "construct": "unilateral_amendment_without_notice",
+        "verdict": "context_dependent",
+        "confidence": "medium",
+        "statute": {
+          "act": "Consumer Protection Act, 2019",
+          "section": "Section 2(46)(iv) and 2(46)(vi) — unfair contract",
+          "text": "\"unfair contract\" means a contract ... having such terms which cause significant change in the rights of such consumer, including the following, namely: (iv) entitling a party to the contract to terminate such contract unilaterally, without reasonable cause; (vi) imposing on the consumer any unreasonable charge, obligation or condition which puts such consumer to disadvantage.",
+          "url": "https://www.indiacode.nic.in/show-data?actid=AC_CEN_21_44_00007_201935_1596441164903&sectionId=50027&sectionno=2&orderno=2"
+        },
+        "authorities": [],
+        "plainMeaning": "A term letting the other side change or end the deal on its own, or putting an unreasonable condition on you, is the kind of term the Act names as unfair and a consumer commission can examine.",
+        "caveats": [
+          "The listing describes a category. Whether this clause falls in it, and what follows, is for a consumer commission to decide.",
+          "Only the State or National Commission can declare a contract term null and void as unfair.",
+          "Continuing to use a service after terms change is often argued as acceptance; that argument is fought on the facts and is not settled by this row.",
+          "The Central Consumer Protection Authority can also act against unfair trade practices; that is a separate route from a complaint about your own contract."
+        ],
+        "appliesTo": [
+          "privacy_policy",
+          "loan_agreement",
+          "rent_agreement",
+          "other"
+        ],
+        "evidence": {
+          "start": 642,
+          "end": 880,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "We may add to, remove from, or otherwise modify this Policy at any time, at our\nsole discretion, and the modified Policy takes effect from the moment it is posted on\nthe Platform.\n\n1.2 We are not obliged to notify you of any modification."
+        }
+      }
+    ],
+    "inconsistencies": [
+      {
+        "kind": "undefined_term",
+        "severity": "medium",
+        "title": "\"My Account\" is used as a defined term but never defined",
+        "detail": "clause 7.1 puts \"My Account\" in quotation marks, which signals a term with a fixed contractual meaning, but no clause in this document says what it means.",
+        "at": {
+          "start": 3996,
+          "end": 4008,
+          "quote": "\"My Account\"",
+          "segmentId": "seg-26-7.1",
+          "segmentLabel": "7.1",
+          "pageNumber": null
+        },
+        "counterpart": null
+      }
+    ],
+    "nextSteps": [
+      {
+        "forum": {
+          "id": "consumer_commission",
+          "name": "District Consumer Disputes Redressal Commission",
+          "handles": "Defective goods, deficient services, unfair trade practices and unfair contract terms, for anything bought for personal use.",
+          "statute": "Consumer Protection Act, 2019, ss.34, 35 and 69",
+          "statuteUrl": "https://www.indiacode.nic.in/",
+          "portal": {
+            "name": "e-Jagriti, which took over consumer e-filing from e-Daakhil on 1 January 2025",
+            "url": "https://e-jagriti.gov.in/"
+          },
+          "helpline": "1915 — National Consumer Helpline",
+          "fee": {
+            "summary": "Nothing is payable where the claim is up to Rs 5,00,000, and Rs 200 from Rs 5,00,001 to Rs 10,00,000, under rule 7 of the Consumer Protection (Consumer Disputes Redressal Commissions) Rules, 2020 as amended in 2023.",
+            "amountInr": null,
+            "freeForClaimsUpToInr": 500000
+          },
+          "filingPlace": "s.34(2)(d) — where you ordinarily reside or personally work for gain. A clause in the contract naming another city's courts does not displace it.",
+          "lawyerRequired": false,
+          "prerequisites": [],
+          "entitlements": [
+            "s.39 lets the Commission order the defect removed, the goods replaced, the price refunded, compensation paid, or an unfair contract term discontinued.",
+            "s.2(46) defines an unfair contract by six limbs, including a penalty disproportionate to the loss and a right to terminate unilaterally without reasonable cause."
+          ],
+          "limitationRuleId": "cpa-2019-s69",
+          "triggers": {
+            "documentTypes": [
+              "loan_agreement",
+              "privacy_policy",
+              "other"
+            ],
+            "problems": [
+              "goods_or_services_defect",
+              "bank_or_loan_conduct",
+              "insurance_claim",
+              "builder_delay_or_refund"
+            ],
+            "constructs": [
+              "forfeiture_of_paid_amounts",
+              "unilateral_amendment_without_notice",
+              "automatic_renewal_without_notice"
+            ],
+            "verdicts": [
+              "cannot_oust_this_forum"
+            ],
+            "driverSeverities": [
+              "critical"
+            ],
+            "situations": [],
+            "universal": false
+          },
+          "caveats": [
+            "A complaint lies for goods or services obtained for personal use. s.2(7) excludes anything obtained for resale or for a commercial purpose, and a contract of personal service is outside the definition of service in s.2(42).",
+            "Whether what happened is a defect or a deficiency is for the Commission to decide on the evidence.",
+            "Fee slabs are set by rules that change. Confirm the current fee on the portal before filing."
+          ]
+        },
+        "limitationRule": {
+          "id": "cpa-2019-s69",
+          "causeOfAction": "The date on which the cause of action arose — the defect, the deficiency in service or the unfair trade practice — not the date the agreement was signed.",
+          "period": {
+            "unit": "months",
+            "count": 24
+          },
+          "statute": "Consumer Protection Act, 2019, s.69",
+          "statuteUrl": "https://www.indiacode.nic.in/",
+          "condonationPossible": true,
+          "stages": [
+            {
+              "label": "Appeal to the State Commission against a District Commission order, after depositing 50% of the amount ordered",
+              "days": 45,
+              "from": "the date of the District Commission's order",
+              "statute": "Consumer Protection Act, 2019, s.41"
+            },
+            {
+              "label": "Appeal to the National Commission against a State Commission order",
+              "days": 30,
+              "from": "the date of the State Commission's order",
+              "statute": "Consumer Protection Act, 2019, s.51"
+            }
+          ]
+        },
+        "clock": null,
+        "signals": [
+          {
+            "kind": "construct",
+            "detail": "unilateral_amendment_without_notice"
+          },
+          {
+            "kind": "verdict",
+            "detail": "cannot_oust_this_forum"
+          },
+          {
+            "kind": "risk_driver",
+            "detail": "critical"
+          }
+        ],
+        "priority": 30
+      },
+      {
+        "forum": {
+          "id": "grievance_appellate_committee",
+          "name": "Grievance Appellate Committee",
+          "handles": "Appeals against what a social-media or other intermediary decided on your complaint — account suspension, content taken down, content left up, and privacy grievances.",
+          "statute": "Information Technology (Intermediary Guidelines and Digital Media Ethics Code) Rules, 2021, rules 3(2) and 3A",
+          "statuteUrl": "https://www.meity.gov.in/",
+          "portal": {
+            "name": "Grievance Appellate Committee portal",
+            "url": "https://gac.gov.in/"
+          },
+          "helpline": null,
+          "fee": {
+            "summary": "Free.",
+            "amountInr": 0,
+            "freeForClaimsUpToInr": null
+          },
+          "filingPlace": "Online. The appeal is filed, heard and decided digitally, so there is nowhere to travel to.",
+          "lawyerRequired": false,
+          "prerequisites": [
+            {
+              "step": "Complain to the intermediary's Grievance Officer first. Rule 3(2)(a) requires an acknowledgement within twenty-four hours and resolution within fifteen days, and within seventy-two hours for most removal requests.",
+              "waitDays": 15,
+              "url": null
+            }
+          ],
+          "entitlements": [
+            "Rule 3A(3) — an appeal lies to the Committee within thirty days of the Grievance Officer's communication, and since the 2023 amendment also where the Officer did not resolve the complaint.",
+            "Rule 3A(4) — the Committee is to endeavour to resolve the appeal within thirty calendar days, and the intermediary must comply with its order and report compliance."
+          ],
+          "limitationRuleId": "it-rules-2021-r3a",
+          "triggers": {
+            "documentTypes": [
+              "privacy_policy"
+            ],
+            "problems": [
+              "platform_action_or_privacy"
+            ],
+            "constructs": [
+              "unilateral_amendment_without_notice"
+            ],
+            "verdicts": [],
+            "driverSeverities": [
+              "high",
+              "critical"
+            ],
+            "situations": [],
+            "universal": false
+          },
+          "caveats": [
+            "The Committee reviews what the Grievance Officer decided. It is not a route for a money claim.",
+            "Rule 3A does not take away the right to go to a court instead.",
+            "Personal-data complaints under the Digital Personal Data Protection Act, 2023 go to the Data Protection Board as its provisions are brought into force. Check which route is open before filing."
+          ]
+        },
+        "limitationRule": {
+          "id": "it-rules-2021-r3a",
+          "causeOfAction": "The date the Grievance Officer's decision is received, or the date the fifteen days the Officer had to resolve the complaint expire.",
+          "period": {
+            "unit": "days",
+            "count": 30
+          },
+          "statute": "Information Technology (Intermediary Guidelines and Digital Media Ethics Code) Rules, 2021, rule 3A(3)",
+          "statuteUrl": "https://www.meity.gov.in/",
+          "condonationPossible": false,
+          "stages": [
+            {
+              "label": "The Grievance Officer must acknowledge the complaint",
+              "days": 1,
+              "from": "the date the complaint is made to the intermediary's Grievance Officer",
+              "statute": "IT Rules, 2021, rule 3(2)(a) — twenty-four hours"
+            },
+            {
+              "label": "The Grievance Officer must resolve the complaint",
+              "days": 15,
+              "from": "the date the complaint is made to the intermediary's Grievance Officer",
+              "statute": "IT Rules, 2021, rule 3(2)(a)"
+            }
+          ]
+        },
+        "clock": null,
+        "signals": [
+          {
+            "kind": "construct",
+            "detail": "unilateral_amendment_without_notice"
+          },
+          {
+            "kind": "risk_driver",
+            "detail": "high"
+          },
+          {
+            "kind": "risk_driver",
+            "detail": "critical"
+          }
+        ],
+        "priority": 30
+      },
+      {
+        "forum": {
+          "id": "legal_services_authority",
+          "name": "District or State Legal Services Authority",
+          "handles": "Free legal advice, drafting and representation by a panel advocate for anyone within s.12 of the Legal Services Authorities Act, 1987.",
+          "statute": "Legal Services Authorities Act, 1987, ss.12 and 13",
+          "statuteUrl": "https://www.indiacode.nic.in/",
+          "portal": {
+            "name": "NALSA",
+            "url": "https://nalsa.gov.in/"
+          },
+          "helpline": "15100 — NALSA legal services helpline",
+          "fee": {
+            "summary": "Free, including court fees, process fees and the panel advocate, for anyone eligible under s.12.",
+            "amountInr": 0,
+            "freeForClaimsUpToInr": null
+          },
+          "filingPlace": "At the District Legal Services Authority in your district court complex, which accepts walk-in applications, or online through the NALSA portal.",
+          "lawyerRequired": false,
+          "prerequisites": [],
+          "entitlements": [
+            "s.12(c) and s.12(f) entitle every woman, every child and every industrial workman to free legal services irrespective of what they earn.",
+            "s.12(h) entitles a person whose annual income is below the ceiling their State has fixed, and Rs 5,00,000 applies to Supreme Court matters.",
+            "Tele-Law connects you to a panel lawyer free of charge through a Common Service Centre or the Tele-Law app (tele-law.in), which is offered in 22 languages."
+          ],
+          "limitationRuleId": null,
+          "triggers": {
+            "documentTypes": [],
+            "problems": [],
+            "constructs": [],
+            "verdicts": [],
+            "driverSeverities": [],
+            "situations": [
+              "cannot_afford_lawyer"
+            ],
+            "universal": true
+          },
+          "caveats": [
+            "Eligibility is decided by the Authority on the application and the documents filed with it.",
+            "Applying for free legal aid does not stop the limitation period for the underlying claim from running."
+          ]
+        },
+        "limitationRule": null,
+        "clock": null,
+        "signals": [
+          {
+            "kind": "universal",
+            "detail": "legal_services_authority"
+          }
+        ],
+        "priority": 0
+      },
+      {
+        "forum": {
+          "id": "lok_adalat",
+          "name": "Lok Adalat",
+          "handles": "Settlement by consent of a pending case or of a dispute before any case is filed, organised by the Legal Services Authority.",
+          "statute": "Legal Services Authorities Act, 1987, ss.19 to 22B",
+          "statuteUrl": "https://www.indiacode.nic.in/",
+          "portal": {
+            "name": "NALSA",
+            "url": "https://nalsa.gov.in/"
+          },
+          "helpline": "15100 — NALSA legal services helpline",
+          "fee": {
+            "summary": "Free, and s.21 refunds the court fee already paid when a pending case is settled.",
+            "amountInr": 0,
+            "freeForClaimsUpToInr": null
+          },
+          "filingPlace": "Through the District Legal Services Authority, which publishes the dates of the National Lok Adalat held each quarter.",
+          "lawyerRequired": false,
+          "prerequisites": [],
+          "entitlements": [
+            "s.21 — an award of a Lok Adalat is deemed to be a decree of a civil court, is final, and no appeal lies against it.",
+            "s.21(1) proviso — the court fee paid in a pending case is refunded when the matter is settled in a Lok Adalat.",
+            "s.22B — a Permanent Lok Adalat hears public utility service disputes up to Rs 1,00,00,000 and may decide the matter on merits if no settlement is reached."
+          ],
+          "limitationRuleId": null,
+          "triggers": {
+            "documentTypes": [],
+            "problems": [],
+            "constructs": [],
+            "verdicts": [],
+            "driverSeverities": [],
+            "situations": [
+              "prefers_settlement"
+            ],
+            "universal": true
+          },
+          "caveats": [
+            "A Lok Adalat records a settlement both sides agree to. Apart from a Permanent Lok Adalat under s.22C, it decides nothing by itself.",
+            "Because an award is final and no appeal lies from it, what is agreed there cannot later be reopened.",
+            "Waiting for a Lok Adalat date does not stop the limitation period for filing from running."
+          ]
+        },
+        "limitationRule": null,
+        "clock": null,
+        "signals": [
+          {
+            "kind": "universal",
+            "detail": "lok_adalat"
+          }
+        ],
+        "priority": 0
+      }
+    ],
+    "meta": {
+      "rubricVersion": "2026.09.13",
+      "modelsUsed": [
+        "gemini-3.8-flash"
+      ],
+      "stageTimingsMs": {
+        "classify": 0,
+        "extract": 0
+      },
+      "truncated": false,
+      "readAsScan": false,
+      "generatedAt": "2026-09-13T00:00:00.000Z"
+    }
+  }
+}

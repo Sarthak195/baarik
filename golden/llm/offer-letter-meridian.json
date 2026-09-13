@@ -1,0 +1,388 @@
+{
+  "fixtureId": "offer-letter-meridian",
+  "recordedAt": "2026-09-13T00:00:00.000Z",
+  "models": {
+    "classification": "gemini-3.1-flash-lite",
+    "facts": "gemini-3.8-flash",
+    "findings": "gemini-3.8-flash"
+  },
+  "stages": {
+    "classification": {
+      "isLegalDocument": true,
+      "documentType": "employment_offer",
+      "language": "en",
+      "notLegalReason": null,
+      "confidence": "high"
+    },
+    "facts": {
+      "documentType": "employment_offer",
+      "governingLawState": null,
+      "jurisdictionCity": "Bengaluru",
+      "noticeDaysYouMustGive": 90,
+      "noticeDaysTheyMustGive": 30,
+      "cureDaysYouGet": null,
+      "cureDaysTheyGet": null,
+      "lockInMonths": null,
+      "termMonths": null,
+      "depositRefundDays": null,
+      "paymentTermDays": null,
+      "dataRetentionDays": null,
+      "confidentialityMonths": null,
+      "nonCompeteMonths": 24,
+      "monthlyRentInr": null,
+      "securityDepositInr": null,
+      "annualRentIncreasePercent": null,
+      "annualCtcInr": 1200000,
+      "bondAmountInr": 200000,
+      "bondMonths": 24,
+      "principalInr": null,
+      "annualInterestPercent": null,
+      "processingFeePercent": null,
+      "prepaymentPenaltyPercent": null,
+      "latePaymentPercentPerMonth": null,
+      "liabilityCapInr": null,
+      "constructs": [
+        {
+          "construct": "unilateral_amendment_without_notice",
+          "presence": "unclear",
+          "exactQuote": null
+        },
+        {
+          "construct": "unilateral_arbitrator_appointment",
+          "presence": "present",
+          "exactQuote": "Any dispute, difference or claim arising out of or in connection with your employment or this letter shall be referred to arbitration under the Arbitration and Conciliation Act, 1996, before a sole arbitrator appointed by the Managing Director of the Company."
+        },
+        {
+          "construct": "contractual_limitation_period",
+          "presence": "present",
+          "exactQuote": "No claim, demand or proceeding arising out of or relating to your employment or to this letter shall be entertained, and every right in respect of such claim shall stand extinguished, unless the claim is raised in writing within six (6) months of the date on which the cause of action first arose."
+        },
+        {
+          "construct": "self_help_remedy",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "forfeiture_of_paid_amounts",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "sole_discretion_on_payment",
+          "presence": "present",
+          "exactQuote": "Any annual increment or performance bonus is discretionary and is not an entitlement."
+        },
+        {
+          "construct": "post_employment_non_compete",
+          "presence": "present",
+          "exactQuote": "For a period of twenty-four (24) months after the cessation of your employment, for any reason whatsoever, you shall not directly or indirectly join, be employed by, advise, consult for, or hold any interest in any competing business in the territory of India."
+        },
+        {
+          "construct": "unlimited_indemnity",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "automatic_renewal_without_notice",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "assignment_of_future_ip",
+          "presence": "present",
+          "exactQuote": "All inventions, discoveries, designs, drawings, source code, works of authorship and other intellectual property conceived, created or reduced to practice by you at any time during your employment — whether or not during working hours, whether or not using the Company's premises, equipment or data, and whether or not related to the business of the Company — shall vest absolutely in the Company."
+        },
+        {
+          "construct": "class_action_waiver",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "cross_default",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "deposit_refund_timeline",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "notice_period_for_you",
+          "presence": "present",
+          "exactQuote": "If you wish to resign from the services of the Company, you shall give the Company prior written notice of ninety (90) days."
+        },
+        {
+          "construct": "exit_or_termination_route",
+          "presence": "present",
+          "exactQuote": "If you wish to resign from the services of the Company, you shall give the Company prior written notice of ninety (90) days."
+        },
+        {
+          "construct": "jurisdiction_clause",
+          "presence": "present",
+          "exactQuote": "Subject to Clause 11.1, the courts at Bengaluru alone shall have jurisdiction."
+        },
+        {
+          "construct": "data_retention_limit",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "liability_cap_in_your_favour",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "rent_increase_cap",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "grievance_officer_named",
+          "presence": "absent",
+          "exactQuote": null
+        }
+      ],
+      "citations": [
+        {
+          "field": "noticeDaysYouMustGive",
+          "exactQuote": "If you wish to resign from the services of the Company, you shall give the Company prior written notice of ninety (90) days."
+        },
+        {
+          "field": "noticeDaysTheyMustGive",
+          "exactQuote": "If the Company wishes to bring your employment to an end, it shall give you prior written notice of thirty (30) days."
+        },
+        {
+          "field": "nonCompeteMonths",
+          "exactQuote": "For a period of twenty-four (24) months after the cessation of your employment, for any reason whatsoever, you shall not directly or indirectly join, be employed by, advise, consult for, or hold any interest in any competing business in the territory of India."
+        },
+        {
+          "field": "annualCtcInr",
+          "exactQuote": "Your annual cost to company shall be Rupees Twelve Lakh (Rs. 12,00,000) per annum (₹1,00,000 per month), payable monthly in arrears, subject to deduction of tax at source and to such other deductions as may be required by law."
+        },
+        {
+          "field": "bondAmountInr",
+          "exactQuote": "If you resign, or if your employment ends for any reason attributable to you, before the expiry of the said twenty-four (24) months, you shall pay the Company Rupees Two Lakh (Rs. 2,00,000) as agreed and liquidated damages and not as a penalty."
+        },
+        {
+          "field": "bondMonths",
+          "exactQuote": "In consideration of that training, you agree to remain in the continuous service of the Company for a period of twenty-four (24) months from your date of joining."
+        }
+      ]
+    },
+    "findings": {
+      "findings": [
+        {
+          "id": "f1",
+          "category": "other",
+          "exactQuote": "Your place of work shall be the Company's Bengaluru office. The Company may transfer you to any of its offices, branches or client locations in India at its discretion.",
+          "clauseLabel": "1.3",
+          "plainSummary": "The company can transfer your work location to any of its offices or client places in India whenever it chooses.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": false
+        },
+        {
+          "id": "f2",
+          "category": "payment",
+          "exactQuote": "Your annual cost to company shall be Rupees Twelve Lakh (Rs. 12,00,000) per annum (₹1,00,000 per month), payable monthly in arrears, subject to deduction of tax at source and to such other deductions as may be required by law.",
+          "clauseLabel": "3.1",
+          "plainSummary": "The company must pay you a salary of Rupees Twelve Lakh per year, divided into monthly payments after deducting legal taxes.",
+          "obligationOn": "counterparty",
+          "benefits": "you",
+          "isUnusual": false
+        },
+        {
+          "id": "f3",
+          "category": "other",
+          "exactQuote": "Normal working hours are 9:30 a.m. to 6:30 p.m., Monday to Friday. You shall work beyond these hours, and on weekends where required by project needs, without any additional remuneration.",
+          "clauseLabel": "4.1",
+          "plainSummary": "You must work extra hours and on weekends without any additional payment whenever project requirements demand it.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": false
+        },
+        {
+          "id": "f4",
+          "category": "restraint_of_trade",
+          "exactQuote": "You shall not, during your employment, engage in any other employment, consultancy, freelance assignment or business, whether or not for gain.",
+          "clauseLabel": "4.2",
+          "plainSummary": "You are not allowed to take up any other job, freelance work, or business while employed, even if you are not paid for it.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": false
+        },
+        {
+          "id": "f5",
+          "category": "termination",
+          "exactQuote": "If you wish to resign from the services of the Company, you shall give the Company prior written notice of ninety (90) days.",
+          "clauseLabel": "5.1",
+          "plainSummary": "You must give the company ninety days written notice if you decide to resign from your job.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": false
+        },
+        {
+          "id": "f6",
+          "category": "termination",
+          "exactQuote": "If the Company wishes to bring your employment to an end, it shall give you prior written notice of thirty (30) days.",
+          "clauseLabel": "5.2",
+          "plainSummary": "The company only needs to give you thirty days written notice if it decides to end your job.",
+          "obligationOn": "counterparty",
+          "benefits": "you",
+          "isUnusual": true
+        },
+        {
+          "id": "f7",
+          "category": "termination",
+          "exactQuote": "The Company may at its discretion require you, during the whole or any part of your notice period, to remain away from the Company's premises, systems and colleagues (\"garden leave\"). No salary, allowance or benefit shall be payable to you in respect of any period of garden leave.",
+          "clauseLabel": "5.3",
+          "plainSummary": "The company can make you stay away from work during your notice period without paying you any salary or benefits.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": true
+        },
+        {
+          "id": "f8",
+          "category": "termination",
+          "exactQuote": "Your notice period shall run from the date the Company acknowledges your resignation in writing, not from the date of your letter.",
+          "clauseLabel": "5.4",
+          "plainSummary": "Your notice period only begins after the company formally confirms receiving your resignation in writing, not when you hand it in.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": true
+        },
+        {
+          "id": "f9",
+          "category": "lock_in",
+          "exactQuote": "In consideration of that training, you agree to remain in the continuous service of the Company for a period of twenty-four (24) months from your date of joining.",
+          "clauseLabel": "6.2",
+          "plainSummary": "You must continue working for the company for at least twenty-four continuous months from your joining date.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": true
+        },
+        {
+          "id": "f10",
+          "category": "penalty",
+          "exactQuote": "If you resign, or if your employment ends for any reason attributable to you, before the expiry of the said twenty-four (24) months, you shall pay the Company Rupees Two Lakh (Rs. 2,00,000) as agreed and liquidated damages and not as a penalty. The said sum shall be payable in full irrespective of the service actually completed, and shall be recoverable from your full and final settlement or as a debt.",
+          "clauseLabel": "6.3",
+          "plainSummary": "If you leave before completing twenty-four months, you must pay the company Rupees Two Lakh, and this amount is not reduced for the time you have already worked.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": true
+        },
+        {
+          "id": "f11",
+          "category": "restraint_of_trade",
+          "exactQuote": "For a period of twenty-four (24) months after the cessation of your employment, for any reason whatsoever, you shall not directly or indirectly join, be employed by, advise, consult for, or hold any interest in any competing business in the territory of India.",
+          "clauseLabel": "7.1",
+          "plainSummary": "You cannot work for, advise, or invest in any competing software business in India for twenty-four months after your employment ends.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": true
+        },
+        {
+          "id": "f12",
+          "category": "restraint_of_trade",
+          "exactQuote": "For the purposes of Clause 7.1, \"competing business\" means any business which develops, markets, resells or supplies enterprise software or software services of any description.",
+          "clauseLabel": "7.2",
+          "plainSummary": "A competing business is defined broadly as any business that develops, sells, or supplies any kind of business software or software services.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": true
+        },
+        {
+          "id": "f13",
+          "category": "restraint_of_trade",
+          "exactQuote": "For a period of twelve (12) months after the cessation of your employment, you shall not solicit, canvass or entice away any employee, consultant, customer or prospective customer of the Company with whom you dealt during the last twelve (12) months of your employment.",
+          "clauseLabel": "8.1",
+          "plainSummary": "For twelve months after leaving, you must not try to hire company staff or take away clients you worked with in your last year.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": false
+        },
+        {
+          "id": "f14",
+          "category": "confidentiality",
+          "exactQuote": "You shall keep confidential, both during and after your employment, all technical, commercial, financial and customer information of the Company and its clients which comes to your knowledge.",
+          "clauseLabel": "9.1",
+          "plainSummary": "You must keep all technical, business, and customer information of the company and its clients secret both during and after your job.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": false
+        },
+        {
+          "id": "f15",
+          "category": "ip_assignment",
+          "exactQuote": "All inventions, discoveries, designs, drawings, source code, works of authorship and other intellectual property conceived, created or reduced to practice by you at any time during your employment — whether or not during working hours, whether or not using the Company's premises, equipment or data, and whether or not related to the business of the Company — shall vest absolutely in the Company.",
+          "clauseLabel": "10.1",
+          "plainSummary": "Every invention, piece of software code, or creative work you produce while employed belongs to the company, even if you make it outside work hours, on your own equipment, and for an unrelated topic.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": true
+        },
+        {
+          "id": "f16",
+          "category": "ip_assignment",
+          "exactQuote": "You irrevocably assign to the Company all moral rights in every such work.",
+          "clauseLabel": "10.3",
+          "plainSummary": "You permanently give up your moral rights, which are your personal rights to be named as the author or creator of your work.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": true
+        },
+        {
+          "id": "f17",
+          "category": "dispute_resolution",
+          "exactQuote": "Any dispute, difference or claim arising out of or in connection with your employment or this letter shall be referred to arbitration under the Arbitration and Conciliation Act, 1996, before a sole arbitrator appointed by the Managing Director of the Company. The seat of arbitration shall be Bengaluru.",
+          "clauseLabel": "11.1",
+          "plainSummary": "Any legal disagreement must be decided through arbitration, which is an out-of-court dispute process, by a single decider picked only by the company's managing director.",
+          "obligationOn": "both",
+          "benefits": "counterparty",
+          "isUnusual": true
+        },
+        {
+          "id": "f18",
+          "category": "dispute_resolution",
+          "exactQuote": "The costs of the arbitration, including the arbitrator's fees, shall be borne by the party raising the dispute, irrespective of the outcome.",
+          "clauseLabel": "11.2",
+          "plainSummary": "Whichever party starts a formal dispute must pay all the arbitration fees, even if that party wins the case.",
+          "obligationOn": "both",
+          "benefits": "counterparty",
+          "isUnusual": true
+        },
+        {
+          "id": "f19",
+          "category": "dispute_resolution",
+          "exactQuote": "No claim, demand or proceeding arising out of or relating to your employment or to this letter shall be entertained, and every right in respect of such claim shall stand extinguished, unless the claim is raised in writing within six (6) months of the date on which the cause of action first arose.",
+          "clauseLabel": "11.3",
+          "plainSummary": "You lose your right to make any legal claim against the company unless you file it in writing within six months of the problem happening.",
+          "obligationOn": "both",
+          "benefits": "counterparty",
+          "isUnusual": true
+        },
+        {
+          "id": "f20",
+          "category": "jurisdiction",
+          "exactQuote": "Subject to Clause 11.1, the courts at Bengaluru alone shall have jurisdiction.",
+          "clauseLabel": "11.4",
+          "plainSummary": "Any court cases relating to this agreement must be brought exclusively in the courts in Bengaluru.",
+          "obligationOn": "both",
+          "benefits": "both",
+          "isUnusual": false
+        },
+        {
+          "id": "f21",
+          "category": "unilateral_change",
+          "exactQuote": "This letter, together with the Company's employee handbook as amended from time to time, supersedes all prior discussions and communications.",
+          "clauseLabel": "12.1",
+          "plainSummary": "This contract replaces earlier talks and binds you to the company handbook, which the company can update at any time.",
+          "obligationOn": "both",
+          "benefits": "counterparty",
+          "isUnusual": false
+        }
+      ]
+    }
+  }
+}

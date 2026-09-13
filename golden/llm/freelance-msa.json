@@ -1,0 +1,356 @@
+{
+  "fixtureId": "freelance-msa",
+  "recordedAt": "2026-09-13T00:00:00.000Z",
+  "models": {
+    "classification": "gemini-3.1-flash-lite",
+    "facts": "gemini-3.7-flash",
+    "findings": "gemini-3.8-flash"
+  },
+  "stages": {
+    "classification": {
+      "isLegalDocument": true,
+      "documentType": "freelance_contract",
+      "language": "en",
+      "notLegalReason": null,
+      "confidence": "high"
+    },
+    "facts": {
+      "documentType": "freelance_contract",
+      "governingLawState": null,
+      "jurisdictionCity": "Mumbai",
+      "noticeDaysYouMustGive": 90,
+      "noticeDaysTheyMustGive": 0,
+      "cureDaysYouGet": null,
+      "cureDaysTheyGet": null,
+      "lockInMonths": null,
+      "termMonths": null,
+      "depositRefundDays": null,
+      "paymentTermDays": null,
+      "dataRetentionDays": null,
+      "confidentialityMonths": null,
+      "nonCompeteMonths": 12,
+      "monthlyRentInr": null,
+      "securityDepositInr": null,
+      "annualRentIncreasePercent": null,
+      "annualCtcInr": null,
+      "bondAmountInr": null,
+      "bondMonths": null,
+      "principalInr": null,
+      "annualInterestPercent": null,
+      "processingFeePercent": null,
+      "prepaymentPenaltyPercent": null,
+      "latePaymentPercentPerMonth": null,
+      "liabilityCapInr": null,
+      "constructs": [
+        {
+          "construct": "unilateral_amendment_without_notice",
+          "presence": "present",
+          "exactQuote": "The Client may amend the Client's design and delivery policies from time to time, and the Consultant shall comply with the policies then in force."
+        },
+        {
+          "construct": "unilateral_arbitrator_appointment",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "contractual_limitation_period",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "self_help_remedy",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "forfeiture_of_paid_amounts",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "sole_discretion_on_payment",
+          "presence": "present",
+          "exactQuote": "Acceptance of a deliverable and approval of an invoice shall be at the sole discretion of the Client. The Client shall be under no obligation to state reasons for withholding acceptance or approval."
+        },
+        {
+          "construct": "post_employment_non_compete",
+          "presence": "present",
+          "exactQuote": "The Consultant shall not, during the term of this Agreement and for twelve (12) months thereafter, provide services of a similar description to any business engaged in the personal care category in India."
+        },
+        {
+          "construct": "unlimited_indemnity",
+          "presence": "present",
+          "exactQuote": "The indemnity at Clause 7.1 is unlimited in amount and unlimited in time, and shall survive the termination of this Agreement."
+        },
+        {
+          "construct": "automatic_renewal_without_notice",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "assignment_of_future_ip",
+          "presence": "present",
+          "exactQuote": "All right, title and interest in every deliverable, work in progress, sketch, concept, artwork, font pairing, source file and design element created by the Consultant in connection with this Agreement, whether accepted by the Client or not, shall vest absolutely in the Client with effect from the date of this Agreement."
+        },
+        {
+          "construct": "class_action_waiver",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "cross_default",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "deposit_refund_timeline",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "notice_period_for_you",
+          "presence": "present",
+          "exactQuote": "The Consultant may terminate this Agreement only on ninety (90) days' written notice and only after completing every SOW then in progress."
+        },
+        {
+          "construct": "exit_or_termination_route",
+          "presence": "present",
+          "exactQuote": "The Consultant may terminate this Agreement only on ninety (90) days' written notice and only after completing every SOW then in progress."
+        },
+        {
+          "construct": "jurisdiction_clause",
+          "presence": "present",
+          "exactQuote": "The courts at Mumbai shall have exclusive jurisdiction, subject to Clause 10.1."
+        },
+        {
+          "construct": "data_retention_limit",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "liability_cap_in_your_favour",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "rent_increase_cap",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "grievance_officer_named",
+          "presence": "absent",
+          "exactQuote": null
+        }
+      ],
+      "citations": [
+        {
+          "field": "noticeDaysYouMustGive",
+          "exactQuote": "The Consultant may terminate this Agreement only on ninety (90) days' written notice and only after completing every SOW then in progress."
+        },
+        {
+          "field": "noticeDaysTheyMustGive",
+          "exactQuote": "The Client may terminate this Agreement, or any SOW, at any time and for any reason, by written notice to the Consultant with immediate effect."
+        },
+        {
+          "field": "nonCompeteMonths",
+          "exactQuote": "The Consultant shall not, during the term of this Agreement and for twelve (12) months thereafter, provide services of a similar description to any business engaged in the personal care category in India."
+        }
+      ]
+    },
+    "findings": {
+      "findings": [
+        {
+          "id": "f1",
+          "category": "other",
+          "exactQuote": "2.1 The Consultant shall carry out such revisions to each deliverable as the Client may request, without limit as to the number of rounds, until the Client confirms that the deliverable meets its requirements.",
+          "clauseLabel": "2.1",
+          "plainSummary": "You must make as many changes to your work as the client asks for, with no limit on the number of revision rounds.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": true
+        },
+        {
+          "id": "f2",
+          "category": "payment",
+          "exactQuote": "2.2 No revision requested under Clause 2.1 shall attract any additional fee, and no revision shall extend the fee payable under the relevant SOW.",
+          "clauseLabel": "2.2",
+          "plainSummary": "You will not receive any extra payment or higher fee for making revisions requested by the client.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": true
+        },
+        {
+          "id": "f3",
+          "category": "payment",
+          "exactQuote": "3.2 The Consultant shall raise an invoice only after the Client has confirmed, in writing, that all deliverables under the SOW have been accepted.",
+          "clauseLabel": "3.2",
+          "plainSummary": "You can only bill the client after they confirm in writing that they have accepted every single deliverable.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": false
+        },
+        {
+          "id": "f4",
+          "category": "payment",
+          "exactQuote": "4.1 Acceptance of a deliverable and approval of an invoice shall be at the sole discretion of the Client. The Client shall be under no obligation to state reasons for withholding acceptance or approval.",
+          "clauseLabel": "4.1",
+          "plainSummary": "The client can refuse to accept your work or approve your bill for any reason without having to explain why.",
+          "obligationOn": "counterparty",
+          "benefits": "counterparty",
+          "isUnusual": true
+        },
+        {
+          "id": "f5",
+          "category": "payment",
+          "exactQuote": "4.2 The Client shall pay each approved invoice within ninety (90) days of the date on which the Client approves that invoice.",
+          "clauseLabel": "4.2",
+          "plainSummary": "The client has up to 90 days after approving your bill to actually make the payment.",
+          "obligationOn": "counterparty",
+          "benefits": "counterparty",
+          "isUnusual": true
+        },
+        {
+          "id": "f6",
+          "category": "payment",
+          "exactQuote": "4.3 The Client may withhold from any payment any amount which the Client in good faith considers to represent a defect, delay or deficiency in the Services.",
+          "clauseLabel": "4.3",
+          "plainSummary": "The client can hold back money from your payment if they believe your work has flaws or was delayed.",
+          "obligationOn": "counterparty",
+          "benefits": "counterparty",
+          "isUnusual": false
+        },
+        {
+          "id": "f7",
+          "category": "ip_assignment",
+          "exactQuote": "5.1 All right, title and interest in every deliverable, work in progress, sketch, concept, artwork, font pairing, source file and design element created by the Consultant in connection with this Agreement, whether accepted by the Client or not, shall vest absolutely in the Client with effect from the date of this Agreement.",
+          "clauseLabel": "5.1",
+          "plainSummary": "The client automatically owns everything you create for this project—including sketches, rough drafts, and unused concepts—even if they never accept the work.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": true
+        },
+        {
+          "id": "f8",
+          "category": "ip_assignment",
+          "exactQuote": "5.2 The assignment at Clause 5.1 takes effect on the signature of this Agreement and is not conditional upon payment of any fee.",
+          "clauseLabel": "5.2",
+          "plainSummary": "The client becomes the full owner of your work as soon as the agreement is signed, even if they have not paid you.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": true
+        },
+        {
+          "id": "f9",
+          "category": "ip_assignment",
+          "exactQuote": "5.3 The Consultant waives all moral rights in the deliverables and shall not display, publish or reproduce any deliverable, or any part of it, in any portfolio, case study, award entry or social media post, without the Client's prior written consent.",
+          "clauseLabel": "5.3",
+          "plainSummary": "You give up your right to be named as the creator and cannot show the work in your portfolio or online without the client's written permission.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": false
+        },
+        {
+          "id": "f10",
+          "category": "restraint_of_trade",
+          "exactQuote": "6.1 The Consultant shall not, during the term of this Agreement and for twelve (12) months thereafter, provide services of a similar description to any business engaged in the personal care category in India.",
+          "clauseLabel": "6.1",
+          "plainSummary": "You cannot provide similar design services to any personal care company in India during this agreement and for 12 months after it ends.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": true
+        },
+        {
+          "id": "f11",
+          "category": "confidentiality",
+          "exactQuote": "6.2 The Consultant shall keep confidential all information of the Client and shall not disclose it to any person.",
+          "clauseLabel": "6.2",
+          "plainSummary": "You must keep all client information secret and not share it with anyone.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": false
+        },
+        {
+          "id": "f12",
+          "category": "indemnity",
+          "exactQuote": "7.1 The Consultant shall indemnify, defend and hold harmless the Client, its directors, employees and affiliates against all claims, damages, losses, penalties, costs and expenses of every description, including legal fees, arising out of or in connection with the Services, the deliverables, any allegation of infringement, or any act or omission of the Consultant.",
+          "clauseLabel": "7.1",
+          "plainSummary": "You must pay for any losses, legal costs, or claims brought against the client that relate to your work, services, or actions.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": false
+        },
+        {
+          "id": "f13",
+          "category": "indemnity",
+          "exactQuote": "7.2 The indemnity at Clause 7.1 is unlimited in amount and unlimited in time, and shall survive the termination of this Agreement.",
+          "clauseLabel": "7.2",
+          "plainSummary": "Your duty to cover the client's losses has no cash limit, lasts forever, and continues even after this contract ends.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": true
+        },
+        {
+          "id": "f14",
+          "category": "termination",
+          "exactQuote": "8.1 The Client may terminate this Agreement, or any SOW, at any time and for any reason, by written notice to the Consultant with immediate effect.",
+          "clauseLabel": "8.1",
+          "plainSummary": "The client can end this contract or any work order immediately at any time without needing a specific reason.",
+          "obligationOn": "counterparty",
+          "benefits": "counterparty",
+          "isUnusual": false
+        },
+        {
+          "id": "f15",
+          "category": "termination",
+          "exactQuote": "8.2 On termination under Clause 8.1, the Client shall have no liability to pay for any deliverable, work in progress or service for which an invoice has not already been approved under Clause 4.1, and the rights assigned under Clause 5.1 shall not be affected by the termination.",
+          "clauseLabel": "8.2",
+          "plainSummary": "If the client cancels the contract, they do not have to pay for any work that has not already been approved, but they still keep ownership of all your work.",
+          "obligationOn": "counterparty",
+          "benefits": "counterparty",
+          "isUnusual": true
+        },
+        {
+          "id": "f16",
+          "category": "termination",
+          "exactQuote": "8.3 The Consultant may terminate this Agreement only on ninety (90) days' written notice and only after completing every SOW then in progress.",
+          "clauseLabel": "8.3",
+          "plainSummary": "You can only end this contract by giving 90 days' advance notice in writing and finishing all active work orders first.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": true
+        },
+        {
+          "id": "f17",
+          "category": "dispute_resolution",
+          "exactQuote": "10.1 Any dispute arising out of this Agreement shall be referred to arbitration by a sole arbitrator under the Arbitration and Conciliation Act, 1996. The seat of arbitration shall be Mumbai.",
+          "clauseLabel": "10.1",
+          "plainSummary": "Any dispute must be settled through arbitration—a private legal hearing before a single appointed arbitrator—held in Mumbai.",
+          "obligationOn": "both",
+          "benefits": "both",
+          "isUnusual": false
+        },
+        {
+          "id": "f18",
+          "category": "jurisdiction",
+          "exactQuote": "10.2 The courts at Mumbai shall have exclusive jurisdiction, subject to Clause 10.1.",
+          "clauseLabel": "10.2",
+          "plainSummary": "Any court cases concerning this agreement must be filed only in the courts of Mumbai.",
+          "obligationOn": "both",
+          "benefits": "both",
+          "isUnusual": false
+        },
+        {
+          "id": "f19",
+          "category": "unilateral_change",
+          "exactQuote": "12.2 The Client may amend the Client's design and delivery policies from time to time, and the Consultant shall comply with the policies then in force.",
+          "clauseLabel": "12.2",
+          "plainSummary": "The client can change its design and delivery rules at any time, and you must follow the updated rules.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": false
+        }
+      ]
+    }
+  }
+}

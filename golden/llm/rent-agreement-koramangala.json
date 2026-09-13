@@ -1,0 +1,392 @@
+{
+  "fixtureId": "rent-agreement-koramangala",
+  "recordedAt": "2026-09-13T00:00:00.000Z",
+  "models": {
+    "classification": "gemini-3.1-flash-lite",
+    "facts": "gemini-3.7-flash",
+    "findings": "gemini-3.7-flash"
+  },
+  "stages": {
+    "classification": {
+      "isLegalDocument": true,
+      "documentType": "rent_agreement",
+      "language": "en",
+      "notLegalReason": null,
+      "confidence": "high"
+    },
+    "facts": {
+      "documentType": "rent_agreement",
+      "governingLawState": null,
+      "jurisdictionCity": "Udupi",
+      "noticeDaysYouMustGive": null,
+      "noticeDaysTheyMustGive": 15,
+      "cureDaysYouGet": null,
+      "cureDaysTheyGet": null,
+      "lockInMonths": 11,
+      "termMonths": 11,
+      "depositRefundDays": null,
+      "paymentTermDays": null,
+      "dataRetentionDays": null,
+      "confidentialityMonths": null,
+      "nonCompeteMonths": null,
+      "monthlyRentInr": 30000,
+      "securityDepositInr": 300000,
+      "annualRentIncreasePercent": 10,
+      "annualCtcInr": null,
+      "bondAmountInr": null,
+      "bondMonths": null,
+      "principalInr": null,
+      "annualInterestPercent": null,
+      "processingFeePercent": null,
+      "prepaymentPenaltyPercent": null,
+      "latePaymentPercentPerMonth": 3,
+      "liabilityCapInr": null,
+      "constructs": [
+        {
+          "construct": "unilateral_amendment_without_notice",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "unilateral_arbitrator_appointment",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "contractual_limitation_period",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "self_help_remedy",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "forfeiture_of_paid_amounts",
+          "presence": "present",
+          "exactQuote": "If the Licensee vacates the Licensed Premises, or ceases to pay the licence fee, at any time before the expiry of the lock-in period, the entire security deposit of Rupees Three Lakh (Rs. 3,00,000) shall stand forfeited to the Licensor absolutely, in addition to any other amount then due, and the Licensee shall have no claim to any part of it."
+        },
+        {
+          "construct": "sole_discretion_on_payment",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "post_employment_non_compete",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "unlimited_indemnity",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "automatic_renewal_without_notice",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "assignment_of_future_ip",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "class_action_waiver",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "cross_default",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "deposit_refund_timeline",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "notice_period_for_you",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "exit_or_termination_route",
+          "presence": "present",
+          "exactQuote": "Notwithstanding anything contained in Clause 4, the Licensor may determine this Agreement at any time by giving the Licensee fifteen (15) days' written notice, if in the opinion of the Licensor the Licensee has committed a breach of any term of this Agreement."
+        },
+        {
+          "construct": "jurisdiction_clause",
+          "presence": "present",
+          "exactQuote": "The courts at Udupi alone shall have jurisdiction in respect of any dispute arising out of this Agreement."
+        },
+        {
+          "construct": "data_retention_limit",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "liability_cap_in_your_favour",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "rent_increase_cap",
+          "presence": "present",
+          "exactQuote": "On every renewal of this Agreement, or on the expiry of eleven (11) months, whichever is earlier, the monthly licence fee shall stand increased by ten per cent (10%) over the licence fee then payable, without any further agreement between the parties."
+        },
+        {
+          "construct": "grievance_officer_named",
+          "presence": "absent",
+          "exactQuote": null
+        }
+      ],
+      "citations": [
+        {
+          "field": "termMonths",
+          "exactQuote": "The Licensor grants to the Licensee a licence to occupy the Licensed Premises for a period of eleven (11) months commencing on 1 February 2026 and ending on 31 December 2026."
+        },
+        {
+          "field": "monthlyRentInr",
+          "exactQuote": "The Licensee shall pay a monthly licence fee of Rupees Thirty Thousand (Rs. 30,000) in advance, on or before the 5th day of every English calendar month, by electronic transfer to the Licensor's designated bank account."
+        },
+        {
+          "field": "annualRentIncreasePercent",
+          "exactQuote": "On every renewal of this Agreement, or on the expiry of eleven (11) months, whichever is earlier, the monthly licence fee shall stand increased by ten per cent (10%) over the licence fee then payable, without any further agreement between the parties."
+        },
+        {
+          "field": "latePaymentPercentPerMonth",
+          "exactQuote": "If the licence fee for any month is not received by the 5th day of that month, interest at the rate of three per cent (3%) per month shall become payable on the outstanding amount until it is paid in full."
+        },
+        {
+          "field": "securityDepositInr",
+          "exactQuote": "The Licensee has, on or before the execution of this Agreement, paid to the Licensor an interest-free refundable security deposit of Rupees Three Lakh (Rs. 3,00,000), being the equivalent of ten (10) months' licence fee, the receipt of which the Licensor acknowledges."
+        },
+        {
+          "field": "lockInMonths",
+          "exactQuote": "The parties agree that the entire period of eleven (11) months set out in Clause 1.1 shall be a lock-in period."
+        },
+        {
+          "field": "noticeDaysTheyMustGive",
+          "exactQuote": "Notwithstanding anything contained in Clause 4, the Licensor may determine this Agreement at any time by giving the Licensee fifteen (15) days' written notice, if in the opinion of the Licensor the Licensee has committed a breach of any term of this Agreement."
+        }
+      ]
+    },
+    "findings": {
+      "findings": [
+        {
+          "id": "f1",
+          "category": "renewal",
+          "exactQuote": "1.3 Renewal, if any, shall be at the sole discretion of the Licensor by a fresh\nagreement, and the Licensee shall have no right of renewal.",
+          "clauseLabel": "1.3",
+          "plainSummary": "You do not have an automatic right to extend the agreement, and only the landlord gets to decide if it will be renewed with a new contract.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": false
+        },
+        {
+          "id": "f2",
+          "category": "payment",
+          "exactQuote": "2.1 The Licensee shall pay a monthly licence fee of Rupees Thirty Thousand\n(Rs. 30,000) in advance, on or before the 5th day of every English calendar month, by\nelectronic transfer to the Licensor's designated bank account.",
+          "clauseLabel": "2.1",
+          "plainSummary": "You must pay the monthly rent of 30,000 rupees in advance into the landlord's bank account on or before the 5th day of each month.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": false
+        },
+        {
+          "id": "f3",
+          "category": "payment",
+          "exactQuote": "2.2 On every renewal of this Agreement, or on the expiry of eleven (11) months,\nwhichever is earlier, the monthly licence fee shall stand increased by ten per cent\n(10%) over the licence fee then payable, without any further agreement between the\nparties.",
+          "clauseLabel": "2.2",
+          "plainSummary": "Your monthly rent will automatically go up by 10 percent after 11 months or whenever the agreement is renewed.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": false
+        },
+        {
+          "id": "f4",
+          "category": "penalty",
+          "exactQuote": "2.3 If the licence fee for any month is not received by the 5th day of that month,\ninterest at the rate of three per cent (3%) per month shall become payable on the\noutstanding amount until it is paid in full.",
+          "clauseLabel": "2.3",
+          "plainSummary": "If you pay your rent after the 5th of the month, you will be charged an extra interest fee of 3 percent per month on the unpaid amount.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": true
+        },
+        {
+          "id": "f5",
+          "category": "deposit",
+          "exactQuote": "3.1 The Licensee has, on or before the execution of this Agreement, paid to the\nLicensor an interest-free refundable security deposit of Rupees Three Lakh\n(Rs. 3,00,000), being the equivalent of ten (10) months' licence fee, the receipt of\nwhich the Licensor acknowledges.",
+          "clauseLabel": "3.1",
+          "plainSummary": "You have paid an advance security deposit of 3,00,000 rupees (equal to 10 months of rent), which will be refunded without any extra interest when you leave.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": false
+        },
+        {
+          "id": "f6",
+          "category": "deposit",
+          "exactQuote": "3.2 The Licensor shall be entitled to adjust from the security deposit any arrears of\nlicence fee, any electricity or water charges, any amount claimed under Clause 6, and\nany sum which the Licensor considers necessary to restore the Licensed Premises.",
+          "clauseLabel": "3.2",
+          "plainSummary": "The landlord can deduct unpaid rent, utility bills, repair costs, or any amount they feel is needed to fix up the home from your deposit.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": false
+        },
+        {
+          "id": "f7",
+          "category": "lock_in",
+          "exactQuote": "4.1 The parties agree that the entire period of eleven (11) months set out in\nClause 1.1 shall be a lock-in period.",
+          "clauseLabel": "4.1",
+          "plainSummary": "Both you and the landlord are locked into this agreement for the full 11 months, meaning you are expected to stay and pay for the whole term.",
+          "obligationOn": "both",
+          "benefits": "both",
+          "isUnusual": false
+        },
+        {
+          "id": "f8",
+          "category": "penalty",
+          "exactQuote": "4.2 If the Licensee vacates the Licensed Premises, or ceases to pay the licence fee,\nat any time before the expiry of the lock-in period, the entire security deposit of\nRupees Three Lakh (Rs. 3,00,000) shall stand forfeited to the Licensor absolutely, in\naddition to any other amount then due, and the Licensee shall have no claim to any\npart of it.",
+          "clauseLabel": "4.2",
+          "plainSummary": "If you leave early or stop paying rent during the 11-month lock-in period, the landlord will take your entire 3,00,000 rupee deposit along with any unpaid bills.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": true
+        },
+        {
+          "id": "f9",
+          "category": "other",
+          "exactQuote": "5.1 The Licensed Premises shall be used for residential purposes only, by the Licensee\nand her immediate family, and by no other person.",
+          "clauseLabel": "5.1",
+          "plainSummary": "Only you and your immediate family are allowed to live in the home, and it can only be used as a private residence.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": false
+        },
+        {
+          "id": "f10",
+          "category": "other",
+          "exactQuote": "5.2 The Licensee shall not sub-licence, assign, part with possession of, or permit any\npaying guest in the Licensed Premises.",
+          "clauseLabel": "5.2",
+          "plainSummary": "You are not allowed to rent out the property to someone else, transfer your rights, or take in paying guests.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": false
+        },
+        {
+          "id": "f11",
+          "category": "other",
+          "exactQuote": "5.3 The Licensee shall not keep any pet, carry on any commercial activity, or use the\nLicensed Premises for any social or religious gathering.",
+          "clauseLabel": "5.3",
+          "plainSummary": "You cannot keep pets, run a business, or host social or religious events in the home.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": true
+        },
+        {
+          "id": "f12",
+          "category": "other",
+          "exactQuote": "5.4 The Licensee shall not make any alteration, fixture or addition, including the\ninstallation of an air-conditioner, water purifier or mounting bracket, without the\nprior written consent of the Licensor.",
+          "clauseLabel": "5.4",
+          "plainSummary": "You must get written permission from the landlord before installing items like air conditioners, water filters, or wall brackets.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": false
+        },
+        {
+          "id": "f13",
+          "category": "liability",
+          "exactQuote": "6.1 The Licensee shall, at her own cost, keep the Licensed Premises in good order and\nshall attend to and pay for all repairs of every description, whether internal or\nexternal, ordinary or structural, and whether arising from the Licensee's use or from\nthe age or condition of the building, including plumbing, sanitary fittings, electrical\nwiring, waterproofing, painting and repairs to the walls, roof and slab.",
+          "clauseLabel": "6.1",
+          "plainSummary": "You must pay for every single repair in the home, including major building problems like roof, wall, and wiring issues, even if they are caused by normal building age.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": true
+        },
+        {
+          "id": "f14",
+          "category": "liability",
+          "exactQuote": "6.2 On the expiry or earlier determination of this Agreement, the Licensee shall hand\nover the Licensed Premises freshly painted and in the same condition in which it was\nhanded over to her, normal wear and tear not excepted.",
+          "clauseLabel": "6.2",
+          "plainSummary": "When moving out, you must repaint the entire home and return it in original condition, meaning you are financially responsible even for regular everyday ageing and wear.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": true
+        },
+        {
+          "id": "f15",
+          "category": "payment",
+          "exactQuote": "7.1 The Licensee shall pay the electricity and water charges of the Licensed Premises\nas per the meter readings, and the monthly association charges levied by Neelkanth\nElegance Owners' Association, directly to the concerned authority.",
+          "clauseLabel": "7.1",
+          "plainSummary": "You must directly pay all your electricity bills, water bills, and monthly building association maintenance charges.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": false
+        },
+        {
+          "id": "f16",
+          "category": "payment",
+          "exactQuote": "7.2 Property tax shall be borne by the Licensor.",
+          "clauseLabel": "7.2",
+          "plainSummary": "The landlord is responsible for paying all property taxes on the apartment.",
+          "obligationOn": "counterparty",
+          "benefits": "you",
+          "isUnusual": false
+        },
+        {
+          "id": "f17",
+          "category": "other",
+          "exactQuote": "8.1 The Licensor, or any person authorised by him, shall be entitled to enter the\nLicensed Premises at any time, without notice to the Licensee, to inspect the Licensed\nPremises, to carry out any work, or to show the Licensed Premises to prospective\nlicensees or purchasers.",
+          "clauseLabel": "8.1",
+          "plainSummary": "The landlord or their agents can enter your home at any time without giving you any warning or notice.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": true
+        },
+        {
+          "id": "f18",
+          "category": "termination",
+          "exactQuote": "9.1 Notwithstanding anything contained in Clause 4, the Licensor may determine this\nAgreement at any time by giving the Licensee fifteen (15) days' written notice, if in\nthe opinion of the Licensor the Licensee has committed a breach of any term of this\nAgreement.",
+          "clauseLabel": "9.1",
+          "plainSummary": "The landlord can end your agreement with 15 days' written notice if they believe you broke any rule in this contract.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": false
+        },
+        {
+          "id": "f19",
+          "category": "penalty",
+          "exactQuote": "9.2 On such determination the Licensee shall vacate the Licensed Premises within the\nsaid fifteen (15) days, failing which the Licensee shall pay damages for use and\noccupation at three (3) times the daily licence fee, that is ₹3,000 per day, for every\nday of continued occupation.",
+          "clauseLabel": "9.2",
+          "plainSummary": "If the agreement is ended and you do not leave within 15 days, you must pay a penalty fee of 3,000 rupees per day for staying.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": true
+        },
+        {
+          "id": "f20",
+          "category": "payment",
+          "exactQuote": "10.1 The cost of stamp duty and of registration of this Agreement, if any, shall be\nborne wholly by the Licensee.",
+          "clauseLabel": "10.1",
+          "plainSummary": "You must pay the full cost of official government stamping and agreement registration fees.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": true
+        },
+        {
+          "id": "f21",
+          "category": "jurisdiction",
+          "exactQuote": "11.2 The courts at Udupi alone shall have jurisdiction in respect of any dispute\narising out of this Agreement.",
+          "clauseLabel": "11.2",
+          "plainSummary": "Any legal disputes regarding this agreement must be handled exclusively by courts located in Udupi.",
+          "obligationOn": "both",
+          "benefits": "counterparty",
+          "isUnusual": true
+        }
+      ]
+    }
+  }
+}

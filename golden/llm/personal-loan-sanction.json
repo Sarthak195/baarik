@@ -1,0 +1,342 @@
+{
+  "fixtureId": "personal-loan-sanction",
+  "recordedAt": "2026-09-13T00:00:00.000Z",
+  "models": {
+    "classification": "gemini-3.1-flash-lite",
+    "facts": "gemini-3.6-flash",
+    "findings": "gemini-3.6-flash"
+  },
+  "stages": {
+    "classification": {
+      "isLegalDocument": true,
+      "documentType": "loan_agreement",
+      "language": "en",
+      "notLegalReason": null,
+      "confidence": "high"
+    },
+    "facts": {
+      "documentType": "loan_agreement",
+      "governingLawState": null,
+      "jurisdictionCity": "Mumbai",
+      "noticeDaysYouMustGive": null,
+      "noticeDaysTheyMustGive": null,
+      "cureDaysYouGet": null,
+      "cureDaysTheyGet": null,
+      "lockInMonths": 12,
+      "termMonths": 36,
+      "depositRefundDays": null,
+      "paymentTermDays": null,
+      "dataRetentionDays": null,
+      "confidentialityMonths": null,
+      "nonCompeteMonths": null,
+      "monthlyRentInr": null,
+      "securityDepositInr": null,
+      "annualRentIncreasePercent": null,
+      "annualCtcInr": null,
+      "bondAmountInr": null,
+      "bondMonths": null,
+      "principalInr": 500000,
+      "annualInterestPercent": 38.4,
+      "processingFeePercent": 2.5,
+      "prepaymentPenaltyPercent": 4,
+      "latePaymentPercentPerMonth": 3,
+      "liabilityCapInr": null,
+      "constructs": [
+        {
+          "construct": "unilateral_amendment_without_notice",
+          "presence": "present",
+          "exactQuote": "The Lender may revise the SFL-PLR, and consequently the rate applicable to this loan, at any time at its discretion, and shall intimate the revised rate by publication on its website. The Borrower shall be deemed to have notice of every such revision."
+        },
+        {
+          "construct": "unilateral_arbitrator_appointment",
+          "presence": "present",
+          "exactQuote": "All disputes, differences and claims arising out of or in connection with this loan shall be referred to and finally resolved by arbitration by a sole arbitrator nominated by the Lender, under the Arbitration and Conciliation Act, 1996."
+        },
+        {
+          "construct": "contractual_limitation_period",
+          "presence": "present",
+          "exactQuote": "No claim shall be maintainable against the Lender unless it is made in writing within ninety (90) days of the act or omission complained of."
+        },
+        {
+          "construct": "self_help_remedy",
+          "presence": "present",
+          "exactQuote": "The Lender may set off any amount due under this loan against any credit balance or deposit standing to the Borrower's name with the Lender or any group company, without notice to the Borrower."
+        },
+        {
+          "construct": "forfeiture_of_paid_amounts",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "sole_discretion_on_payment",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "post_employment_non_compete",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "unlimited_indemnity",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "automatic_renewal_without_notice",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "assignment_of_future_ip",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "class_action_waiver",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "cross_default",
+          "presence": "present",
+          "exactQuote": "Any default by the Borrower under this loan, or under any other facility, card or account of the Borrower with the Lender or with any group company of the Lender, shall constitute a default under every such facility, and the Lender may recall all of them simultaneously."
+        },
+        {
+          "construct": "deposit_refund_timeline",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "notice_period_for_you",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "exit_or_termination_route",
+          "presence": "present",
+          "exactQuote": "The Borrower may foreclose the loan only after twelve (12) months from the date of first disbursement."
+        },
+        {
+          "construct": "jurisdiction_clause",
+          "presence": "present",
+          "exactQuote": "The seat of arbitration shall be Mumbai."
+        },
+        {
+          "construct": "data_retention_limit",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "liability_cap_in_your_favour",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "rent_increase_cap",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "grievance_officer_named",
+          "presence": "absent",
+          "exactQuote": null
+        }
+      ],
+      "citations": [
+        {
+          "field": "principalInr",
+          "exactQuote": "Loan amount sanctioned : Rupees Five Lakh (Rs. 5,00,000)"
+        },
+        {
+          "field": "termMonths",
+          "exactQuote": "Tenure : thirty-six (36) months"
+        },
+        {
+          "field": "annualInterestPercent",
+          "exactQuote": "Annual Percentage Rate (APR) : 38.40% per annum, inclusive of all charges deducted at source"
+        },
+        {
+          "field": "processingFeePercent",
+          "exactQuote": "Processing fee : 2.50% of the loan amount, being ₹12,500, plus goods and services tax of ₹2,250"
+        },
+        {
+          "field": "latePaymentPercentPerMonth",
+          "exactQuote": "If any instalment or any other sum is not paid on its due date, penal charges at the rate of three per cent (3%) per month shall be levied on the amount in default, and shall be compounded monthly until the default is cured."
+        },
+        {
+          "field": "lockInMonths",
+          "exactQuote": "The Borrower may foreclose the loan only after twelve (12) months from the date of first disbursement."
+        },
+        {
+          "field": "prepaymentPenaltyPercent",
+          "exactQuote": "On foreclosure, the Borrower shall pay a foreclosure charge of four per cent (4%) of the principal outstanding on the date of foreclosure, plus applicable goods and services tax."
+        }
+      ]
+    },
+    "findings": {
+      "findings": [
+        {
+          "id": "f1",
+          "category": "unilateral_change",
+          "exactQuote": "The Lender may revise the SFL-PLR, and consequently the rate applicable to this loan, at any time at its discretion, and shall intimate the revised rate by publication on its website.",
+          "clauseLabel": "1.1",
+          "plainSummary": "The lender can change your floating interest rate at any time at its choice by publishing the updated rate on its website.",
+          "obligationOn": "counterparty",
+          "benefits": "counterparty",
+          "isUnusual": false
+        },
+        {
+          "id": "f2",
+          "category": "unilateral_change",
+          "exactQuote": "On a revision of the rate, the Lender may at its option increase the Equated Monthly Instalment, extend the tenure, or both.",
+          "clauseLabel": "1.2",
+          "plainSummary": "If the interest rate changes, the lender can choose to raise your monthly payment amount, extend your loan duration, or both.",
+          "obligationOn": "counterparty",
+          "benefits": "counterparty",
+          "isUnusual": false
+        },
+        {
+          "id": "f3",
+          "category": "penalty",
+          "exactQuote": "If any instalment or any other sum is not paid on its due date, penal charges at the rate of three per cent (3%) per month shall be levied on the amount in default, and shall be compounded monthly until the default is cured.",
+          "clauseLabel": "2.1",
+          "plainSummary": "If you fail to pay on time, you will be charged extra penal charges of 3% per month on the unpaid amount, compounded monthly until paid.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": true
+        },
+        {
+          "id": "f4",
+          "category": "penalty",
+          "exactQuote": "A dishonour charge of Rupees Seven Hundred and Fifty (Rs. 750) per instrument shall be payable for each dishonoured mandate or cheque, in addition to the penal charges at Clause 2.1.",
+          "clauseLabel": "2.2",
+          "plainSummary": "You must pay a fee of 750 rupees every time a bank payment mandate or cheque bounces.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": false
+        },
+        {
+          "id": "f5",
+          "category": "lock_in",
+          "exactQuote": "The Borrower may foreclose the loan only after twelve (12) months from the date of first disbursement.",
+          "clauseLabel": "3.1",
+          "plainSummary": "You are not allowed to pay off and close your loan early during the first twelve months after receiving the money.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": true
+        },
+        {
+          "id": "f6",
+          "category": "penalty",
+          "exactQuote": "On foreclosure, the Borrower shall pay a foreclosure charge of four per cent (4%) of the principal outstanding on the date of foreclosure, plus applicable goods and services tax.",
+          "clauseLabel": "3.2",
+          "plainSummary": "If you pay off and close your loan early after twelve months, you must pay a 4% foreclosure fee on the remaining balance plus tax.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": true
+        },
+        {
+          "id": "f7",
+          "category": "lock_in",
+          "exactQuote": "Part-prepayment is not permitted.",
+          "clauseLabel": "3.3",
+          "plainSummary": "You are not allowed to make partial advance payments to pay down your loan balance early.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": true
+        },
+        {
+          "id": "f8",
+          "category": "termination",
+          "exactQuote": "Notwithstanding the tenure set out in Part A and notwithstanding that no default has occurred, the entire outstanding principal, accrued interest and all other sums shall be repayable on demand, and the Lender may recall the loan at any time by written notice to the Borrower without assigning any reason.",
+          "clauseLabel": "4.1",
+          "plainSummary": "The lender can demand immediate repayment of your entire remaining loan balance at any time with written notice, even if you have never missed a payment.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": true
+        },
+        {
+          "id": "f9",
+          "category": "termination",
+          "exactQuote": "Any default by the Borrower under this loan, or under any other facility, card or account of the Borrower with the Lender or with any group company of the Lender, shall constitute a default under every such facility, and the Lender may recall all of them simultaneously.",
+          "clauseLabel": "5.1",
+          "plainSummary": "Missing a payment on any loan, credit card, or account with the lender or its group companies lets the lender demand full repayment on all your accounts at once.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": false
+        },
+        {
+          "id": "f10",
+          "category": "payment",
+          "exactQuote": "The Lender may set off any amount due under this loan against any credit balance or deposit standing to the Borrower's name with the Lender or any group company, without notice to the Borrower.",
+          "clauseLabel": "5.2",
+          "plainSummary": "The lender can take money directly from your deposits or bank accounts with it or its group companies to cover overdue loan amounts without notifying you beforehand.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": false
+        },
+        {
+          "id": "f11",
+          "category": "liability",
+          "exactQuote": "The Lender may engage recovery agents, at the Borrower's cost, to collect amounts in default, and may contact the Borrower, the Borrower's employer and the references furnished in the loan application.",
+          "clauseLabel": "6.1",
+          "plainSummary": "If you fail to pay, the lender can hire collection agents at your expense and contact you, your employer, and your personal references.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": false
+        },
+        {
+          "id": "f12",
+          "category": "data_use",
+          "exactQuote": "The Borrower authorises the Lender to report the account and any default to credit information companies.",
+          "clauseLabel": "6.2",
+          "plainSummary": "You allow the lender to send details about your loan account and any missed payments to credit reporting agencies.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": false
+        },
+        {
+          "id": "f13",
+          "category": "dispute_resolution",
+          "exactQuote": "All disputes, differences and claims arising out of or in connection with this loan shall be referred to and finally resolved by arbitration by a sole arbitrator nominated by the Lender, under the Arbitration and Conciliation Act, 1996.",
+          "clauseLabel": "7.1",
+          "plainSummary": "Any legal disagreement will be settled through arbitration, an out-of-court process, by a single arbitrator selected entirely by the lender.",
+          "obligationOn": "both",
+          "benefits": "counterparty",
+          "isUnusual": true
+        },
+        {
+          "id": "f14",
+          "category": "dispute_resolution",
+          "exactQuote": "The parties agree that arbitration under Clause 7.1 shall be the sole and exclusive remedy, and that neither party shall approach any consumer forum, commission, tribunal or court in respect of any such dispute.",
+          "clauseLabel": "7.2",
+          "plainSummary": "You give up your right to take any loan disputes to consumer court or any other court of law.",
+          "obligationOn": "both",
+          "benefits": "counterparty",
+          "isUnusual": true
+        },
+        {
+          "id": "f15",
+          "category": "liability",
+          "exactQuote": "No claim shall be maintainable against the Lender unless it is made in writing within ninety (90) days of the act or omission complained of.",
+          "clauseLabel": "7.3",
+          "plainSummary": "You cannot make any legal claim against the lender unless you submit it in writing within 90 days of the problem happening.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": true
+        },
+        {
+          "id": "f16",
+          "category": "other",
+          "exactQuote": "The Lender may assign or securitise this loan, in whole or in part, to any person without the consent of, or notice to, the Borrower.",
+          "clauseLabel": "8.1",
+          "plainSummary": "The lender can sell or transfer your loan to another party without asking for your permission or telling you.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": false
+        }
+      ]
+    }
+  }
+}

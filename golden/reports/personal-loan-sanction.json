@@ -1,0 +1,995 @@
+{
+  "kind": "report",
+  "report": {
+    "reportId": "personal-loan-sanction",
+    "documentHash": "34c7da4cb5ca398ac305897912afb72efeb76d5add3c32e932249ee683879bda",
+    "documentType": "loan_agreement",
+    "language": "en",
+    "risk": {
+      "score": 89,
+      "band": "severe",
+      "drivers": [
+        {
+          "ruleId": "construct_self_help_remedy",
+          "tier": "construct",
+          "severity": "high",
+          "title": "They can act without going to court",
+          "explain": "The other side may lock the premises, cut off a service or take back property on its own say-so, without a court first deciding that you were in the wrong.",
+          "points": 18,
+          "evidence": {
+            "start": 3876,
+            "end": 4069,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "The Lender may set off any amount due under this loan against any credit balance\nor deposit standing to the Borrower's name with the Lender or any group company,\nwithout notice to the Borrower."
+          },
+          "askYourLawyer": "What notice must I receive before any lock-out, cut-off or repossession, and who decides the default?"
+        },
+        {
+          "ruleId": "construct_unilateral_arbitrator_appointment",
+          "tier": "construct",
+          "severity": "high",
+          "title": "They alone pick the arbitrator",
+          "explain": "If a dispute arises, the person who decides it is chosen by the other side alone. The forum that judges the quarrel is picked by one of the parties to it.",
+          "points": 18,
+          "evidence": {
+            "start": 4429,
+            "end": 4665,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "All disputes, differences and claims arising out of or in connection with this\nloan shall be referred to and finally resolved by arbitration by a sole arbitrator\nnominated by the Lender, under the Arbitration and Conciliation Act, 1996."
+          },
+          "askYourLawyer": "Can the arbitrator be named jointly, or appointed by an institution instead of by one side?"
+        },
+        {
+          "ruleId": "loan_interest_above_thirty_six_percent",
+          "tier": "threshold",
+          "severity": "high",
+          "title": "Interest above 36% a year",
+          "explain": "The stated rate is 38.4% a year, before processing fees and default charges. At this level the interest can outgrow the amount borrowed within a few years.",
+          "points": 18,
+          "evidence": {
+            "start": 1687,
+            "end": 1779,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "Annual Percentage Rate (APR) : 38.40% per annum, inclusive of all charges deducted at\nsource"
+          },
+          "askYourLawyer": "What is the all-in yearly cost of this loan once fees and charges are added to the stated rate?"
+        },
+        {
+          "ruleId": "construct_contractual_limitation_period",
+          "tier": "construct",
+          "severity": "high",
+          "title": "A private deadline to bring a claim",
+          "explain": "This agreement sets its own short deadline for raising a claim, shorter than the period the general law of limitation allows.",
+          "points": 16,
+          "evidence": {
+            "start": 4929,
+            "end": 5069,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "No claim shall be maintainable against the Lender unless it is made in writing\nwithin ninety (90) days of the act or omission complained of."
+          },
+          "askYourLawyer": "Does this clause try to cut short the time the Limitation Act otherwise gives me?"
+        },
+        {
+          "ruleId": "construct_unilateral_amendment_without_notice",
+          "tier": "construct",
+          "severity": "high",
+          "title": "They can change the terms without telling you",
+          "explain": "The other side can rewrite this agreement on its own, without notice to you. What you are agreeing to today is not necessarily what will bind you next month.",
+          "points": 16,
+          "evidence": {
+            "start": 2045,
+            "end": 2296,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "The Lender may revise the SFL-PLR, and consequently the rate\napplicable to this loan, at any time at its discretion, and shall intimate the revised\nrate by publication on its website. The Borrower shall be deemed to have notice of\nevery such revision."
+          },
+          "askYourLawyer": "Can any change to these terms require written notice to me and a right to exit without penalty?"
+        },
+        {
+          "ruleId": "construct_cross_default",
+          "tier": "construct",
+          "severity": "high",
+          "title": "A default somewhere else counts as a default here",
+          "explain": "Falling behind on some other agreement counts as breaking this one too, so a single missed payment elsewhere can trigger everything in this contract at once.",
+          "points": 14,
+          "evidence": {
+            "start": 3600,
+            "end": 3870,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "Any default by the Borrower under this loan, or under any other facility, card or\naccount of the Borrower with the Lender or with any group company of the Lender, shall\nconstitute a default under every such facility, and the Lender may recall all of them\nsimultaneously."
+          },
+          "askYourLawyer": "Which other agreements does this clause reach, and can it be limited to defaults above a threshold?"
+        },
+        {
+          "ruleId": "penal_charge_above_twenty_four_percent_a_year",
+          "tier": "threshold",
+          "severity": "high",
+          "title": "Late-payment charge above 24% a year",
+          "explain": "Late payment carries 3% a month, which is more than 24% a year on its own, separate from any interest already running.",
+          "points": 14,
+          "evidence": {
+            "start": 2450,
+            "end": 2674,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "If any instalment or any other sum is not paid on its due date, penal charges at\nthe rate of three per cent (3%) per month shall be levied on the amount in default,\nand shall be compounded monthly until the default is cured."
+          },
+          "askYourLawyer": "Is this charge a genuine pre-estimate of the loss caused by delay, or a penalty on top of interest?"
+        },
+        {
+          "ruleId": "absent_notice_period_for_you",
+          "tier": "absence",
+          "severity": "high",
+          "title": "No notice period written for your side",
+          "explain": "The document does not say how much notice you must give, which leaves the other side free to argue for whatever period suits it when you want to leave.",
+          "points": 12,
+          "evidence": null,
+          "askYourLawyer": "How much notice must I give to end this, and is that written anywhere?"
+        },
+        {
+          "ruleId": "absent_liability_cap_in_your_favour",
+          "tier": "absence",
+          "severity": "medium",
+          "title": "No ceiling on what you could owe",
+          "explain": "There is no cap on what you could be asked to pay if something goes wrong, while the other side's exposure is usually limited elsewhere in the same document.",
+          "points": 10,
+          "evidence": null,
+          "askYourLawyer": "Can my total liability be capped at the amount actually paid under this contract?"
+        }
+      ],
+      "topDrivers": [
+        {
+          "ruleId": "construct_self_help_remedy",
+          "tier": "construct",
+          "severity": "high",
+          "title": "They can act without going to court",
+          "explain": "The other side may lock the premises, cut off a service or take back property on its own say-so, without a court first deciding that you were in the wrong.",
+          "points": 18,
+          "evidence": {
+            "start": 3876,
+            "end": 4069,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "The Lender may set off any amount due under this loan against any credit balance\nor deposit standing to the Borrower's name with the Lender or any group company,\nwithout notice to the Borrower."
+          },
+          "askYourLawyer": "What notice must I receive before any lock-out, cut-off or repossession, and who decides the default?"
+        },
+        {
+          "ruleId": "construct_unilateral_arbitrator_appointment",
+          "tier": "construct",
+          "severity": "high",
+          "title": "They alone pick the arbitrator",
+          "explain": "If a dispute arises, the person who decides it is chosen by the other side alone. The forum that judges the quarrel is picked by one of the parties to it.",
+          "points": 18,
+          "evidence": {
+            "start": 4429,
+            "end": 4665,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "All disputes, differences and claims arising out of or in connection with this\nloan shall be referred to and finally resolved by arbitration by a sole arbitrator\nnominated by the Lender, under the Arbitration and Conciliation Act, 1996."
+          },
+          "askYourLawyer": "Can the arbitrator be named jointly, or appointed by an institution instead of by one side?"
+        },
+        {
+          "ruleId": "loan_interest_above_thirty_six_percent",
+          "tier": "threshold",
+          "severity": "high",
+          "title": "Interest above 36% a year",
+          "explain": "The stated rate is 38.4% a year, before processing fees and default charges. At this level the interest can outgrow the amount borrowed within a few years.",
+          "points": 18,
+          "evidence": {
+            "start": 1687,
+            "end": 1779,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "Annual Percentage Rate (APR) : 38.40% per annum, inclusive of all charges deducted at\nsource"
+          },
+          "askYourLawyer": "What is the all-in yearly cost of this loan once fees and charges are added to the stated rate?"
+        }
+      ],
+      "unknowns": [
+        {
+          "ruleId": "notice_period_asymmetry_severe",
+          "missing": [
+            "noticeDaysYouMustGive",
+            "noticeDaysTheyMustGive"
+          ],
+          "question": "Can the notice period be made the same for both sides, or a buy-out offered instead?"
+        },
+        {
+          "ruleId": "notice_period_asymmetry_moderate",
+          "missing": [
+            "noticeDaysYouMustGive",
+            "noticeDaysTheyMustGive",
+            "noticeDaysYouMustGive",
+            "noticeDaysTheyMustGive"
+          ],
+          "question": "The document did not make this clear: You owe about half again the notice they owe."
+        },
+        {
+          "ruleId": "cure_period_asymmetry_severe",
+          "missing": [
+            "cureDaysTheyGet",
+            "cureDaysYouGet"
+          ],
+          "question": "Can the time to put a breach right be made equal for both sides?"
+        },
+        {
+          "ruleId": "cure_period_asymmetry_moderate",
+          "missing": [
+            "cureDaysTheyGet",
+            "cureDaysYouGet",
+            "cureDaysTheyGet",
+            "cureDaysYouGet"
+          ],
+          "question": "The document did not make this clear: They get about half again as long to fix a breach."
+        }
+      ],
+      "tierTotals": {
+        "asymmetry": 0,
+        "threshold": 32,
+        "construct": 45,
+        "absence": 22
+      },
+      "rubricVersion": "2026.09.13"
+    },
+    "findings": [
+      {
+        "id": "f1",
+        "category": "unilateral_change",
+        "exactQuote": "The Lender may revise the SFL-PLR, and consequently the rate applicable to this loan, at any time at its discretion, and shall intimate the revised rate by publication on its website.",
+        "clauseLabel": "1.1",
+        "plainSummary": "The lender can change your floating interest rate at any time at its choice by publishing the updated rate on its website.",
+        "obligationOn": "counterparty",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 2045,
+          "end": 2228,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "The Lender may revise the SFL-PLR, and consequently the rate\napplicable to this loan, at any time at its discretion, and shall intimate the revised\nrate by publication on its website."
+        },
+        "segmentId": "seg-2-1.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f2",
+        "category": "unilateral_change",
+        "exactQuote": "On a revision of the rate, the Lender may at its option increase the Equated Monthly Instalment, extend the tenure, or both.",
+        "clauseLabel": "1.2",
+        "plainSummary": "If the interest rate changes, the lender can choose to raise your monthly payment amount, extend your loan duration, or both.",
+        "obligationOn": "counterparty",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 2302,
+          "end": 2426,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "On a revision of the rate, the Lender may at its option increase the Equated\nMonthly Instalment, extend the tenure, or both."
+        },
+        "segmentId": "seg-3-1.2",
+        "pageNumber": null
+      },
+      {
+        "id": "f3",
+        "category": "penalty",
+        "exactQuote": "If any instalment or any other sum is not paid on its due date, penal charges at the rate of three per cent (3%) per month shall be levied on the amount in default, and shall be compounded monthly until the default is cured.",
+        "clauseLabel": "2.1",
+        "plainSummary": "If you fail to pay on time, you will be charged extra penal charges of 3% per month on the unpaid amount, compounded monthly until paid.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 2450,
+          "end": 2674,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "If any instalment or any other sum is not paid on its due date, penal charges at\nthe rate of three per cent (3%) per month shall be levied on the amount in default,\nand shall be compounded monthly until the default is cured."
+        },
+        "segmentId": "seg-5-2.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f4",
+        "category": "penalty",
+        "exactQuote": "A dishonour charge of Rupees Seven Hundred and Fifty (Rs. 750) per instrument shall be payable for each dishonoured mandate or cheque, in addition to the penal charges at Clause 2.1.",
+        "clauseLabel": "2.2",
+        "plainSummary": "You must pay a fee of 750 rupees every time a bank payment mandate or cheque bounces.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 2680,
+          "end": 2862,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "A dishonour charge of Rupees Seven Hundred and Fifty (Rs. 750) per instrument\nshall be payable for each dishonoured mandate or cheque, in addition to the penal\ncharges at Clause 2.1."
+        },
+        "segmentId": "seg-6-2.2",
+        "pageNumber": null
+      },
+      {
+        "id": "f5",
+        "category": "lock_in",
+        "exactQuote": "The Borrower may foreclose the loan only after twelve (12) months from the date of first disbursement.",
+        "clauseLabel": "3.1",
+        "plainSummary": "You are not allowed to pay off and close your loan early during the first twelve months after receiving the money.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 2904,
+          "end": 3006,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "The Borrower may foreclose the loan only after twelve (12) months from the date of\nfirst disbursement."
+        },
+        "segmentId": "seg-8-3.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f6",
+        "category": "penalty",
+        "exactQuote": "On foreclosure, the Borrower shall pay a foreclosure charge of four per cent (4%) of the principal outstanding on the date of foreclosure, plus applicable goods and services tax.",
+        "clauseLabel": "3.2",
+        "plainSummary": "If you pay off and close your loan early after twelve months, you must pay a 4% foreclosure fee on the remaining balance plus tax.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 3012,
+          "end": 3190,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "On foreclosure, the Borrower shall pay a foreclosure charge of four per cent (4%)\nof the principal outstanding on the date of foreclosure, plus applicable goods and\nservices tax."
+        },
+        "segmentId": "seg-9-3.2",
+        "pageNumber": null
+      },
+      {
+        "id": "f7",
+        "category": "lock_in",
+        "exactQuote": "Part-prepayment is not permitted.",
+        "clauseLabel": "3.3",
+        "plainSummary": "You are not allowed to make partial advance payments to pay down your loan balance early.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 3196,
+          "end": 3229,
+          "method": "exact",
+          "similarity": 1,
+          "matchedText": "Part-prepayment is not permitted."
+        },
+        "segmentId": "seg-10-3.3",
+        "pageNumber": null
+      },
+      {
+        "id": "f8",
+        "category": "termination",
+        "exactQuote": "Notwithstanding the tenure set out in Part A and notwithstanding that no default has occurred, the entire outstanding principal, accrued interest and all other sums shall be repayable on demand, and the Lender may recall the loan at any time by written notice to the Borrower without assigning any reason.",
+        "clauseLabel": "4.1",
+        "plainSummary": "The lender can demand immediate repayment of your entire remaining loan balance at any time with written notice, even if you have never missed a payment.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 3259,
+          "end": 3564,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "Notwithstanding the tenure set out in Part A and notwithstanding that no default\nhas occurred, the entire outstanding principal, accrued interest and all other sums\nshall be repayable on demand, and the Lender may recall the loan at any time by\nwritten notice to the Borrower without assigning any reason."
+        },
+        "segmentId": "seg-12-4.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f9",
+        "category": "termination",
+        "exactQuote": "Any default by the Borrower under this loan, or under any other facility, card or account of the Borrower with the Lender or with any group company of the Lender, shall constitute a default under every such facility, and the Lender may recall all of them simultaneously.",
+        "clauseLabel": "5.1",
+        "plainSummary": "Missing a payment on any loan, credit card, or account with the lender or its group companies lets the lender demand full repayment on all your accounts at once.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 3600,
+          "end": 3870,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "Any default by the Borrower under this loan, or under any other facility, card or\naccount of the Borrower with the Lender or with any group company of the Lender, shall\nconstitute a default under every such facility, and the Lender may recall all of them\nsimultaneously."
+        },
+        "segmentId": "seg-14-5.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f10",
+        "category": "payment",
+        "exactQuote": "The Lender may set off any amount due under this loan against any credit balance or deposit standing to the Borrower's name with the Lender or any group company, without notice to the Borrower.",
+        "clauseLabel": "5.2",
+        "plainSummary": "The lender can take money directly from your deposits or bank accounts with it or its group companies to cover overdue loan amounts without notifying you beforehand.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 3876,
+          "end": 4069,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "The Lender may set off any amount due under this loan against any credit balance\nor deposit standing to the Borrower's name with the Lender or any group company,\nwithout notice to the Borrower."
+        },
+        "segmentId": "seg-15-5.2",
+        "pageNumber": null
+      },
+      {
+        "id": "f11",
+        "category": "liability",
+        "exactQuote": "The Lender may engage recovery agents, at the Borrower's cost, to collect amounts in default, and may contact the Borrower, the Borrower's employer and the references furnished in the loan application.",
+        "clauseLabel": "6.1",
+        "plainSummary": "If you fail to pay, the lender can hire collection agents at your expense and contact you, your employer, and your personal references.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 4088,
+          "end": 4289,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "The Lender may engage recovery agents, at the Borrower's cost, to collect amounts\nin default, and may contact the Borrower, the Borrower's employer and the references\nfurnished in the loan application."
+        },
+        "segmentId": "seg-17-6.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f12",
+        "category": "data_use",
+        "exactQuote": "The Borrower authorises the Lender to report the account and any default to credit information companies.",
+        "clauseLabel": "6.2",
+        "plainSummary": "You allow the lender to send details about your loan account and any missed payments to credit reporting agencies.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 4295,
+          "end": 4400,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "The Borrower authorises the Lender to report the account and any default to credit\ninformation companies."
+        },
+        "segmentId": "seg-18-6.2",
+        "pageNumber": null
+      },
+      {
+        "id": "f13",
+        "category": "dispute_resolution",
+        "exactQuote": "All disputes, differences and claims arising out of or in connection with this loan shall be referred to and finally resolved by arbitration by a sole arbitrator nominated by the Lender, under the Arbitration and Conciliation Act, 1996.",
+        "clauseLabel": "7.1",
+        "plainSummary": "Any legal disagreement will be settled through arbitration, an out-of-court process, by a single arbitrator selected entirely by the lender.",
+        "obligationOn": "both",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 4429,
+          "end": 4665,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "All disputes, differences and claims arising out of or in connection with this\nloan shall be referred to and finally resolved by arbitration by a sole arbitrator\nnominated by the Lender, under the Arbitration and Conciliation Act, 1996."
+        },
+        "segmentId": "seg-20-7.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f14",
+        "category": "dispute_resolution",
+        "exactQuote": "The parties agree that arbitration under Clause 7.1 shall be the sole and exclusive remedy, and that neither party shall approach any consumer forum, commission, tribunal or court in respect of any such dispute.",
+        "clauseLabel": "7.2",
+        "plainSummary": "You give up your right to take any loan disputes to consumer court or any other court of law.",
+        "obligationOn": "both",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 4712,
+          "end": 4923,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "The parties agree that arbitration under Clause 7.1 shall be the sole and\nexclusive remedy, and that neither party shall approach any consumer forum,\ncommission, tribunal or court in respect of any such dispute."
+        },
+        "segmentId": "seg-21-7.2",
+        "pageNumber": null
+      },
+      {
+        "id": "f15",
+        "category": "liability",
+        "exactQuote": "No claim shall be maintainable against the Lender unless it is made in writing within ninety (90) days of the act or omission complained of.",
+        "clauseLabel": "7.3",
+        "plainSummary": "You cannot make any legal claim against the lender unless you submit it in writing within 90 days of the problem happening.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 4929,
+          "end": 5069,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "No claim shall be maintainable against the Lender unless it is made in writing\nwithin ninety (90) days of the act or omission complained of."
+        },
+        "segmentId": "seg-22-7.3",
+        "pageNumber": null
+      },
+      {
+        "id": "f16",
+        "category": "other",
+        "exactQuote": "The Lender may assign or securitise this loan, in whole or in part, to any person without the consent of, or notice to, the Borrower.",
+        "clauseLabel": "8.1",
+        "plainSummary": "The lender can sell or transfer your loan to another party without asking for your permission or telling you.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 5087,
+          "end": 5220,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "The Lender may assign or securitise this loan, in whole or in part, to any person\nwithout the consent of, or notice to, the Borrower."
+        },
+        "segmentId": "seg-24-8.1",
+        "pageNumber": null
+      }
+    ],
+    "rejected": [],
+    "grounding": {
+      "total": 16,
+      "grounded": 16,
+      "exact": 1,
+      "normalised": 15,
+      "fuzzy": 0,
+      "rejected": 0,
+      "rejectionsByReason": {
+        "quote_empty": 0,
+        "quote_too_short": 0,
+        "not_found": 0,
+        "below_threshold": 0,
+        "ambiguous": 0,
+        "duplicate": 0
+      }
+    },
+    "enforceability": [
+      {
+        "construct": "contractual_limitation_period",
+        "verdict": "likely_void",
+        "confidence": "high",
+        "statute": {
+          "act": "Indian Contract Act, 1872",
+          "section": "Section 28(b), read with section 28(a) — Agreements in restraint of legal proceedings, void",
+          "text": "Every agreement, (a) by which any party thereto is restricted absolutely from enforcing his rights under or in respect of any contract, by the usual legal proceedings in the ordinary tribunals, or which limits the time within which he may thus enforce his rights; or (b) which extinguishes the rights of any party thereto, or discharges any party thereto from any liability, under or in respect of any contract on the expiry of a specified period so as to restrict any party from enforcing his rights, is void to that extent.",
+          "url": "https://www.indiacode.nic.in/show-data?actid=AC_CEN_3_20_00035_187209_1523268996428&sectionId=38632&sectionno=28&orderno=29"
+        },
+        "authorities": [],
+        "plainMeaning": "A clause that gives you only thirty or ninety days to raise a claim, or that says your rights disappear after a short period, does not usually take away the time the general law of limitation gives you.",
+        "caveats": [
+          "This describes the section, not your contract. Whether a particular clause falls inside it is for a court to decide.",
+          "Clause (b) was added by the 1997 amendment; decisions from before 1997 that upheld clauses extinguishing rights on expiry pre-date that change.",
+          "The section does not extend the time the Limitation Act gives you. That clock runs from when your cause of action arose, whatever the contract says.",
+          "Arbitration clauses that set a period for commencing arbitration are treated separately and are not all caught by this section."
+        ],
+        "appliesTo": [],
+        "evidence": {
+          "start": 4929,
+          "end": 5069,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "No claim shall be maintainable against the Lender unless it is made in writing\nwithin ninety (90) days of the act or omission complained of."
+        }
+      },
+      {
+        "construct": "unilateral_arbitrator_appointment",
+        "verdict": "likely_unenforceable_as_written",
+        "confidence": "high",
+        "statute": {
+          "act": "Arbitration and Conciliation Act, 1996",
+          "section": "Section 12(5), read with the Seventh Schedule",
+          "text": "Notwithstanding any prior agreement to the contrary, any person whose relationship, with the parties or counsel or the subject-matter of the dispute, falls under any of the categories specified in the Seventh Schedule shall be ineligible to be appointed as an arbitrator: Provided that parties may, subsequent to disputes having arisen between them, waive the applicability of this sub-section by an express agreement in writing.",
+          "url": "https://www.indiacode.nic.in/show-data?actid=AC_CEN_3_46_00004_199626_1517807323919&sectionId=24513&sectionno=12&orderno=13"
+        },
+        "authorities": [
+          {
+            "cite": "Perkins Eastman Architects DPC v HSCC (India) Ltd, Arbitration Application No. 32 of 2019, Supreme Court (26 November 2019)",
+            "holding": "A person who has an interest in the outcome of the dispute must not have the power to appoint a sole arbitrator; where the clause gave one party's managing director that power, the Court appointed an independent arbitrator instead.",
+            "url": "https://indiankanoon.org/doc/155925871/"
+          },
+          {
+            "cite": "The Seventh Schedule to the Arbitration and Conciliation Act, 1996 (See section 12(5))",
+            "holding": "Lists the relationships — employee, consultant, adviser, controlling interest and others — that make a person ineligible to act as arbitrator.",
+            "url": "https://upload.indiacode.nic.in/schedulefile?aid=AC_CEN_3_46_00004_199626_1517807323919&rid=69"
+          }
+        ],
+        "plainMeaning": "When only one side gets to choose the arbitrator, courts have held that the person chosen cannot decide the dispute. The agreement to arbitrate usually survives; it is the one-sided appointment that does not.",
+        "caveats": [
+          "This states what the section and the Supreme Court have held. It is not an opinion on the clause in your document.",
+          "The parties can waive this by an express written agreement made after a dispute has arisen, so signing anything at that stage deserves care.",
+          "Setting an appointment aside is done by applying to a court, usually under section 11; the clause does not simply stop working on its own.",
+          "Clauses where one side supplies a panel from which the other must choose have been treated in later decisions and are not decided by this row.",
+          "Government and public-sector contracts have their own line of cases on departmental arbitrators."
+        ],
+        "appliesTo": [],
+        "evidence": {
+          "start": 4429,
+          "end": 4665,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "All disputes, differences and claims arising out of or in connection with this\nloan shall be referred to and finally resolved by arbitration by a sole arbitrator\nnominated by the Lender, under the Arbitration and Conciliation Act, 1996."
+        }
+      },
+      {
+        "construct": "unilateral_arbitrator_appointment",
+        "verdict": "cannot_oust_this_forum",
+        "confidence": "high",
+        "statute": {
+          "act": "Consumer Protection Act, 2019",
+          "section": "Section 100 — Act not in derogation of any other law",
+          "text": "The provisions of this Act shall be in addition to and not in derogation of the provisions of any other law for the time being in force.",
+          "url": "https://www.indiacode.nic.in/bitstream/123456789/16939/1/a2019-35.pdf"
+        },
+        "authorities": [
+          {
+            "cite": "M/s Emaar MGF Land Ltd v Aftab Singh, Review Petition (C) Nos. 2629-2630 of 2018, Supreme Court (10 December 2018)",
+            "holding": "An arbitration clause in an agreement with a consumer does not bar a complaint before the consumer forum; the review against the dismissal of the builder's section 8 application was rejected, the National Commission's view that consumer disputes are non-arbitrable being upheld.",
+            "url": "https://indiankanoon.org/doc/60243004/"
+          }
+        ],
+        "plainMeaning": "An arbitration clause in a consumer contract does not shut the door to the consumer commission. Courts have held that the consumer remedy sits alongside arbitration rather than being replaced by it.",
+        "caveats": [
+          "This describes the position courts have taken generally; whether you are a consumer for this Act, and whether this document is a consumer contract, are questions of fact.",
+          "Goods or services bought for resale or for a commercial purpose usually fall outside the Act, subject to the self-employment exception.",
+          "Choosing the consumer forum does not cancel the arbitration clause for every purpose; the other side may still start arbitration and a court may have to sort it out.",
+          "Consumer complaints have their own time limit — two years from the cause of action — which this row does not compute for you."
+        ],
+        "appliesTo": [
+          "rent_agreement",
+          "loan_agreement",
+          "privacy_policy",
+          "other"
+        ],
+        "evidence": {
+          "start": 4429,
+          "end": 4665,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "All disputes, differences and claims arising out of or in connection with this\nloan shall be referred to and finally resolved by arbitration by a sole arbitrator\nnominated by the Lender, under the Arbitration and Conciliation Act, 1996."
+        }
+      },
+      {
+        "construct": "unilateral_amendment_without_notice",
+        "verdict": "context_dependent",
+        "confidence": "medium",
+        "statute": {
+          "act": "Consumer Protection Act, 2019",
+          "section": "Section 2(46)(iv) and 2(46)(vi) — unfair contract",
+          "text": "\"unfair contract\" means a contract ... having such terms which cause significant change in the rights of such consumer, including the following, namely: (iv) entitling a party to the contract to terminate such contract unilaterally, without reasonable cause; (vi) imposing on the consumer any unreasonable charge, obligation or condition which puts such consumer to disadvantage.",
+          "url": "https://www.indiacode.nic.in/show-data?actid=AC_CEN_21_44_00007_201935_1596441164903&sectionId=50027&sectionno=2&orderno=2"
+        },
+        "authorities": [],
+        "plainMeaning": "A term letting the other side change or end the deal on its own, or putting an unreasonable condition on you, is the kind of term the Act names as unfair and a consumer commission can examine.",
+        "caveats": [
+          "The listing describes a category. Whether this clause falls in it, and what follows, is for a consumer commission to decide.",
+          "Only the State or National Commission can declare a contract term null and void as unfair.",
+          "Continuing to use a service after terms change is often argued as acceptance; that argument is fought on the facts and is not settled by this row.",
+          "The Central Consumer Protection Authority can also act against unfair trade practices; that is a separate route from a complaint about your own contract."
+        ],
+        "appliesTo": [
+          "privacy_policy",
+          "loan_agreement",
+          "rent_agreement",
+          "other"
+        ],
+        "evidence": {
+          "start": 2045,
+          "end": 2296,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "The Lender may revise the SFL-PLR, and consequently the rate\napplicable to this loan, at any time at its discretion, and shall intimate the revised\nrate by publication on its website. The Borrower shall be deemed to have notice of\nevery such revision."
+        }
+      }
+    ],
+    "inconsistencies": [],
+    "nextSteps": [
+      {
+        "forum": {
+          "id": "consumer_commission",
+          "name": "District Consumer Disputes Redressal Commission",
+          "handles": "Defective goods, deficient services, unfair trade practices and unfair contract terms, for anything bought for personal use.",
+          "statute": "Consumer Protection Act, 2019, ss.34, 35 and 69",
+          "statuteUrl": "https://www.indiacode.nic.in/",
+          "portal": {
+            "name": "e-Jagriti, which took over consumer e-filing from e-Daakhil on 1 January 2025",
+            "url": "https://e-jagriti.gov.in/"
+          },
+          "helpline": "1915 — National Consumer Helpline",
+          "fee": {
+            "summary": "Nothing is payable where the claim is up to Rs 5,00,000, and Rs 200 from Rs 5,00,001 to Rs 10,00,000, under rule 7 of the Consumer Protection (Consumer Disputes Redressal Commissions) Rules, 2020 as amended in 2023.",
+            "amountInr": null,
+            "freeForClaimsUpToInr": 500000
+          },
+          "filingPlace": "s.34(2)(d) — where you ordinarily reside or personally work for gain. A clause in the contract naming another city's courts does not displace it.",
+          "lawyerRequired": false,
+          "prerequisites": [],
+          "entitlements": [
+            "s.39 lets the Commission order the defect removed, the goods replaced, the price refunded, compensation paid, or an unfair contract term discontinued.",
+            "s.2(46) defines an unfair contract by six limbs, including a penalty disproportionate to the loss and a right to terminate unilaterally without reasonable cause."
+          ],
+          "limitationRuleId": "cpa-2019-s69",
+          "triggers": {
+            "documentTypes": [
+              "loan_agreement",
+              "privacy_policy",
+              "other"
+            ],
+            "problems": [
+              "goods_or_services_defect",
+              "bank_or_loan_conduct",
+              "insurance_claim",
+              "builder_delay_or_refund"
+            ],
+            "constructs": [
+              "forfeiture_of_paid_amounts",
+              "unilateral_amendment_without_notice",
+              "automatic_renewal_without_notice"
+            ],
+            "verdicts": [
+              "cannot_oust_this_forum"
+            ],
+            "driverSeverities": [
+              "critical"
+            ],
+            "situations": [],
+            "universal": false
+          },
+          "caveats": [
+            "A complaint lies for goods or services obtained for personal use. s.2(7) excludes anything obtained for resale or for a commercial purpose, and a contract of personal service is outside the definition of service in s.2(42).",
+            "Whether what happened is a defect or a deficiency is for the Commission to decide on the evidence.",
+            "Fee slabs are set by rules that change. Confirm the current fee on the portal before filing."
+          ]
+        },
+        "limitationRule": {
+          "id": "cpa-2019-s69",
+          "causeOfAction": "The date on which the cause of action arose — the defect, the deficiency in service or the unfair trade practice — not the date the agreement was signed.",
+          "period": {
+            "unit": "months",
+            "count": 24
+          },
+          "statute": "Consumer Protection Act, 2019, s.69",
+          "statuteUrl": "https://www.indiacode.nic.in/",
+          "condonationPossible": true,
+          "stages": [
+            {
+              "label": "Appeal to the State Commission against a District Commission order, after depositing 50% of the amount ordered",
+              "days": 45,
+              "from": "the date of the District Commission's order",
+              "statute": "Consumer Protection Act, 2019, s.41"
+            },
+            {
+              "label": "Appeal to the National Commission against a State Commission order",
+              "days": 30,
+              "from": "the date of the State Commission's order",
+              "statute": "Consumer Protection Act, 2019, s.51"
+            }
+          ]
+        },
+        "clock": null,
+        "signals": [
+          {
+            "kind": "construct",
+            "detail": "unilateral_amendment_without_notice"
+          },
+          {
+            "kind": "verdict",
+            "detail": "cannot_oust_this_forum"
+          }
+        ],
+        "priority": 20
+      },
+      {
+        "forum": {
+          "id": "rbi_ombudsman",
+          "name": "RBI Ombudsman",
+          "handles": "Deficiency in service by a bank, NBFC, payment system participant or credit information company, including recovery conduct, wrongly levied charges and credit-report errors.",
+          "statute": "Reserve Bank - Integrated Ombudsman Scheme, 2026, in force from 1 July 2026 in place of the 2021 Scheme",
+          "statuteUrl": "https://www.rbi.org.in/",
+          "portal": {
+            "name": "RBI Complaint Management System",
+            "url": "https://cms.rbi.org.in/"
+          },
+          "helpline": "14448 — RBI contact centre for the Ombudsman Scheme",
+          "fee": {
+            "summary": "Free at every stage.",
+            "amountInr": 0,
+            "freeForClaimsUpToInr": null
+          },
+          "filingPlace": "Online from anywhere. Complaints are received centrally, so there is no local office to travel to.",
+          "lawyerRequired": false,
+          "prerequisites": [
+            {
+              "step": "Complain in writing to the regulated entity's nodal or principal nodal officer first. The Ombudsman takes the complaint only after it replies, rejects it, or lets thirty days pass.",
+              "waitDays": 30,
+              "url": null
+            }
+          ],
+          "entitlements": [
+            "The Ombudsman may direct the regulated entity to pay compensation for the loss actually suffered, up to Rs 30,00,000 under the 2026 Scheme.",
+            "Compensation of up to Rs 3,00,000 may be awarded in addition for loss of time, expenses incurred, and harassment and mental anguish suffered."
+          ],
+          "limitationRuleId": "rbi-ios-2026-c10",
+          "triggers": {
+            "documentTypes": [
+              "loan_agreement"
+            ],
+            "problems": [
+              "bank_or_loan_conduct"
+            ],
+            "constructs": [
+              "self_help_remedy"
+            ],
+            "verdicts": [],
+            "driverSeverities": [
+              "critical"
+            ],
+            "situations": [],
+            "universal": false
+          },
+          "caveats": [
+            "The 2026 Scheme replaced the 2021 Scheme on 1 July 2026 and shortened the window to ninety days. Complaints already pending on 30 June 2026 continue under the old Scheme.",
+            "The Scheme covers deficiency in service. A complaint about a commercial judgement, such as the rate of interest a lender chose to charge, is outside it.",
+            "A complaint on the same cause already pending or decided by a court, tribunal or consumer commission is not maintainable before the Ombudsman.",
+            "Lending apps with no regulated entity behind them are outside the Scheme. RBI's Sachet portal (sachet.rbi.org.in) and the cybercrime helpline 1930 are the routes there."
+          ]
+        },
+        "limitationRule": {
+          "id": "rbi-ios-2026-c10",
+          "causeOfAction": "The date of the regulated entity's reply; where it never replied, the date thirty days after the complaint was made to it.",
+          "period": {
+            "unit": "days",
+            "count": 90
+          },
+          "statute": "Reserve Bank - Integrated Ombudsman Scheme, 2026, clause 10",
+          "statuteUrl": "https://www.rbi.org.in/",
+          "condonationPossible": false,
+          "stages": []
+        },
+        "clock": null,
+        "signals": [
+          {
+            "kind": "construct",
+            "detail": "self_help_remedy"
+          }
+        ],
+        "priority": 10
+      },
+      {
+        "forum": {
+          "id": "legal_services_authority",
+          "name": "District or State Legal Services Authority",
+          "handles": "Free legal advice, drafting and representation by a panel advocate for anyone within s.12 of the Legal Services Authorities Act, 1987.",
+          "statute": "Legal Services Authorities Act, 1987, ss.12 and 13",
+          "statuteUrl": "https://www.indiacode.nic.in/",
+          "portal": {
+            "name": "NALSA",
+            "url": "https://nalsa.gov.in/"
+          },
+          "helpline": "15100 — NALSA legal services helpline",
+          "fee": {
+            "summary": "Free, including court fees, process fees and the panel advocate, for anyone eligible under s.12.",
+            "amountInr": 0,
+            "freeForClaimsUpToInr": null
+          },
+          "filingPlace": "At the District Legal Services Authority in your district court complex, which accepts walk-in applications, or online through the NALSA portal.",
+          "lawyerRequired": false,
+          "prerequisites": [],
+          "entitlements": [
+            "s.12(c) and s.12(f) entitle every woman, every child and every industrial workman to free legal services irrespective of what they earn.",
+            "s.12(h) entitles a person whose annual income is below the ceiling their State has fixed, and Rs 5,00,000 applies to Supreme Court matters.",
+            "Tele-Law connects you to a panel lawyer free of charge through a Common Service Centre or the Tele-Law app (tele-law.in), which is offered in 22 languages."
+          ],
+          "limitationRuleId": null,
+          "triggers": {
+            "documentTypes": [],
+            "problems": [],
+            "constructs": [],
+            "verdicts": [],
+            "driverSeverities": [],
+            "situations": [
+              "cannot_afford_lawyer"
+            ],
+            "universal": true
+          },
+          "caveats": [
+            "Eligibility is decided by the Authority on the application and the documents filed with it.",
+            "Applying for free legal aid does not stop the limitation period for the underlying claim from running."
+          ]
+        },
+        "limitationRule": null,
+        "clock": null,
+        "signals": [
+          {
+            "kind": "universal",
+            "detail": "legal_services_authority"
+          }
+        ],
+        "priority": 0
+      },
+      {
+        "forum": {
+          "id": "lok_adalat",
+          "name": "Lok Adalat",
+          "handles": "Settlement by consent of a pending case or of a dispute before any case is filed, organised by the Legal Services Authority.",
+          "statute": "Legal Services Authorities Act, 1987, ss.19 to 22B",
+          "statuteUrl": "https://www.indiacode.nic.in/",
+          "portal": {
+            "name": "NALSA",
+            "url": "https://nalsa.gov.in/"
+          },
+          "helpline": "15100 — NALSA legal services helpline",
+          "fee": {
+            "summary": "Free, and s.21 refunds the court fee already paid when a pending case is settled.",
+            "amountInr": 0,
+            "freeForClaimsUpToInr": null
+          },
+          "filingPlace": "Through the District Legal Services Authority, which publishes the dates of the National Lok Adalat held each quarter.",
+          "lawyerRequired": false,
+          "prerequisites": [],
+          "entitlements": [
+            "s.21 — an award of a Lok Adalat is deemed to be a decree of a civil court, is final, and no appeal lies against it.",
+            "s.21(1) proviso — the court fee paid in a pending case is refunded when the matter is settled in a Lok Adalat.",
+            "s.22B — a Permanent Lok Adalat hears public utility service disputes up to Rs 1,00,00,000 and may decide the matter on merits if no settlement is reached."
+          ],
+          "limitationRuleId": null,
+          "triggers": {
+            "documentTypes": [],
+            "problems": [],
+            "constructs": [],
+            "verdicts": [],
+            "driverSeverities": [],
+            "situations": [
+              "prefers_settlement"
+            ],
+            "universal": true
+          },
+          "caveats": [
+            "A Lok Adalat records a settlement both sides agree to. Apart from a Permanent Lok Adalat under s.22C, it decides nothing by itself.",
+            "Because an award is final and no appeal lies from it, what is agreed there cannot later be reopened.",
+            "Waiting for a Lok Adalat date does not stop the limitation period for filing from running."
+          ]
+        },
+        "limitationRule": null,
+        "clock": null,
+        "signals": [
+          {
+            "kind": "universal",
+            "detail": "lok_adalat"
+          }
+        ],
+        "priority": 0
+      }
+    ],
+    "meta": {
+      "rubricVersion": "2026.09.13",
+      "modelsUsed": [
+        "gemini-3.8-flash"
+      ],
+      "stageTimingsMs": {
+        "classify": 0,
+        "extract": 0
+      },
+      "truncated": false,
+      "readAsScan": false,
+      "generatedAt": "2026-09-13T00:00:00.000Z"
+    }
+  }
+}

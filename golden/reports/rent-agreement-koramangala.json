@@ -1,0 +1,865 @@
+{
+  "kind": "report",
+  "report": {
+    "reportId": "rent-agreement-koramangala",
+    "documentHash": "d97da9d0c86872085846143a92126088ab1a56113ff8e97c5f840e2f76ba3937",
+    "documentType": "rent_agreement",
+    "language": "en",
+    "risk": {
+      "score": 88,
+      "band": "severe",
+      "drivers": [
+        {
+          "ruleId": "construct_forfeiture_of_paid_amounts",
+          "tier": "construct",
+          "severity": "high",
+          "title": "Money you have already paid can be kept",
+          "explain": "If things go wrong, amounts you have already handed over stay with the other side. Under section 74 of the Contract Act a named sum is recoverable only up to the loss actually proved.",
+          "points": 16,
+          "evidence": {
+            "start": 2891,
+            "end": 3236,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "If the Licensee vacates the Licensed Premises, or ceases to pay the licence fee,\nat any time before the expiry of the lock-in period, the entire security deposit of\nRupees Three Lakh (Rs. 3,00,000) shall stand forfeited to the Licensor absolutely, in\naddition to any other amount then due, and the Licensee shall have no claim to any\npart of it."
+          },
+          "askYourLawyer": "What loss is this forfeiture meant to make good, and can it be limited to that loss?"
+        },
+        {
+          "ruleId": "security_deposit_three_months_rent_or_more",
+          "tier": "threshold",
+          "severity": "high",
+          "title": "Security deposit of three months' rent or more",
+          "explain": "The deposit is Rs 3,00,000 against rent of Rs 30,000 a month — three months' rent or more. The Centre's model tenancy law uses two months as the benchmark for a home.",
+          "points": 16,
+          "evidence": {
+            "start": 2227,
+            "end": 2495,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "The Licensee has, on or before the execution of this Agreement, paid to the\nLicensor an interest-free refundable security deposit of Rupees Three Lakh\n(Rs. 3,00,000), being the equivalent of ten (10) months' licence fee, the receipt of\nwhich the Licensor acknowledges."
+          },
+          "askYourLawyer": "Can the deposit come down to two months' rent, with a dated refund promise?"
+        },
+        {
+          "ruleId": "lock_in_longer_than_six_months",
+          "tier": "threshold",
+          "severity": "high",
+          "title": "Lock-in longer than six months",
+          "explain": "You are tied in for 11 months. Leaving early usually means paying for the rest of that period even when you are no longer there.",
+          "points": 15,
+          "evidence": {
+            "start": 2774,
+            "end": 2885,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "The parties agree that the entire period of eleven (11) months set out in\nClause 1.1 shall be a lock-in period."
+          },
+          "askYourLawyer": "What exactly do I owe if I leave during the lock-in, and can that be capped?"
+        },
+        {
+          "ruleId": "absent_deposit_refund_timeline",
+          "tier": "absence",
+          "severity": "high",
+          "title": "No date by which your deposit comes back",
+          "explain": "This agreement never says when your deposit must be returned. Without a date there is nothing to be late against, and the money can sit with the other side while you argue about deductions.",
+          "points": 14,
+          "evidence": null,
+          "askYourLawyer": "Can a clause be added fixing the refund date and interest if the deposit is returned late?"
+        },
+        {
+          "ruleId": "penal_charge_above_twenty_four_percent_a_year",
+          "tier": "threshold",
+          "severity": "high",
+          "title": "Late-payment charge above 24% a year",
+          "explain": "Late payment carries 3% a month, which is more than 24% a year on its own, separate from any interest already running.",
+          "points": 14,
+          "evidence": {
+            "start": 1995,
+            "end": 2200,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "If the licence fee for any month is not received by the 5th day of that month,\ninterest at the rate of three per cent (3%) per month shall become payable on the\noutstanding amount until it is paid in full."
+          },
+          "askYourLawyer": "Is this charge a genuine pre-estimate of the loss caused by delay, or a penalty on top of interest?"
+        },
+        {
+          "ruleId": "absent_notice_period_for_you",
+          "tier": "absence",
+          "severity": "high",
+          "title": "No notice period written for your side",
+          "explain": "The document does not say how much notice you must give, which leaves the other side free to argue for whatever period suits it when you want to leave.",
+          "points": 12,
+          "evidence": null,
+          "askYourLawyer": "How much notice must I give to end this, and is that written anywhere?"
+        },
+        {
+          "ruleId": "absent_liability_cap_in_your_favour",
+          "tier": "absence",
+          "severity": "medium",
+          "title": "No ceiling on what you could owe",
+          "explain": "There is no cap on what you could be asked to pay if something goes wrong, while the other side's exposure is usually limited elsewhere in the same document.",
+          "points": 10,
+          "evidence": null,
+          "askYourLawyer": "Can my total liability be capped at the amount actually paid under this contract?"
+        }
+      ],
+      "topDrivers": [
+        {
+          "ruleId": "construct_forfeiture_of_paid_amounts",
+          "tier": "construct",
+          "severity": "high",
+          "title": "Money you have already paid can be kept",
+          "explain": "If things go wrong, amounts you have already handed over stay with the other side. Under section 74 of the Contract Act a named sum is recoverable only up to the loss actually proved.",
+          "points": 16,
+          "evidence": {
+            "start": 2891,
+            "end": 3236,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "If the Licensee vacates the Licensed Premises, or ceases to pay the licence fee,\nat any time before the expiry of the lock-in period, the entire security deposit of\nRupees Three Lakh (Rs. 3,00,000) shall stand forfeited to the Licensor absolutely, in\naddition to any other amount then due, and the Licensee shall have no claim to any\npart of it."
+          },
+          "askYourLawyer": "What loss is this forfeiture meant to make good, and can it be limited to that loss?"
+        },
+        {
+          "ruleId": "security_deposit_three_months_rent_or_more",
+          "tier": "threshold",
+          "severity": "high",
+          "title": "Security deposit of three months' rent or more",
+          "explain": "The deposit is Rs 3,00,000 against rent of Rs 30,000 a month — three months' rent or more. The Centre's model tenancy law uses two months as the benchmark for a home.",
+          "points": 16,
+          "evidence": {
+            "start": 2227,
+            "end": 2495,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "The Licensee has, on or before the execution of this Agreement, paid to the\nLicensor an interest-free refundable security deposit of Rupees Three Lakh\n(Rs. 3,00,000), being the equivalent of ten (10) months' licence fee, the receipt of\nwhich the Licensor acknowledges."
+          },
+          "askYourLawyer": "Can the deposit come down to two months' rent, with a dated refund promise?"
+        },
+        {
+          "ruleId": "lock_in_longer_than_six_months",
+          "tier": "threshold",
+          "severity": "high",
+          "title": "Lock-in longer than six months",
+          "explain": "You are tied in for 11 months. Leaving early usually means paying for the rest of that period even when you are no longer there.",
+          "points": 15,
+          "evidence": {
+            "start": 2774,
+            "end": 2885,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "The parties agree that the entire period of eleven (11) months set out in\nClause 1.1 shall be a lock-in period."
+          },
+          "askYourLawyer": "What exactly do I owe if I leave during the lock-in, and can that be capped?"
+        }
+      ],
+      "unknowns": [
+        {
+          "ruleId": "notice_period_asymmetry_severe",
+          "missing": [
+            "noticeDaysYouMustGive"
+          ],
+          "question": "Can the notice period be made the same for both sides, or a buy-out offered instead?"
+        },
+        {
+          "ruleId": "notice_period_asymmetry_moderate",
+          "missing": [
+            "noticeDaysYouMustGive",
+            "noticeDaysYouMustGive"
+          ],
+          "question": "The document did not make this clear: You owe about half again the notice they owe."
+        },
+        {
+          "ruleId": "cure_period_asymmetry_severe",
+          "missing": [
+            "cureDaysTheyGet",
+            "cureDaysYouGet"
+          ],
+          "question": "Can the time to put a breach right be made equal for both sides?"
+        },
+        {
+          "ruleId": "cure_period_asymmetry_moderate",
+          "missing": [
+            "cureDaysTheyGet",
+            "cureDaysYouGet",
+            "cureDaysTheyGet",
+            "cureDaysYouGet"
+          ],
+          "question": "The document did not make this clear: They get about half again as long to fix a breach."
+        },
+        {
+          "ruleId": "liability_cap_below_one_month_of_rent",
+          "missing": [
+            "liabilityCapInr"
+          ],
+          "question": "The document did not make this clear: Their liability is capped below one month's rent."
+        }
+      ],
+      "tierTotals": {
+        "asymmetry": 0,
+        "threshold": 45,
+        "construct": 16,
+        "absence": 36
+      },
+      "rubricVersion": "2026.09.13"
+    },
+    "findings": [
+      {
+        "id": "f1",
+        "category": "renewal",
+        "exactQuote": "1.3 Renewal, if any, shall be at the sole discretion of the Licensor by a fresh\nagreement, and the Licensee shall have no right of renewal.",
+        "clauseLabel": "1.3",
+        "plainSummary": "You do not have an automatic right to extend the agreement, and only the landlord gets to decide if it will be renewed with a new contract.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 1352,
+          "end": 1491,
+          "method": "exact",
+          "similarity": 1,
+          "matchedText": "1.3 Renewal, if any, shall be at the sole discretion of the Licensor by a fresh\nagreement, and the Licensee shall have no right of renewal."
+        },
+        "segmentId": "seg-5-1.3",
+        "pageNumber": null
+      },
+      {
+        "id": "f2",
+        "category": "payment",
+        "exactQuote": "2.1 The Licensee shall pay a monthly licence fee of Rupees Thirty Thousand\n(Rs. 30,000) in advance, on or before the 5th day of every English calendar month, by\nelectronic transfer to the Licensor's designated bank account.",
+        "clauseLabel": "2.1",
+        "plainSummary": "You must pay the monthly rent of 30,000 rupees in advance into the landlord's bank account on or before the 5th day of each month.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 1509,
+          "end": 1732,
+          "method": "exact",
+          "similarity": 1,
+          "matchedText": "2.1 The Licensee shall pay a monthly licence fee of Rupees Thirty Thousand\n(Rs. 30,000) in advance, on or before the 5th day of every English calendar month, by\nelectronic transfer to the Licensor's designated bank account."
+        },
+        "segmentId": "seg-7-2.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f3",
+        "category": "payment",
+        "exactQuote": "2.2 On every renewal of this Agreement, or on the expiry of eleven (11) months,\nwhichever is earlier, the monthly licence fee shall stand increased by ten per cent\n(10%) over the licence fee then payable, without any further agreement between the\nparties.",
+        "clauseLabel": "2.2",
+        "plainSummary": "Your monthly rent will automatically go up by 10 percent after 11 months or whenever the agreement is renewed.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 1734,
+          "end": 1989,
+          "method": "exact",
+          "similarity": 1,
+          "matchedText": "2.2 On every renewal of this Agreement, or on the expiry of eleven (11) months,\nwhichever is earlier, the monthly licence fee shall stand increased by ten per cent\n(10%) over the licence fee then payable, without any further agreement between the\nparties."
+        },
+        "segmentId": "seg-8-2.2",
+        "pageNumber": null
+      },
+      {
+        "id": "f4",
+        "category": "penalty",
+        "exactQuote": "2.3 If the licence fee for any month is not received by the 5th day of that month,\ninterest at the rate of three per cent (3%) per month shall become payable on the\noutstanding amount until it is paid in full.",
+        "clauseLabel": "2.3",
+        "plainSummary": "If you pay your rent after the 5th of the month, you will be charged an extra interest fee of 3 percent per month on the unpaid amount.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 1991,
+          "end": 2200,
+          "method": "exact",
+          "similarity": 1,
+          "matchedText": "2.3 If the licence fee for any month is not received by the 5th day of that month,\ninterest at the rate of three per cent (3%) per month shall become payable on the\noutstanding amount until it is paid in full."
+        },
+        "segmentId": "seg-9-2.3",
+        "pageNumber": null
+      },
+      {
+        "id": "f5",
+        "category": "deposit",
+        "exactQuote": "3.1 The Licensee has, on or before the execution of this Agreement, paid to the\nLicensor an interest-free refundable security deposit of Rupees Three Lakh\n(Rs. 3,00,000), being the equivalent of ten (10) months' licence fee, the receipt of\nwhich the Licensor acknowledges.",
+        "clauseLabel": "3.1",
+        "plainSummary": "You have paid an advance security deposit of 3,00,000 rupees (equal to 10 months of rent), which will be refunded without any extra interest when you leave.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 2223,
+          "end": 2495,
+          "method": "exact",
+          "similarity": 1,
+          "matchedText": "3.1 The Licensee has, on or before the execution of this Agreement, paid to the\nLicensor an interest-free refundable security deposit of Rupees Three Lakh\n(Rs. 3,00,000), being the equivalent of ten (10) months' licence fee, the receipt of\nwhich the Licensor acknowledges."
+        },
+        "segmentId": "seg-11-3.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f6",
+        "category": "deposit",
+        "exactQuote": "3.2 The Licensor shall be entitled to adjust from the security deposit any arrears of\nlicence fee, any electricity or water charges, any amount claimed under Clause 6, and\nany sum which the Licensor considers necessary to restore the Licensed Premises.",
+        "clauseLabel": "3.2",
+        "plainSummary": "The landlord can deduct unpaid rent, utility bills, repair costs, or any amount they feel is needed to fix up the home from your deposit.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 2497,
+          "end": 2749,
+          "method": "exact",
+          "similarity": 1,
+          "matchedText": "3.2 The Licensor shall be entitled to adjust from the security deposit any arrears of\nlicence fee, any electricity or water charges, any amount claimed under Clause 6, and\nany sum which the Licensor considers necessary to restore the Licensed Premises."
+        },
+        "segmentId": "seg-12-3.2",
+        "pageNumber": null
+      },
+      {
+        "id": "f7",
+        "category": "lock_in",
+        "exactQuote": "4.1 The parties agree that the entire period of eleven (11) months set out in\nClause 1.1 shall be a lock-in period.",
+        "clauseLabel": "4.1",
+        "plainSummary": "Both you and the landlord are locked into this agreement for the full 11 months, meaning you are expected to stay and pay for the whole term.",
+        "obligationOn": "both",
+        "benefits": "both",
+        "isUnusual": false,
+        "location": {
+          "start": 2770,
+          "end": 2885,
+          "method": "exact",
+          "similarity": 1,
+          "matchedText": "4.1 The parties agree that the entire period of eleven (11) months set out in\nClause 1.1 shall be a lock-in period."
+        },
+        "segmentId": "seg-14-4.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f8",
+        "category": "penalty",
+        "exactQuote": "4.2 If the Licensee vacates the Licensed Premises, or ceases to pay the licence fee,\nat any time before the expiry of the lock-in period, the entire security deposit of\nRupees Three Lakh (Rs. 3,00,000) shall stand forfeited to the Licensor absolutely, in\naddition to any other amount then due, and the Licensee shall have no claim to any\npart of it.",
+        "clauseLabel": "4.2",
+        "plainSummary": "If you leave early or stop paying rent during the 11-month lock-in period, the landlord will take your entire 3,00,000 rupee deposit along with any unpaid bills.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 2887,
+          "end": 3236,
+          "method": "exact",
+          "similarity": 1,
+          "matchedText": "4.2 If the Licensee vacates the Licensed Premises, or ceases to pay the licence fee,\nat any time before the expiry of the lock-in period, the entire security deposit of\nRupees Three Lakh (Rs. 3,00,000) shall stand forfeited to the Licensor absolutely, in\naddition to any other amount then due, and the Licensee shall have no claim to any\npart of it."
+        },
+        "segmentId": "seg-16-4.2",
+        "pageNumber": null
+      },
+      {
+        "id": "f9",
+        "category": "other",
+        "exactQuote": "5.1 The Licensed Premises shall be used for residential purposes only, by the Licensee\nand her immediate family, and by no other person.",
+        "clauseLabel": "5.1",
+        "plainSummary": "Only you and your immediate family are allowed to live in the home, and it can only be used as a private residence.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 3271,
+          "end": 3407,
+          "method": "exact",
+          "similarity": 1,
+          "matchedText": "5.1 The Licensed Premises shall be used for residential purposes only, by the Licensee\nand her immediate family, and by no other person."
+        },
+        "segmentId": "seg-18-5.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f10",
+        "category": "other",
+        "exactQuote": "5.2 The Licensee shall not sub-licence, assign, part with possession of, or permit any\npaying guest in the Licensed Premises.",
+        "clauseLabel": "5.2",
+        "plainSummary": "You are not allowed to rent out the property to someone else, transfer your rights, or take in paying guests.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 3409,
+          "end": 3534,
+          "method": "exact",
+          "similarity": 1,
+          "matchedText": "5.2 The Licensee shall not sub-licence, assign, part with possession of, or permit any\npaying guest in the Licensed Premises."
+        },
+        "segmentId": "seg-19-5.2",
+        "pageNumber": null
+      },
+      {
+        "id": "f11",
+        "category": "other",
+        "exactQuote": "5.3 The Licensee shall not keep any pet, carry on any commercial activity, or use the\nLicensed Premises for any social or religious gathering.",
+        "clauseLabel": "5.3",
+        "plainSummary": "You cannot keep pets, run a business, or host social or religious events in the home.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 3536,
+          "end": 3678,
+          "method": "exact",
+          "similarity": 1,
+          "matchedText": "5.3 The Licensee shall not keep any pet, carry on any commercial activity, or use the\nLicensed Premises for any social or religious gathering."
+        },
+        "segmentId": "seg-20-5.3",
+        "pageNumber": null
+      },
+      {
+        "id": "f12",
+        "category": "other",
+        "exactQuote": "5.4 The Licensee shall not make any alteration, fixture or addition, including the\ninstallation of an air-conditioner, water purifier or mounting bracket, without the\nprior written consent of the Licensor.",
+        "clauseLabel": "5.4",
+        "plainSummary": "You must get written permission from the landlord before installing items like air conditioners, water filters, or wall brackets.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 3680,
+          "end": 3885,
+          "method": "exact",
+          "similarity": 1,
+          "matchedText": "5.4 The Licensee shall not make any alteration, fixture or addition, including the\ninstallation of an air-conditioner, water purifier or mounting bracket, without the\nprior written consent of the Licensor."
+        },
+        "segmentId": "seg-21-5.4",
+        "pageNumber": null
+      },
+      {
+        "id": "f13",
+        "category": "liability",
+        "exactQuote": "6.1 The Licensee shall, at her own cost, keep the Licensed Premises in good order and\nshall attend to and pay for all repairs of every description, whether internal or\nexternal, ordinary or structural, and whether arising from the Licensee's use or from\nthe age or condition of the building, including plumbing, sanitary fittings, electrical\nwiring, waterproofing, painting and repairs to the walls, roof and slab.",
+        "clauseLabel": "6.1",
+        "plainSummary": "You must pay for every single repair in the home, including major building problems like roof, wall, and wiring issues, even if they are caused by normal building age.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 3915,
+          "end": 4329,
+          "method": "exact",
+          "similarity": 1,
+          "matchedText": "6.1 The Licensee shall, at her own cost, keep the Licensed Premises in good order and\nshall attend to and pay for all repairs of every description, whether internal or\nexternal, ordinary or structural, and whether arising from the Licensee's use or from\nthe age or condition of the building, including plumbing, sanitary fittings, electrical\nwiring, waterproofing, painting and repairs to the walls, roof and slab."
+        },
+        "segmentId": "seg-23-6.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f14",
+        "category": "liability",
+        "exactQuote": "6.2 On the expiry or earlier determination of this Agreement, the Licensee shall hand\nover the Licensed Premises freshly painted and in the same condition in which it was\nhanded over to her, normal wear and tear not excepted.",
+        "clauseLabel": "6.2",
+        "plainSummary": "When moving out, you must repaint the entire home and return it in original condition, meaning you are financially responsible even for regular everyday ageing and wear.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 4331,
+          "end": 4556,
+          "method": "exact",
+          "similarity": 1,
+          "matchedText": "6.2 On the expiry or earlier determination of this Agreement, the Licensee shall hand\nover the Licensed Premises freshly painted and in the same condition in which it was\nhanded over to her, normal wear and tear not excepted."
+        },
+        "segmentId": "seg-24-6.2",
+        "pageNumber": null
+      },
+      {
+        "id": "f15",
+        "category": "payment",
+        "exactQuote": "7.1 The Licensee shall pay the electricity and water charges of the Licensed Premises\nas per the meter readings, and the monthly association charges levied by Neelkanth\nElegance Owners' Association, directly to the concerned authority.",
+        "clauseLabel": "7.1",
+        "plainSummary": "You must directly pay all your electricity bills, water bills, and monthly building association maintenance charges.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 4586,
+          "end": 4821,
+          "method": "exact",
+          "similarity": 1,
+          "matchedText": "7.1 The Licensee shall pay the electricity and water charges of the Licensed Premises\nas per the meter readings, and the monthly association charges levied by Neelkanth\nElegance Owners' Association, directly to the concerned authority."
+        },
+        "segmentId": "seg-26-7.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f16",
+        "category": "payment",
+        "exactQuote": "7.2 Property tax shall be borne by the Licensor.",
+        "clauseLabel": "7.2",
+        "plainSummary": "The landlord is responsible for paying all property taxes on the apartment.",
+        "obligationOn": "counterparty",
+        "benefits": "you",
+        "isUnusual": false,
+        "location": {
+          "start": 4823,
+          "end": 4871,
+          "method": "exact",
+          "similarity": 1,
+          "matchedText": "7.2 Property tax shall be borne by the Licensor."
+        },
+        "segmentId": "seg-27-7.2",
+        "pageNumber": null
+      },
+      {
+        "id": "f17",
+        "category": "other",
+        "exactQuote": "8.1 The Licensor, or any person authorised by him, shall be entitled to enter the\nLicensed Premises at any time, without notice to the Licensee, to inspect the Licensed\nPremises, to carry out any work, or to show the Licensed Premises to prospective\nlicensees or purchasers.",
+        "clauseLabel": "8.1",
+        "plainSummary": "The landlord or their agents can enter your home at any time without giving you any warning or notice.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 4892,
+          "end": 5166,
+          "method": "exact",
+          "similarity": 1,
+          "matchedText": "8.1 The Licensor, or any person authorised by him, shall be entitled to enter the\nLicensed Premises at any time, without notice to the Licensee, to inspect the Licensed\nPremises, to carry out any work, or to show the Licensed Premises to prospective\nlicensees or purchasers."
+        },
+        "segmentId": "seg-29-8.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f18",
+        "category": "termination",
+        "exactQuote": "9.1 Notwithstanding anything contained in Clause 4, the Licensor may determine this\nAgreement at any time by giving the Licensee fifteen (15) days' written notice, if in\nthe opinion of the Licensor the Licensee has committed a breach of any term of this\nAgreement.",
+        "clauseLabel": "9.1",
+        "plainSummary": "The landlord can end your agreement with 15 days' written notice if they believe you broke any rule in this contract.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 5202,
+          "end": 5466,
+          "method": "exact",
+          "similarity": 1,
+          "matchedText": "9.1 Notwithstanding anything contained in Clause 4, the Licensor may determine this\nAgreement at any time by giving the Licensee fifteen (15) days' written notice, if in\nthe opinion of the Licensor the Licensee has committed a breach of any term of this\nAgreement."
+        },
+        "segmentId": "seg-31-9.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f19",
+        "category": "penalty",
+        "exactQuote": "9.2 On such determination the Licensee shall vacate the Licensed Premises within the\nsaid fifteen (15) days, failing which the Licensee shall pay damages for use and\noccupation at three (3) times the daily licence fee, that is ₹3,000 per day, for every\nday of continued occupation.",
+        "clauseLabel": "9.2",
+        "plainSummary": "If the agreement is ended and you do not leave within 15 days, you must pay a penalty fee of 3,000 rupees per day for staying.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 5468,
+          "end": 5749,
+          "method": "exact",
+          "similarity": 1,
+          "matchedText": "9.2 On such determination the Licensee shall vacate the Licensed Premises within the\nsaid fifteen (15) days, failing which the Licensee shall pay damages for use and\noccupation at three (3) times the daily licence fee, that is ₹3,000 per day, for every\nday of continued occupation."
+        },
+        "segmentId": "seg-32-9.2",
+        "pageNumber": null
+      },
+      {
+        "id": "f20",
+        "category": "payment",
+        "exactQuote": "10.1 The cost of stamp duty and of registration of this Agreement, if any, shall be\nborne wholly by the Licensee.",
+        "clauseLabel": "10.1",
+        "plainSummary": "You must pay the full cost of official government stamping and agreement registration fees.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 5784,
+          "end": 5897,
+          "method": "exact",
+          "similarity": 1,
+          "matchedText": "10.1 The cost of stamp duty and of registration of this Agreement, if any, shall be\nborne wholly by the Licensee."
+        },
+        "segmentId": "seg-34-10.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f21",
+        "category": "jurisdiction",
+        "exactQuote": "11.2 The courts at Udupi alone shall have jurisdiction in respect of any dispute\narising out of this Agreement.",
+        "clauseLabel": "11.2",
+        "plainSummary": "Any legal disputes regarding this agreement must be handled exclusively by courts located in Udupi.",
+        "obligationOn": "both",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 5996,
+          "end": 6107,
+          "method": "exact",
+          "similarity": 1,
+          "matchedText": "11.2 The courts at Udupi alone shall have jurisdiction in respect of any dispute\narising out of this Agreement."
+        },
+        "segmentId": "seg-37-11.2",
+        "pageNumber": null
+      }
+    ],
+    "rejected": [],
+    "grounding": {
+      "total": 21,
+      "grounded": 21,
+      "exact": 21,
+      "normalised": 0,
+      "fuzzy": 0,
+      "rejected": 0,
+      "rejectionsByReason": {
+        "quote_empty": 0,
+        "quote_too_short": 0,
+        "not_found": 0,
+        "below_threshold": 0,
+        "ambiguous": 0,
+        "duplicate": 0
+      }
+    },
+    "enforceability": [
+      {
+        "construct": "forfeiture_of_paid_amounts",
+        "verdict": "capped_by_statute",
+        "confidence": "high",
+        "statute": {
+          "act": "Indian Contract Act, 1872",
+          "section": "Section 74 — Compensation for breach of contract where penalty stipulated for",
+          "text": "When a contract has been broken, if a sum is named in the contract as the amount to be paid in case of such breach, or if the contract contains any other stipulation by way of penalty, the party complaining of the breach is entitled, whether or not actual damage or loss is proved to have been caused thereby, to receive from the party who has broken the contract reasonable compensation not exceeding the amount so named or, as the case may be, the penalty stipulated for.",
+          "url": "https://www.indiacode.nic.in/show-data?actid=AC_CEN_3_20_00035_187209_1523268996428&orderno=75"
+        },
+        "authorities": [
+          {
+            "cite": "Kailash Nath Associates v Delhi Development Authority, (2015) 4 SCC 136 (9 January 2015)",
+            "holding": "Section 74 awards reasonable compensation for loss caused by the breach; damage or loss is a sine qua non, and where no loss is shown, the named sum is not recoverable merely because it was named.",
+            "url": "https://indiankanoon.org/doc/70828540/"
+          },
+          {
+            "cite": "Vijaya Bank v Prashant B Narnaware, 2025 INSC 691 (14 May 2025)",
+            "holding": "A minimum-service clause requiring Rs 2,00,000 on premature resignation was upheld: it was treated as a genuine pre-estimate of the employer's recruitment and training cost rather than a penalty, and as not being a restraint of trade.",
+            "url": "https://indiankanoon.org/doc/42763766/"
+          }
+        ],
+        "plainMeaning": "A sum named in the contract sets the ceiling, not the amount. The other side can recover what it can show it actually lost, up to that figure, and a court decides what is reasonable.",
+        "caveats": [
+          "This states the rule in the section. What the other side can actually recover from you depends on evidence a court has not yet seen.",
+          "Where the named sum is a genuine pre-estimate of a real cost and is reasonable, courts have allowed the whole of it, as in Vijaya Bank (2025).",
+          "Forfeiture of earnest money in property transactions has its own line of cases and is not decided by this row.",
+          "Getting money back that has already been paid usually means going to a forum and proving the loss was less than the sum kept."
+        ],
+        "appliesTo": [],
+        "evidence": {
+          "start": 2891,
+          "end": 3236,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "If the Licensee vacates the Licensed Premises, or ceases to pay the licence fee,\nat any time before the expiry of the lock-in period, the entire security deposit of\nRupees Three Lakh (Rs. 3,00,000) shall stand forfeited to the Licensor absolutely, in\naddition to any other amount then due, and the Licensee shall have no claim to any\npart of it."
+        }
+      },
+      {
+        "construct": "forfeiture_of_paid_amounts",
+        "verdict": "context_dependent",
+        "confidence": "medium",
+        "statute": {
+          "act": "Consumer Protection Act, 2019",
+          "section": "Section 2(46)(i) and 2(46)(ii) — unfair contract",
+          "text": "\"unfair contract\" means a contract between a manufacturer or trader or service provider on one hand, and a consumer on the other, having such terms which cause significant change in the rights of such consumer, including the following, namely: (i) requiring manifestly excessive security deposits to be given by a consumer for the performance of contractual obligations; (ii) imposing any penalty on the consumer, for the breach of contract thereof which is wholly disproportionate to the loss occurred due to such breach to the other party to the contract.",
+          "url": "https://www.indiacode.nic.in/show-data?actid=AC_CEN_21_44_00007_201935_1596441164903&sectionId=50027&sectionno=2&orderno=2"
+        },
+        "authorities": [],
+        "plainMeaning": "A deposit that is manifestly excessive, or a penalty far bigger than the loss your breach could cause, is listed in the Act as the kind of term a consumer commission can call unfair.",
+        "caveats": [
+          "Being on this list does not by itself make a term void. A State or National Commission has to declare it so; a District Commission cannot.",
+          "The Act protects you only where you bought goods or services as a consumer. Purchases for resale or for a commercial purpose are generally outside it, subject to the self-employment exception.",
+          "What counts as manifestly excessive or wholly disproportionate is decided case by case against the facts.",
+          "A complaint has to be filed within two years of the cause of action, and you may file where you live or work."
+        ],
+        "appliesTo": [
+          "rent_agreement",
+          "loan_agreement",
+          "privacy_policy",
+          "other"
+        ],
+        "evidence": {
+          "start": 2891,
+          "end": 3236,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "If the Licensee vacates the Licensed Premises, or ceases to pay the licence fee,\nat any time before the expiry of the lock-in period, the entire security deposit of\nRupees Three Lakh (Rs. 3,00,000) shall stand forfeited to the Licensor absolutely, in\naddition to any other amount then due, and the Licensee shall have no claim to any\npart of it."
+        }
+      },
+      {
+        "construct": "forfeiture_of_paid_amounts",
+        "verdict": "context_dependent",
+        "confidence": "low",
+        "statute": {
+          "act": "Model Tenancy Act, 2021 — a model law circulated for States to adopt, not binding law unless your State has enacted it",
+          "section": "Section 11 — Security deposit (benchmark, not law in most States)",
+          "text": "The security deposit to be paid in advance by the tenant shall not exceed two months' rent in the case of residential premises and six months' rent in the case of non-residential premises, and shall be refunded to the tenant on the date of taking over vacant possession of the premises, after making due deduction of any liability of the tenant.",
+          "url": "https://mohua.gov.in/upload/uploadfiles/files/Model-Tenancy-Act-English-02_06_2021.pdf"
+        },
+        "authorities": [],
+        "plainMeaning": "The Centre's model tenancy law uses two months' rent as the benchmark deposit for a home and expects the deposit back when you hand over the keys, less what you actually owe. It is a benchmark you can point to in negotiation, not a rule that applies everywhere.",
+        "caveats": [
+          "The Model Tenancy Act is advisory. It binds no one unless your State has enacted its own version, and most have not.",
+          "Where it has not been adopted, the State Rent Control Act and the agreement itself govern, and deposit practice varies widely by city.",
+          "This row does not say your deposit clause is invalid; it gives you a published figure to compare it against.",
+          "Registration rules differ by State. In Maharashtra, for example, every leave-and-licence agreement is registrable regardless of its length.",
+          "If a deposit is withheld, the forum — Rent Authority, Rent Controller or consumer commission — depends on your State and on the facts."
+        ],
+        "appliesTo": [
+          "rent_agreement"
+        ],
+        "evidence": {
+          "start": 2891,
+          "end": 3236,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "If the Licensee vacates the Licensed Premises, or ceases to pay the licence fee,\nat any time before the expiry of the lock-in period, the entire security deposit of\nRupees Three Lakh (Rs. 3,00,000) shall stand forfeited to the Licensor absolutely, in\naddition to any other amount then due, and the Licensee shall have no claim to any\npart of it."
+        }
+      }
+    ],
+    "inconsistencies": [
+      {
+        "kind": "undefined_term",
+        "severity": "medium",
+        "title": "\"Shanta Nivas\" is used as a defined term but never defined",
+        "detail": "elsewhere in the document puts \"Shanta Nivas\" in quotation marks, which signals a term with a fixed contractual meaning, but no clause in this document says what it means.",
+        "at": {
+          "start": 305,
+          "end": 319,
+          "quote": "\"Shanta Nivas\"",
+          "segmentId": null,
+          "segmentLabel": null,
+          "pageNumber": null
+        },
+        "counterpart": null
+      }
+    ],
+    "nextSteps": [
+      {
+        "forum": {
+          "id": "legal_services_authority",
+          "name": "District or State Legal Services Authority",
+          "handles": "Free legal advice, drafting and representation by a panel advocate for anyone within s.12 of the Legal Services Authorities Act, 1987.",
+          "statute": "Legal Services Authorities Act, 1987, ss.12 and 13",
+          "statuteUrl": "https://www.indiacode.nic.in/",
+          "portal": {
+            "name": "NALSA",
+            "url": "https://nalsa.gov.in/"
+          },
+          "helpline": "15100 — NALSA legal services helpline",
+          "fee": {
+            "summary": "Free, including court fees, process fees and the panel advocate, for anyone eligible under s.12.",
+            "amountInr": 0,
+            "freeForClaimsUpToInr": null
+          },
+          "filingPlace": "At the District Legal Services Authority in your district court complex, which accepts walk-in applications, or online through the NALSA portal.",
+          "lawyerRequired": false,
+          "prerequisites": [],
+          "entitlements": [
+            "s.12(c) and s.12(f) entitle every woman, every child and every industrial workman to free legal services irrespective of what they earn.",
+            "s.12(h) entitles a person whose annual income is below the ceiling their State has fixed, and Rs 5,00,000 applies to Supreme Court matters.",
+            "Tele-Law connects you to a panel lawyer free of charge through a Common Service Centre or the Tele-Law app (tele-law.in), which is offered in 22 languages."
+          ],
+          "limitationRuleId": null,
+          "triggers": {
+            "documentTypes": [],
+            "problems": [],
+            "constructs": [],
+            "verdicts": [],
+            "driverSeverities": [],
+            "situations": [
+              "cannot_afford_lawyer"
+            ],
+            "universal": true
+          },
+          "caveats": [
+            "Eligibility is decided by the Authority on the application and the documents filed with it.",
+            "Applying for free legal aid does not stop the limitation period for the underlying claim from running."
+          ]
+        },
+        "limitationRule": null,
+        "clock": null,
+        "signals": [
+          {
+            "kind": "universal",
+            "detail": "legal_services_authority"
+          }
+        ],
+        "priority": 0
+      },
+      {
+        "forum": {
+          "id": "lok_adalat",
+          "name": "Lok Adalat",
+          "handles": "Settlement by consent of a pending case or of a dispute before any case is filed, organised by the Legal Services Authority.",
+          "statute": "Legal Services Authorities Act, 1987, ss.19 to 22B",
+          "statuteUrl": "https://www.indiacode.nic.in/",
+          "portal": {
+            "name": "NALSA",
+            "url": "https://nalsa.gov.in/"
+          },
+          "helpline": "15100 — NALSA legal services helpline",
+          "fee": {
+            "summary": "Free, and s.21 refunds the court fee already paid when a pending case is settled.",
+            "amountInr": 0,
+            "freeForClaimsUpToInr": null
+          },
+          "filingPlace": "Through the District Legal Services Authority, which publishes the dates of the National Lok Adalat held each quarter.",
+          "lawyerRequired": false,
+          "prerequisites": [],
+          "entitlements": [
+            "s.21 — an award of a Lok Adalat is deemed to be a decree of a civil court, is final, and no appeal lies against it.",
+            "s.21(1) proviso — the court fee paid in a pending case is refunded when the matter is settled in a Lok Adalat.",
+            "s.22B — a Permanent Lok Adalat hears public utility service disputes up to Rs 1,00,00,000 and may decide the matter on merits if no settlement is reached."
+          ],
+          "limitationRuleId": null,
+          "triggers": {
+            "documentTypes": [],
+            "problems": [],
+            "constructs": [],
+            "verdicts": [],
+            "driverSeverities": [],
+            "situations": [
+              "prefers_settlement"
+            ],
+            "universal": true
+          },
+          "caveats": [
+            "A Lok Adalat records a settlement both sides agree to. Apart from a Permanent Lok Adalat under s.22C, it decides nothing by itself.",
+            "Because an award is final and no appeal lies from it, what is agreed there cannot later be reopened.",
+            "Waiting for a Lok Adalat date does not stop the limitation period for filing from running."
+          ]
+        },
+        "limitationRule": null,
+        "clock": null,
+        "signals": [
+          {
+            "kind": "universal",
+            "detail": "lok_adalat"
+          }
+        ],
+        "priority": 0
+      }
+    ],
+    "meta": {
+      "rubricVersion": "2026.09.13",
+      "modelsUsed": [
+        "gemini-3.8-flash"
+      ],
+      "stageTimingsMs": {
+        "classify": 0,
+        "extract": 0
+      },
+      "truncated": false,
+      "readAsScan": false,
+      "generatedAt": "2026-09-13T00:00:00.000Z"
+    }
+  }
+}

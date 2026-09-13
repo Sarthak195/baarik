@@ -18,12 +18,12 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "coverage": "vitest run --coverage",
-    "validate": "tsx scripts/validate-knowledge-base.ts",
+    "validate": "tsx --tsconfig tsconfig.scripts.json scripts/validate-knowledge-base.ts",
     "check:size": "node scripts/check-file-size.mjs",
     "check:api": "node scripts/check-forbidden-apis.mjs",
     "check:repo": "node scripts/check-repo-size.mjs",
     "verify": "npm run typecheck && npm run lint && npm run validate && npm run test && npm run check:size && npm run check:api && npm run check:repo",
-    "record:golden": "tsx scripts/record-golden.ts"
+    "record:golden": "tsx --tsconfig tsconfig.scripts.json scripts/record-golden.ts"
   },
   "dependencies": {
     "@google/genai": "2.22.0",

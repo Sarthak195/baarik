@@ -1,0 +1,276 @@
+{
+  "fixtureId": "nda-mutual-but-not",
+  "recordedAt": "2026-09-13T00:00:00.000Z",
+  "models": {
+    "classification": "gemini-3.1-flash-lite",
+    "facts": "gemini-3.6-flash",
+    "findings": "gemini-3.7-flash"
+  },
+  "stages": {
+    "classification": {
+      "isLegalDocument": true,
+      "documentType": "nda",
+      "language": "en",
+      "notLegalReason": null,
+      "confidence": "high"
+    },
+    "facts": {
+      "documentType": "nda",
+      "governingLawState": null,
+      "jurisdictionCity": "Gurugram",
+      "noticeDaysYouMustGive": null,
+      "noticeDaysTheyMustGive": null,
+      "cureDaysYouGet": null,
+      "cureDaysTheyGet": null,
+      "lockInMonths": null,
+      "termMonths": null,
+      "depositRefundDays": null,
+      "paymentTermDays": null,
+      "dataRetentionDays": 7,
+      "confidentialityMonths": 9999,
+      "nonCompeteMonths": 60,
+      "monthlyRentInr": null,
+      "securityDepositInr": null,
+      "annualRentIncreasePercent": null,
+      "annualCtcInr": null,
+      "bondAmountInr": null,
+      "bondMonths": null,
+      "principalInr": null,
+      "annualInterestPercent": null,
+      "processingFeePercent": null,
+      "prepaymentPenaltyPercent": null,
+      "latePaymentPercentPerMonth": null,
+      "liabilityCapInr": null,
+      "constructs": [
+        {
+          "construct": "unilateral_amendment_without_notice",
+          "presence": "unclear",
+          "exactQuote": null
+        },
+        {
+          "construct": "unilateral_arbitrator_appointment",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "contractual_limitation_period",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "self_help_remedy",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "forfeiture_of_paid_amounts",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "sole_discretion_on_payment",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "post_employment_non_compete",
+          "presence": "unclear",
+          "exactQuote": null
+        },
+        {
+          "construct": "unlimited_indemnity",
+          "presence": "present",
+          "exactQuote": "The Recipient shall indemnify Halcyon against all losses, costs and expenses, including legal fees on a full indemnity basis, arising out of any breach by the Recipient."
+        },
+        {
+          "construct": "automatic_renewal_without_notice",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "assignment_of_future_ip",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "class_action_waiver",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "cross_default",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "deposit_refund_timeline",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "notice_period_for_you",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "exit_or_termination_route",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "jurisdiction_clause",
+          "presence": "present",
+          "exactQuote": "This Agreement shall be governed by the laws of India, and the courts at Gurugram shall have exclusive jurisdiction."
+        },
+        {
+          "construct": "data_retention_limit",
+          "presence": "present",
+          "exactQuote": "The Recipient shall not copy, reproduce or store the Confidential Information except as strictly necessary for the Purpose, and shall destroy all copies within seven (7) days of a written request by Halcyon."
+        },
+        {
+          "construct": "liability_cap_in_your_favour",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "rent_increase_cap",
+          "presence": "absent",
+          "exactQuote": null
+        },
+        {
+          "construct": "grievance_officer_named",
+          "presence": "absent",
+          "exactQuote": null
+        }
+      ],
+      "citations": [
+        {
+          "field": "dataRetentionDays",
+          "exactQuote": "The Recipient shall not copy, reproduce or store the Confidential Information except as strictly necessary for the Purpose, and shall destroy all copies within seven (7) days of a written request by Halcyon."
+        },
+        {
+          "field": "confidentialityMonths",
+          "exactQuote": "The obligations in this Clause 2 shall continue in perpetuity and shall survive the termination of this Agreement and of any engagement between the parties."
+        },
+        {
+          "field": "nonCompeteMonths",
+          "exactQuote": "For a period of five (5) years from the date of this Agreement, the Recipient shall not, directly or indirectly, solicit, employ or engage any employee, contractor, customer or supplier of Halcyon."
+        }
+      ]
+    },
+    "findings": {
+      "findings": [
+        {
+          "id": "f1",
+          "category": "confidentiality",
+          "exactQuote": "The Recipient shall hold all Confidential Information in strict confidence and\nshall not disclose it to any person.",
+          "clauseLabel": "2.1",
+          "plainSummary": "You must keep all secret information strictly private and not share it with anyone.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": false
+        },
+        {
+          "id": "f2",
+          "category": "confidentiality",
+          "exactQuote": "The Recipient shall use the Confidential Information solely for the Purpose.",
+          "clauseLabel": "2.2",
+          "plainSummary": "You can only use the shared information to evaluate a potential consulting role with the company.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": false
+        },
+        {
+          "id": "f3",
+          "category": "confidentiality",
+          "exactQuote": "The Recipient shall not copy, reproduce or store the Confidential Information\nexcept as strictly necessary for the Purpose, and shall destroy all copies within\nseven (7) days of a written request by Halcyon.",
+          "clauseLabel": "2.3",
+          "plainSummary": "You cannot copy or save the information unless needed for the discussion, and you must destroy all copies within 7 days if the company asks in writing.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": false
+        },
+        {
+          "id": "f4",
+          "category": "confidentiality",
+          "exactQuote": "The obligations in this Clause 2 shall continue in perpetuity and shall survive\nthe termination of this Agreement and of any engagement between the parties.",
+          "clauseLabel": "2.4",
+          "plainSummary": "Your duty to keep information secret lasts forever, even after this agreement ends or your work relationship finishes.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": true
+        },
+        {
+          "id": "f5",
+          "category": "confidentiality",
+          "exactQuote": "The Recipient shall not be relieved of any obligation under Clause 2 on the ground\nthat the information is or becomes publicly known, was independently developed, was\nalready in the Recipient's possession, or is required to be disclosed.",
+          "clauseLabel": "3.1",
+          "plainSummary": "You remain bound to secrecy even if the information becomes public, you knew it beforehand, you made it yourself, or the law requires you to share it.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": true
+        },
+        {
+          "id": "f6",
+          "category": "restraint_of_trade",
+          "exactQuote": "For a period of five (5) years from the date of this Agreement, the Recipient\nshall not, directly or indirectly, solicit, employ or engage any employee, contractor,\ncustomer or supplier of Halcyon.",
+          "clauseLabel": "4.1",
+          "plainSummary": "For 5 years, you cannot hire, work with, or approach any of the company's workers, contractors, customers, or suppliers.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": true
+        },
+        {
+          "id": "f7",
+          "category": "dispute_resolution",
+          "exactQuote": "The Recipient acknowledges that any breach of this Agreement would cause Halcyon\nirreparable harm for which damages would not be an adequate remedy, and that Halcyon\nshall be entitled to injunctive relief without proof of loss and without furnishing\nany security or undertaking as to damages.",
+          "clauseLabel": "5.1",
+          "plainSummary": "If you break the rules, the company can ask a court for an immediate stop order (injunction) without having to prove financial loss or deposit any money.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": false
+        },
+        {
+          "id": "f8",
+          "category": "indemnity",
+          "exactQuote": "The Recipient shall indemnify Halcyon against all losses, costs and expenses,\nincluding legal fees on a full indemnity basis, arising out of any breach by the\nRecipient.",
+          "clauseLabel": "5.2",
+          "plainSummary": "You must repay the company for all losses, costs, and full lawyer fees if you breach this contract.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": false
+        },
+        {
+          "id": "f9",
+          "category": "liability",
+          "exactQuote": "No licence or right in the Confidential Information is granted to the Recipient.\nHalcyon gives no representation or warranty as to the accuracy or completeness of any\nConfidential Information disclosed.",
+          "clauseLabel": "6.1",
+          "plainSummary": "You receive no ownership rights in the information, and the company does not promise that the information is accurate or complete.",
+          "obligationOn": "unclear",
+          "benefits": "counterparty",
+          "isUnusual": false
+        },
+        {
+          "id": "f10",
+          "category": "jurisdiction",
+          "exactQuote": "This Agreement shall be governed by the laws of India, and the courts at Gurugram\nshall have exclusive jurisdiction.",
+          "clauseLabel": "7.1",
+          "plainSummary": "Any court dispute relating to this agreement must be handled only by the courts in Gurugram under Indian law.",
+          "obligationOn": "both",
+          "benefits": "both",
+          "isUnusual": false
+        },
+        {
+          "id": "f11",
+          "category": "unilateral_change",
+          "exactQuote": "Halcyon may amend this Agreement by written notice to the Recipient.",
+          "clauseLabel": "7.2",
+          "plainSummary": "The company can change the terms of this agreement on its own simply by sending you a written notice.",
+          "obligationOn": "you",
+          "benefits": "counterparty",
+          "isUnusual": true
+        }
+      ]
+    }
+  }
+}

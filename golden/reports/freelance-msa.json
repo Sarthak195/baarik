@@ -1,0 +1,954 @@
+{
+  "kind": "report",
+  "report": {
+    "reportId": "freelance-msa",
+    "documentHash": "69ae4161553147fd77df389619776fec6f910988ac05905c94245d632c7d90ab",
+    "documentType": "freelance_contract",
+    "language": "en",
+    "risk": {
+      "score": 85,
+      "band": "severe",
+      "drivers": [
+        {
+          "ruleId": "construct_unlimited_indemnity",
+          "tier": "construct",
+          "severity": "critical",
+          "title": "You cover their losses with no ceiling",
+          "explain": "You promise to make good the other side's losses with no upper limit, and in many drafts that covers losses their own conduct caused.",
+          "points": 18,
+          "evidence": {
+            "start": 3744,
+            "end": 3870,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "The indemnity at Clause 7.1 is unlimited in amount and unlimited in time, and\nshall survive the termination of this Agreement."
+          },
+          "askYourLawyer": "Can the indemnity be capped at the fees paid, and exclude losses caused by the other side's own acts?"
+        },
+        {
+          "ruleId": "notice_period_asymmetry_severe",
+          "tier": "asymmetry",
+          "severity": "high",
+          "title": "You owe at least twice the notice they owe",
+          "explain": "To walk away you must give 90 days' notice, while the other side needs only 0 days. That is at least double the warning from you that you would get from them.",
+          "points": 18,
+          "evidence": {
+            "start": 4424,
+            "end": 4562,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "The Consultant may terminate this Agreement only on ninety (90) days' written\nnotice and only after completing every SOW then in progress."
+          },
+          "askYourLawyer": "Can the notice period be made the same for both sides, or a buy-out offered instead?"
+        },
+        {
+          "ruleId": "construct_unilateral_amendment_without_notice",
+          "tier": "construct",
+          "severity": "high",
+          "title": "They can change the terms without telling you",
+          "explain": "The other side can rewrite this agreement on its own, without notice to you. What you are agreeing to today is not necessarily what will bind you next month.",
+          "points": 16,
+          "evidence": {
+            "start": 5509,
+            "end": 5655,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "The Client may amend the Client's design and delivery policies from time to time,\nand the Consultant shall comply with the policies then in force."
+          },
+          "askYourLawyer": "Can any change to these terms require written notice to me and a right to exit without penalty?"
+        },
+        {
+          "ruleId": "construct_assignment_of_future_ip",
+          "tier": "construct",
+          "severity": "high",
+          "title": "Work you have not made yet is already theirs",
+          "explain": "Work you create later belongs to the other side the moment it exists, and such clauses are often written wide enough to catch what you build outside this engagement.",
+          "points": 15,
+          "evidence": {
+            "start": 2299,
+            "end": 2620,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "All right, title and interest in every deliverable, work in progress, sketch,\nconcept, artwork, font pairing, source file and design element created by the\nConsultant in connection with this Agreement, whether accepted by the Client or not,\nshall vest absolutely in the Client with effect from the date of this Agreement."
+          },
+          "askYourLawyer": "Does this cover work made in my own time and on my own equipment, and can that be carved out?"
+        },
+        {
+          "ruleId": "construct_sole_discretion_on_payment",
+          "tier": "construct",
+          "severity": "high",
+          "title": "Money owed to you is left to their discretion",
+          "explain": "A payment you are meant to receive depends on the other side's sole discretion or satisfaction, so there is no test you can point to and say the money is due.",
+          "points": 15,
+          "evidence": {
+            "start": 1784,
+            "end": 1982,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "Acceptance of a deliverable and approval of an invoice shall be at the sole\ndiscretion of the Client. The Client shall be under no obligation to state reasons for\nwithholding acceptance or approval."
+          },
+          "askYourLawyer": "Can payment be tied to a measurable event and a date instead of the other side's satisfaction?"
+        },
+        {
+          "ruleId": "post_employment_non_compete_term_stated",
+          "tier": "threshold",
+          "severity": "high",
+          "title": "A non-compete period is written into the contract",
+          "explain": "The contract restrains you from competing for 12 months after it ends. Section 27 treats a restraint on lawful work as void to that extent, and Indian law has no reasonableness test that saves one.",
+          "points": 12,
+          "evidence": {
+            "start": 3037,
+            "end": 3241,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "The Consultant shall not, during the term of this Agreement and for twelve (12)\nmonths thereafter, provide services of a similar description to any business engaged\nin the personal care category in India."
+          },
+          "askYourLawyer": "Which parts of this restriction survive after I leave, and which fall under section 27?"
+        },
+        {
+          "ruleId": "absent_liability_cap_in_your_favour",
+          "tier": "absence",
+          "severity": "medium",
+          "title": "No ceiling on what you could owe",
+          "explain": "There is no cap on what you could be asked to pay if something goes wrong, while the other side's exposure is usually limited elsewhere in the same document.",
+          "points": 10,
+          "evidence": null,
+          "askYourLawyer": "Can my total liability be capped at the amount actually paid under this contract?"
+        }
+      ],
+      "topDrivers": [
+        {
+          "ruleId": "construct_unlimited_indemnity",
+          "tier": "construct",
+          "severity": "critical",
+          "title": "You cover their losses with no ceiling",
+          "explain": "You promise to make good the other side's losses with no upper limit, and in many drafts that covers losses their own conduct caused.",
+          "points": 18,
+          "evidence": {
+            "start": 3744,
+            "end": 3870,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "The indemnity at Clause 7.1 is unlimited in amount and unlimited in time, and\nshall survive the termination of this Agreement."
+          },
+          "askYourLawyer": "Can the indemnity be capped at the fees paid, and exclude losses caused by the other side's own acts?"
+        },
+        {
+          "ruleId": "notice_period_asymmetry_severe",
+          "tier": "asymmetry",
+          "severity": "high",
+          "title": "You owe at least twice the notice they owe",
+          "explain": "To walk away you must give 90 days' notice, while the other side needs only 0 days. That is at least double the warning from you that you would get from them.",
+          "points": 18,
+          "evidence": {
+            "start": 4424,
+            "end": 4562,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "The Consultant may terminate this Agreement only on ninety (90) days' written\nnotice and only after completing every SOW then in progress."
+          },
+          "askYourLawyer": "Can the notice period be made the same for both sides, or a buy-out offered instead?"
+        },
+        {
+          "ruleId": "construct_unilateral_amendment_without_notice",
+          "tier": "construct",
+          "severity": "high",
+          "title": "They can change the terms without telling you",
+          "explain": "The other side can rewrite this agreement on its own, without notice to you. What you are agreeing to today is not necessarily what will bind you next month.",
+          "points": 16,
+          "evidence": {
+            "start": 5509,
+            "end": 5655,
+            "method": "normalised",
+            "similarity": 1,
+            "matchedText": "The Client may amend the Client's design and delivery policies from time to time,\nand the Consultant shall comply with the policies then in force."
+          },
+          "askYourLawyer": "Can any change to these terms require written notice to me and a right to exit without penalty?"
+        }
+      ],
+      "unknowns": [
+        {
+          "ruleId": "cure_period_asymmetry_severe",
+          "missing": [
+            "cureDaysTheyGet",
+            "cureDaysYouGet"
+          ],
+          "question": "Can the time to put a breach right be made equal for both sides?"
+        },
+        {
+          "ruleId": "cure_period_asymmetry_moderate",
+          "missing": [
+            "cureDaysTheyGet",
+            "cureDaysYouGet",
+            "cureDaysTheyGet",
+            "cureDaysYouGet"
+          ],
+          "question": "The document did not make this clear: They get about half again as long to fix a breach."
+        },
+        {
+          "ruleId": "liability_cap_exceeds_a_year_of_pay",
+          "missing": [
+            "liabilityCapInr",
+            "annualCtcInr"
+          ],
+          "question": "Can my exposure under this contract be capped at the fees or salary actually paid to me?"
+        },
+        {
+          "ruleId": "default_interest_doubles_the_contract_rate",
+          "missing": [
+            "latePaymentPercentPerMonth",
+            "annualInterestPercent"
+          ],
+          "question": "Is the default charge a genuine estimate of the lender's loss, or a penalty on top of interest?"
+        },
+        {
+          "ruleId": "default_interest_exceeds_the_contract_rate",
+          "missing": [
+            "latePaymentPercentPerMonth",
+            "annualInterestPercent",
+            "latePaymentPercentPerMonth",
+            "annualInterestPercent"
+          ],
+          "question": "The document did not make this clear: Late-payment charge is above the loan's own rate."
+        },
+        {
+          "ruleId": "lock_in_longer_than_six_months",
+          "missing": [
+            "lockInMonths"
+          ],
+          "question": "What exactly do I owe if I leave during the lock-in, and can that be capped?"
+        },
+        {
+          "ruleId": "lock_in_four_to_six_months",
+          "missing": [
+            "lockInMonths",
+            "lockInMonths"
+          ],
+          "question": "The document did not make this clear: Lock-in of four to six months."
+        },
+        {
+          "ruleId": "confidentiality_beyond_five_years_or_perpetual",
+          "missing": [
+            "confidentialityMonths"
+          ],
+          "question": "Can the confidentiality term be limited to a few years, with trade secrets carved out separately?"
+        },
+        {
+          "ruleId": "payment_terms_longer_than_forty_five_days",
+          "missing": [
+            "paymentTermDays"
+          ],
+          "question": "Am I registered on Udyam, and does the 45-day rule under the MSMED Act apply to my invoices?"
+        },
+        {
+          "ruleId": "penal_charge_above_twenty_four_percent_a_year",
+          "missing": [
+            "latePaymentPercentPerMonth"
+          ],
+          "question": "Is this charge a genuine pre-estimate of the loss caused by delay, or a penalty on top of interest?"
+        }
+      ],
+      "tierTotals": {
+        "asymmetry": 18,
+        "threshold": 12,
+        "construct": 45,
+        "absence": 10
+      },
+      "rubricVersion": "2026.09.13"
+    },
+    "findings": [
+      {
+        "id": "f1",
+        "category": "other",
+        "exactQuote": "2.1 The Consultant shall carry out such revisions to each deliverable as the Client may request, without limit as to the number of rounds, until the Client confirms that the deliverable meets its requirements.",
+        "clauseLabel": "2.1",
+        "plainSummary": "You must make as many changes to your work as the client asks for, with no limit on the number of revision rounds.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 1023,
+          "end": 1232,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "2.1 The Consultant shall carry out such revisions to each deliverable as the Client\nmay request, without limit as to the number of rounds, until the Client confirms that\nthe deliverable meets its requirements."
+        },
+        "segmentId": "seg-5-2.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f2",
+        "category": "payment",
+        "exactQuote": "2.2 No revision requested under Clause 2.1 shall attract any additional fee, and no revision shall extend the fee payable under the relevant SOW.",
+        "clauseLabel": "2.2",
+        "plainSummary": "You will not receive any extra payment or higher fee for making revisions requested by the client.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 1234,
+          "end": 1379,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "2.2 No revision requested under Clause 2.1 shall attract any additional fee, and no\nrevision shall extend the fee payable under the relevant SOW."
+        },
+        "segmentId": "seg-6-2.2",
+        "pageNumber": null
+      },
+      {
+        "id": "f3",
+        "category": "payment",
+        "exactQuote": "3.2 The Consultant shall raise an invoice only after the Client has confirmed, in writing, that all deliverables under the SOW have been accepted.",
+        "clauseLabel": "3.2",
+        "plainSummary": "You can only bill the client after they confirm in writing that they have accepted every single deliverable.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 1620,
+          "end": 1766,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "3.2 The Consultant shall raise an invoice only after the Client has confirmed, in\nwriting, that all deliverables under the SOW have been accepted."
+        },
+        "segmentId": "seg-9-3.2",
+        "pageNumber": null
+      },
+      {
+        "id": "f4",
+        "category": "payment",
+        "exactQuote": "4.1 Acceptance of a deliverable and approval of an invoice shall be at the sole discretion of the Client. The Client shall be under no obligation to state reasons for withholding acceptance or approval.",
+        "clauseLabel": "4.1",
+        "plainSummary": "The client can refuse to accept your work or approve your bill for any reason without having to explain why.",
+        "obligationOn": "counterparty",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 1780,
+          "end": 1982,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "4.1 Acceptance of a deliverable and approval of an invoice shall be at the sole\ndiscretion of the Client. The Client shall be under no obligation to state reasons for\nwithholding acceptance or approval."
+        },
+        "segmentId": "seg-11-4.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f5",
+        "category": "payment",
+        "exactQuote": "4.2 The Client shall pay each approved invoice within ninety (90) days of the date on which the Client approves that invoice.",
+        "clauseLabel": "4.2",
+        "plainSummary": "The client has up to 90 days after approving your bill to actually make the payment.",
+        "obligationOn": "counterparty",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 1984,
+          "end": 2109,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "4.2 The Client shall pay each approved invoice within ninety (90) days of the date on\nwhich the Client approves that invoice."
+        },
+        "segmentId": "seg-12-4.2",
+        "pageNumber": null
+      },
+      {
+        "id": "f6",
+        "category": "payment",
+        "exactQuote": "4.3 The Client may withhold from any payment any amount which the Client in good faith considers to represent a defect, delay or deficiency in the Services.",
+        "clauseLabel": "4.3",
+        "plainSummary": "The client can hold back money from your payment if they believe your work has flaws or was delayed.",
+        "obligationOn": "counterparty",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 2111,
+          "end": 2267,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "4.3 The Client may withhold from any payment any amount which the Client in good faith\nconsiders to represent a defect, delay or deficiency in the Services."
+        },
+        "segmentId": "seg-13-4.3",
+        "pageNumber": null
+      },
+      {
+        "id": "f7",
+        "category": "ip_assignment",
+        "exactQuote": "5.1 All right, title and interest in every deliverable, work in progress, sketch, concept, artwork, font pairing, source file and design element created by the Consultant in connection with this Agreement, whether accepted by the Client or not, shall vest absolutely in the Client with effect from the date of this Agreement.",
+        "clauseLabel": "5.1",
+        "plainSummary": "The client automatically owns everything you create for this project—including sketches, rough drafts, and unused concepts—even if they never accept the work.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 2295,
+          "end": 2620,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "5.1 All right, title and interest in every deliverable, work in progress, sketch,\nconcept, artwork, font pairing, source file and design element created by the\nConsultant in connection with this Agreement, whether accepted by the Client or not,\nshall vest absolutely in the Client with effect from the date of this Agreement."
+        },
+        "segmentId": "seg-15-5.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f8",
+        "category": "ip_assignment",
+        "exactQuote": "5.2 The assignment at Clause 5.1 takes effect on the signature of this Agreement and is not conditional upon payment of any fee.",
+        "clauseLabel": "5.2",
+        "plainSummary": "The client becomes the full owner of your work as soon as the agreement is signed, even if they have not paid you.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 2622,
+          "end": 2750,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "5.2 The assignment at Clause 5.1 takes effect on the signature of this Agreement and\nis not conditional upon payment of any fee."
+        },
+        "segmentId": "seg-16-5.2",
+        "pageNumber": null
+      },
+      {
+        "id": "f9",
+        "category": "ip_assignment",
+        "exactQuote": "5.3 The Consultant waives all moral rights in the deliverables and shall not display, publish or reproduce any deliverable, or any part of it, in any portfolio, case study, award entry or social media post, without the Client's prior written consent.",
+        "clauseLabel": "5.3",
+        "plainSummary": "You give up your right to be named as the creator and cannot show the work in your portfolio or online without the client's written permission.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 2752,
+          "end": 3002,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "5.3 The Consultant waives all moral rights in the deliverables and shall not display,\npublish or reproduce any deliverable, or any part of it, in any portfolio, case study,\naward entry or social media post, without the Client's prior written consent."
+        },
+        "segmentId": "seg-17-5.3",
+        "pageNumber": null
+      },
+      {
+        "id": "f10",
+        "category": "restraint_of_trade",
+        "exactQuote": "6.1 The Consultant shall not, during the term of this Agreement and for twelve (12) months thereafter, provide services of a similar description to any business engaged in the personal care category in India.",
+        "clauseLabel": "6.1",
+        "plainSummary": "You cannot provide similar design services to any personal care company in India during this agreement and for 12 months after it ends.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 3033,
+          "end": 3241,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "6.1 The Consultant shall not, during the term of this Agreement and for twelve (12)\nmonths thereafter, provide services of a similar description to any business engaged\nin the personal care category in India."
+        },
+        "segmentId": "seg-19-6.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f11",
+        "category": "confidentiality",
+        "exactQuote": "6.2 The Consultant shall keep confidential all information of the Client and shall not disclose it to any person.",
+        "clauseLabel": "6.2",
+        "plainSummary": "You must keep all client information secret and not share it with anyone.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 3243,
+          "end": 3356,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "6.2 The Consultant shall keep confidential all information of the Client and shall not\ndisclose it to any person."
+        },
+        "segmentId": "seg-20-6.2",
+        "pageNumber": null
+      },
+      {
+        "id": "f12",
+        "category": "indemnity",
+        "exactQuote": "7.1 The Consultant shall indemnify, defend and hold harmless the Client, its directors, employees and affiliates against all claims, damages, losses, penalties, costs and expenses of every description, including legal fees, arising out of or in connection with the Services, the deliverables, any allegation of infringement, or any act or omission of the Consultant.",
+        "clauseLabel": "7.1",
+        "plainSummary": "You must pay for any losses, legal costs, or claims brought against the client that relate to your work, services, or actions.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 3372,
+          "end": 3738,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "7.1 The Consultant shall indemnify, defend and hold harmless the Client, its\ndirectors, employees and affiliates against all claims, damages, losses, penalties,\ncosts and expenses of every description, including legal fees, arising out of or in\nconnection with the Services, the deliverables, any allegation of infringement, or any\nact or omission of the Consultant."
+        },
+        "segmentId": "seg-22-7.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f13",
+        "category": "indemnity",
+        "exactQuote": "7.2 The indemnity at Clause 7.1 is unlimited in amount and unlimited in time, and shall survive the termination of this Agreement.",
+        "clauseLabel": "7.2",
+        "plainSummary": "Your duty to cover the client's losses has no cash limit, lasts forever, and continues even after this contract ends.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 3740,
+          "end": 3870,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "7.2 The indemnity at Clause 7.1 is unlimited in amount and unlimited in time, and\nshall survive the termination of this Agreement."
+        },
+        "segmentId": "seg-23-7.2",
+        "pageNumber": null
+      },
+      {
+        "id": "f14",
+        "category": "termination",
+        "exactQuote": "8.1 The Client may terminate this Agreement, or any SOW, at any time and for any reason, by written notice to the Consultant with immediate effect.",
+        "clauseLabel": "8.1",
+        "plainSummary": "The client can end this contract or any work order immediately at any time without needing a specific reason.",
+        "obligationOn": "counterparty",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 3990,
+          "end": 4137,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "8.1 The Client may terminate this Agreement, or any SOW, at any time and for any\nreason, by written notice to the Consultant with immediate effect."
+        },
+        "segmentId": "seg-26-8.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f15",
+        "category": "termination",
+        "exactQuote": "8.2 On termination under Clause 8.1, the Client shall have no liability to pay for any deliverable, work in progress or service for which an invoice has not already been approved under Clause 4.1, and the rights assigned under Clause 5.1 shall not be affected by the termination.",
+        "clauseLabel": "8.2",
+        "plainSummary": "If the client cancels the contract, they do not have to pay for any work that has not already been approved, but they still keep ownership of all your work.",
+        "obligationOn": "counterparty",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 4139,
+          "end": 4418,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "8.2 On termination under Clause 8.1, the Client shall have no liability to pay for any\ndeliverable, work in progress or service for which an invoice has not already been\napproved under Clause 4.1, and the rights assigned under Clause 5.1 shall not be\naffected by the termination."
+        },
+        "segmentId": "seg-27-8.2",
+        "pageNumber": null
+      },
+      {
+        "id": "f16",
+        "category": "termination",
+        "exactQuote": "8.3 The Consultant may terminate this Agreement only on ninety (90) days' written notice and only after completing every SOW then in progress.",
+        "clauseLabel": "8.3",
+        "plainSummary": "You can only end this contract by giving 90 days' advance notice in writing and finishing all active work orders first.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": true,
+        "location": {
+          "start": 4420,
+          "end": 4562,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "8.3 The Consultant may terminate this Agreement only on ninety (90) days' written\nnotice and only after completing every SOW then in progress."
+        },
+        "segmentId": "seg-28-8.3",
+        "pageNumber": null
+      },
+      {
+        "id": "f17",
+        "category": "dispute_resolution",
+        "exactQuote": "10.1 Any dispute arising out of this Agreement shall be referred to arbitration by a sole arbitrator under the Arbitration and Conciliation Act, 1996. The seat of arbitration shall be Mumbai.",
+        "clauseLabel": "10.1",
+        "plainSummary": "Any dispute must be settled through arbitration—a private legal hearing before a single appointed arbitrator—held in Mumbai.",
+        "obligationOn": "both",
+        "benefits": "both",
+        "isUnusual": false,
+        "location": {
+          "start": 4947,
+          "end": 5138,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "10.1 Any dispute arising out of this Agreement shall be referred to arbitration by a\nsole arbitrator under the Arbitration and Conciliation Act, 1996. The seat of\narbitration shall be Mumbai."
+        },
+        "segmentId": "seg-33-10.1",
+        "pageNumber": null
+      },
+      {
+        "id": "f18",
+        "category": "jurisdiction",
+        "exactQuote": "10.2 The courts at Mumbai shall have exclusive jurisdiction, subject to Clause 10.1.",
+        "clauseLabel": "10.2",
+        "plainSummary": "Any court cases concerning this agreement must be filed only in the courts of Mumbai.",
+        "obligationOn": "both",
+        "benefits": "both",
+        "isUnusual": false,
+        "location": {
+          "start": 5140,
+          "end": 5224,
+          "method": "exact",
+          "similarity": 1,
+          "matchedText": "10.2 The courts at Mumbai shall have exclusive jurisdiction, subject to Clause 10.1."
+        },
+        "segmentId": "seg-34-10.2",
+        "pageNumber": null
+      },
+      {
+        "id": "f19",
+        "category": "unilateral_change",
+        "exactQuote": "12.2 The Client may amend the Client's design and delivery policies from time to time, and the Consultant shall comply with the policies then in force.",
+        "clauseLabel": "12.2",
+        "plainSummary": "The client can change its design and delivery rules at any time, and you must follow the updated rules.",
+        "obligationOn": "you",
+        "benefits": "counterparty",
+        "isUnusual": false,
+        "location": {
+          "start": 5504,
+          "end": 5655,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "12.2 The Client may amend the Client's design and delivery policies from time to time,\nand the Consultant shall comply with the policies then in force."
+        },
+        "segmentId": "seg-39-12.2",
+        "pageNumber": null
+      }
+    ],
+    "rejected": [],
+    "grounding": {
+      "total": 19,
+      "grounded": 19,
+      "exact": 1,
+      "normalised": 18,
+      "fuzzy": 0,
+      "rejected": 0,
+      "rejectionsByReason": {
+        "quote_empty": 0,
+        "quote_too_short": 0,
+        "not_found": 0,
+        "below_threshold": 0,
+        "ambiguous": 0,
+        "duplicate": 0
+      }
+    },
+    "enforceability": [
+      {
+        "construct": "post_employment_non_compete",
+        "verdict": "likely_void",
+        "confidence": "high",
+        "statute": {
+          "act": "Indian Contract Act, 1872",
+          "section": "Section 27 — Agreement in restraint of trade, void",
+          "text": "Every agreement by which any one is restrained from exercising a lawful profession, trade or business of any kind, is to that extent void.",
+          "url": "https://www.indiacode.nic.in/show-data?actid=AC_CEN_3_20_00035_187209_1523268996428&sectionId=38631&sectionno=27&orderno=28"
+        },
+        "authorities": [
+          {
+            "cite": "Niranjan Shankar Golikari v The Century Spinning and Mfg Co Ltd, AIR 1967 SC 1098 (17 January 1967)",
+            "holding": "A restraint that operates while the employment is still running was upheld; the Supreme Court treated restrictions that bite after the employment ends as standing on a different footing under section 27.",
+            "url": "https://indiankanoon.org/doc/452434/"
+          },
+          {
+            "cite": "Varun Tyagi v Daffodil Software Private Limited, FAO 167/2025, Delhi High Court (25 June 2025)",
+            "holding": "A clause barring the employee from working with a business associate of the employer after the employment ended was held void under section 27; confidentiality and trade-secret protection was treated as the legitimate route instead.",
+            "url": "https://indiankanoon.org/doc/187332526/"
+          }
+        ],
+        "plainMeaning": "Indian law generally does not enforce a promise not to work for a competitor after your job ends. India has no test of reasonableness that saves such a promise, unlike England or the United States. The confidentiality promise sitting next to it is a separate thing and usually does still hold.",
+        "caveats": [
+          "This describes what the section says and how courts have read it. It is not an opinion about your contract or your situation.",
+          "A restraint that applies while you are still employed is treated differently and is often enforced.",
+          "Protection of trade secrets, client data and confidential information can bind you after you leave, even when the non-compete does not.",
+          "The other side can still sue. Only a court can decide what this clause does on your facts, and defending a suit costs time and money.",
+          "Garden leave, notice buy-outs and non-solicitation clauses raise separate questions this row does not cover."
+        ],
+        "appliesTo": [
+          "employment_offer",
+          "nda",
+          "freelance_contract"
+        ],
+        "evidence": {
+          "start": 3037,
+          "end": 3241,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "The Consultant shall not, during the term of this Agreement and for twelve (12)\nmonths thereafter, provide services of a similar description to any business engaged\nin the personal care category in India."
+        }
+      },
+      {
+        "construct": "sole_discretion_on_payment",
+        "verdict": "context_dependent",
+        "confidence": "medium",
+        "statute": {
+          "act": "Indian Contract Act, 1872",
+          "section": "Section 23 — What considerations and objects are lawful, and what not",
+          "text": "The consideration or object of an agreement is lawful, unless it is forbidden by law; or is of such a nature that, if permitted, it would defeat the provisions of any law; or is fraudulent; or involves or implies injury to the person or property of another; or the Court regards it as immoral, or opposed to public policy. In each of these cases, the consideration or object of an agreement is said to be unlawful. Every agreement of which the object or consideration is unlawful is void.",
+          "url": "https://indiacode.nic.in/show-data?actid=AC_CEN_3_20_00035_187209_1523268996428&orderno=24&sectionId=38627&sectionno=23"
+        },
+        "authorities": [
+          {
+            "cite": "Central Inland Water Transport Corporation Ltd v Brojo Nath Ganguly, (1986) 3 SCC 156 (6 April 1986)",
+            "holding": "A term in a printed standard-form contract between parties of unequal bargaining power, which is unfair, unreasonable and unconscionable, was held void under section 23 as opposed to public policy.",
+            "url": "https://indiankanoon.org/doc/477313/"
+          }
+        ],
+        "plainMeaning": "Courts have struck down terms in standard printed contracts where one side had no real chance to negotiate and the term was grossly one-sided. Whether a particular term is of that kind depends on the bargaining position of the two sides.",
+        "caveats": [
+          "This is the general principle, not a ruling on your clause. Only a court applying it to your facts can say whether the term stands.",
+          "Brojo Nath concerned an instrumentality of the State; later decisions have been cautious about extending it to contracts between commercial parties of comparable strength.",
+          "Showing unequal bargaining power is part of the case and has to be proved, not assumed.",
+          "A consumer complaint about an unfair contract term may be a quicker route than a civil suit; the routes are separate."
+        ],
+        "appliesTo": [
+          "employment_offer",
+          "freelance_contract",
+          "other"
+        ],
+        "evidence": {
+          "start": 1784,
+          "end": 1982,
+          "method": "normalised",
+          "similarity": 1,
+          "matchedText": "Acceptance of a deliverable and approval of an invoice shall be at the sole\ndiscretion of the Client. The Client shall be under no obligation to state reasons for\nwithholding acceptance or approval."
+        }
+      }
+    ],
+    "inconsistencies": [
+      {
+        "kind": "undefined_term",
+        "severity": "medium",
+        "title": "\"Studio Ochre\" is used as a defined term but never defined",
+        "detail": "elsewhere in the document puts \"Studio Ochre\" in quotation marks, which signals a term with a fixed contractual meaning, but no clause in this document says what it means.",
+        "at": {
+          "start": 486,
+          "end": 500,
+          "quote": "\"Studio Ochre\"",
+          "segmentId": null,
+          "segmentLabel": null,
+          "pageNumber": null
+        },
+        "counterpart": null
+      },
+      {
+        "kind": "dangling_cross_reference",
+        "severity": "high",
+        "title": "Reference to clause 12.4, which this document does not contain",
+        "detail": "clause 7.3 points at clause 12.4. No such clause appears in this document, so the obligation it refers to cannot be read.",
+        "at": {
+          "start": 3967,
+          "end": 3971,
+          "quote": "12.4",
+          "segmentId": "seg-24-7.3",
+          "segmentLabel": "7.3",
+          "pageNumber": null
+        },
+        "counterpart": null
+      }
+    ],
+    "nextSteps": [
+      {
+        "forum": {
+          "id": "msefc",
+          "name": "Micro and Small Enterprise Facilitation Council",
+          "handles": "A registered micro or small enterprise's unpaid invoice against a buyer — conciliation first, then arbitration by the Council itself.",
+          "statute": "Micro, Small and Medium Enterprises Development Act, 2006, ss.15, 16 and 18",
+          "statuteUrl": "https://www.indiacode.nic.in/",
+          "portal": {
+            "name": "MSME Samadhaan",
+            "url": "https://samadhaan.msme.gov.in/"
+          },
+          "helpline": null,
+          "fee": {
+            "summary": "No filing fee.",
+            "amountInr": 0,
+            "freeForClaimsUpToInr": null
+          },
+          "filingPlace": "With the Council of the State where the supplier is located, under s.18(4), whatever the contract says about jurisdiction.",
+          "lawyerRequired": false,
+          "prerequisites": [
+            {
+              "step": "Register on the Udyam portal. Registration is free and takes minutes, but only a registered micro or small enterprise can make a reference.",
+              "waitDays": null,
+              "url": "https://udyamregistration.gov.in/"
+            }
+          ],
+          "entitlements": [
+            "s.15 — the buyer must pay before the agreed date and in no case later than forty-five days from the day the goods or services were accepted or deemed accepted.",
+            "s.16 — on default the buyer is liable to compound interest, with monthly rests, at three times the bank rate notified by the Reserve Bank, from the appointed day.",
+            "s.18(5) — the Council is to decide the reference within ninety days of its being made.",
+            "s.19 — a buyer challenging the Council's award in court must first deposit 75% of the amount awarded."
+          ],
+          "limitationRuleId": "limitation-act-1963-art55",
+          "triggers": {
+            "documentTypes": [
+              "freelance_contract"
+            ],
+            "problems": [
+              "unpaid_invoice"
+            ],
+            "constructs": [
+              "sole_discretion_on_payment"
+            ],
+            "verdicts": [],
+            "driverSeverities": [
+              "critical"
+            ],
+            "situations": [],
+            "universal": false
+          },
+          "caveats": [
+            "The forty-five day rule and the s.16 interest apply where the supplier was a registered micro or small enterprise. Registration is free but must be in place.",
+            "Whether the goods or services were accepted, and on what date, is a question of fact for the Council."
+          ]
+        },
+        "limitationRule": {
+          "id": "limitation-act-1963-art55",
+          "causeOfAction": "The date the contract is broken — for money due, the date payment fell due rather than the date the invoice was raised.",
+          "period": {
+            "unit": "months",
+            "count": 36
+          },
+          "statute": "Limitation Act, 1963, Schedule, art.55",
+          "statuteUrl": "https://www.indiacode.nic.in/",
+          "condonationPossible": false,
+          "stages": []
+        },
+        "clock": null,
+        "signals": [
+          {
+            "kind": "construct",
+            "detail": "sole_discretion_on_payment"
+          },
+          {
+            "kind": "risk_driver",
+            "detail": "critical"
+          }
+        ],
+        "priority": 20
+      },
+      {
+        "forum": {
+          "id": "legal_services_authority",
+          "name": "District or State Legal Services Authority",
+          "handles": "Free legal advice, drafting and representation by a panel advocate for anyone within s.12 of the Legal Services Authorities Act, 1987.",
+          "statute": "Legal Services Authorities Act, 1987, ss.12 and 13",
+          "statuteUrl": "https://www.indiacode.nic.in/",
+          "portal": {
+            "name": "NALSA",
+            "url": "https://nalsa.gov.in/"
+          },
+          "helpline": "15100 — NALSA legal services helpline",
+          "fee": {
+            "summary": "Free, including court fees, process fees and the panel advocate, for anyone eligible under s.12.",
+            "amountInr": 0,
+            "freeForClaimsUpToInr": null
+          },
+          "filingPlace": "At the District Legal Services Authority in your district court complex, which accepts walk-in applications, or online through the NALSA portal.",
+          "lawyerRequired": false,
+          "prerequisites": [],
+          "entitlements": [
+            "s.12(c) and s.12(f) entitle every woman, every child and every industrial workman to free legal services irrespective of what they earn.",
+            "s.12(h) entitles a person whose annual income is below the ceiling their State has fixed, and Rs 5,00,000 applies to Supreme Court matters.",
+            "Tele-Law connects you to a panel lawyer free of charge through a Common Service Centre or the Tele-Law app (tele-law.in), which is offered in 22 languages."
+          ],
+          "limitationRuleId": null,
+          "triggers": {
+            "documentTypes": [],
+            "problems": [],
+            "constructs": [],
+            "verdicts": [],
+            "driverSeverities": [],
+            "situations": [
+              "cannot_afford_lawyer"
+            ],
+            "universal": true
+          },
+          "caveats": [
+            "Eligibility is decided by the Authority on the application and the documents filed with it.",
+            "Applying for free legal aid does not stop the limitation period for the underlying claim from running."
+          ]
+        },
+        "limitationRule": null,
+        "clock": null,
+        "signals": [
+          {
+            "kind": "universal",
+            "detail": "legal_services_authority"
+          }
+        ],
+        "priority": 0
+      },
+      {
+        "forum": {
+          "id": "lok_adalat",
+          "name": "Lok Adalat",
+          "handles": "Settlement by consent of a pending case or of a dispute before any case is filed, organised by the Legal Services Authority.",
+          "statute": "Legal Services Authorities Act, 1987, ss.19 to 22B",
+          "statuteUrl": "https://www.indiacode.nic.in/",
+          "portal": {
+            "name": "NALSA",
+            "url": "https://nalsa.gov.in/"
+          },
+          "helpline": "15100 — NALSA legal services helpline",
+          "fee": {
+            "summary": "Free, and s.21 refunds the court fee already paid when a pending case is settled.",
+            "amountInr": 0,
+            "freeForClaimsUpToInr": null
+          },
+          "filingPlace": "Through the District Legal Services Authority, which publishes the dates of the National Lok Adalat held each quarter.",
+          "lawyerRequired": false,
+          "prerequisites": [],
+          "entitlements": [
+            "s.21 — an award of a Lok Adalat is deemed to be a decree of a civil court, is final, and no appeal lies against it.",
+            "s.21(1) proviso — the court fee paid in a pending case is refunded when the matter is settled in a Lok Adalat.",
+            "s.22B — a Permanent Lok Adalat hears public utility service disputes up to Rs 1,00,00,000 and may decide the matter on merits if no settlement is reached."
+          ],
+          "limitationRuleId": null,
+          "triggers": {
+            "documentTypes": [],
+            "problems": [],
+            "constructs": [],
+            "verdicts": [],
+            "driverSeverities": [],
+            "situations": [
+              "prefers_settlement"
+            ],
+            "universal": true
+          },
+          "caveats": [
+            "A Lok Adalat records a settlement both sides agree to. Apart from a Permanent Lok Adalat under s.22C, it decides nothing by itself.",
+            "Because an award is final and no appeal lies from it, what is agreed there cannot later be reopened.",
+            "Waiting for a Lok Adalat date does not stop the limitation period for filing from running."
+          ]
+        },
+        "limitationRule": null,
+        "clock": null,
+        "signals": [
+          {
+            "kind": "universal",
+            "detail": "lok_adalat"
+          }
+        ],
+        "priority": 0
+      }
+    ],
+    "meta": {
+      "rubricVersion": "2026.09.13",
+      "modelsUsed": [
+        "gemini-3.8-flash"
+      ],
+      "stageTimingsMs": {
+        "classify": 0,
+        "extract": 0
+      },
+      "truncated": false,
+      "readAsScan": false,
+      "generatedAt": "2026-09-13T00:00:00.000Z"
+    }
+  }
+}
