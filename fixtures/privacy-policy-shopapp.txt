@@ -1,0 +1,137 @@
+[SAMPLE — synthetic document written for demonstration. Not a real contract.]
+
+SHOPSETU — PRIVACY POLICY AND TERMS OF USE
+
+Vanya Commerce Technologies Private Limited
+CIN: U74999UP2019PTC118342
+Registered Office: Tower C, 9th Floor, Sector 62, Noida – 201309, Uttar Pradesh
+
+Version 4.2. Last updated: 18 January 2026.
+
+This Privacy Policy governs your use of the ShopSetu mobile application and website
+(the "Platform"), operated by Vanya Commerce Technologies Private Limited ("ShopSetu",
+"we", "us"). By downloading, installing, registering on or continuing to use the
+Platform, you agree to this Policy.
+
+1. ACCEPTANCE AND AMENDMENT
+
+1.1 We may add to, remove from, or otherwise modify this Policy at any time, at our
+sole discretion, and the modified Policy takes effect from the moment it is posted on
+the Platform.
+
+1.2 We are not obliged to notify you of any modification. It is your responsibility to
+review this Policy each time you use the Platform. Your continued use of the Platform
+after any modification constitutes your acceptance of the modified Policy.
+
+2. INFORMATION WE COLLECT
+
+2.1 Account information: your name, mobile number, e-mail address, date of birth,
+gender, delivery addresses and saved payment instrument details.
+
+2.2 Transaction information: your orders, returns, cancellations, ratings, reviews,
+wallet balance, coupons used and refund history.
+
+2.3 Device and usage information: device identifier, IMEI, operating system version,
+mobile network, IP address, advertising identifier, app version, crash logs, session
+duration, screens viewed, taps, scroll depth and time spent on each product page.
+
+2.4 Permissions: when you grant them, we access your precise location (including in
+the background), contacts, camera, photo gallery, installed application list and SMS
+for the purpose of reading one-time passwords.
+
+2.5 Information from other sources: information about you received from our affiliates
+and partners, from payment gateways, from logistics providers, and from publicly
+available sources.
+
+3. HOW WE USE YOUR INFORMATION
+
+3.1 To create and operate your account, to process orders, payments, deliveries and
+returns, and to provide customer support.
+
+3.2 To personalise the Platform, to recommend products, to determine the prices,
+offers, coupons and delivery charges shown to you, and to decide your eligibility for
+pay-later and no-cost instalment facilities.
+
+3.3 To send you promotional communications by SMS, e-mail, push notification,
+WhatsApp and voice call, including on behalf of third parties.
+
+3.4 To detect fraud, to enforce our terms, and for internal research, analytics and
+model training.
+
+4. SHARING YOUR INFORMATION
+
+4.1 We share your information with our affiliates and partners, with logistics and
+payment service providers, with sellers listing on the Platform, with marketing and
+analytics service providers, and with advertising networks.
+
+4.2 We do not publish a list of these affiliates and partners, and the list changes
+from time to time.
+
+4.3 We may transfer your information to any entity that acquires all or part of our
+business, in which case this Policy will continue to apply until it is replaced.
+
+4.4 We may store and process your information on servers located in India, Singapore
+and the United States, and you consent to such transfer.
+
+5. RETENTION
+
+5.1 We retain your information for as long as it is necessary for the purposes set out
+in this Policy, for our business purposes, and for such further period as we consider
+appropriate.
+
+5.2 Deleting the application does not delete your account or your information. If you
+request deletion of your account, we may retain your information in our archives.
+
+6. COOKIES AND SIMILAR TECHNOLOGIES
+
+6.1 We and our partners use cookies, software development kits and pixels to recognise
+your device, to measure campaigns, and to show you advertisements on the Platform and
+on third-party services.
+
+7. YOUR CHOICES
+
+7.1 You may update your account details from the "My Account" section of the Platform.
+
+7.2 You may opt out of promotional communications by writing to us. Opting out will
+not affect transactional communications.
+
+8. SECURITY
+
+8.1 We adopt reasonable security practices. However, no method of transmission or
+storage is completely secure, and we do not guarantee the security of your
+information. You use the Platform at your own risk.
+
+9. CHILDREN
+
+9.1 The Platform is not intended for persons under eighteen (18) years of age. We do
+not knowingly collect information from such persons.
+
+10. CONTACT
+
+10.1 For any question or complaint relating to this Policy, you may write to
+support@shopsetu.example.in. We endeavour to respond to messages within a reasonable
+time.
+
+11. DISPUTE RESOLUTION
+
+11.1 Any dispute, claim or controversy arising out of or relating to this Policy, the
+Platform or your use of it shall be referred to and finally resolved by arbitration
+administered in Singapore, before a sole arbitrator, in the English language. The
+seat of arbitration shall be Singapore.
+
+11.2 You agree that you will bring any claim against us only in your individual
+capacity, and not as a plaintiff or class member in any purported class,
+representative, collective or consolidated proceeding. You waive any right to
+participate in such a proceeding.
+
+11.3 No claim may be brought more than one hundred and eighty (180) days after the
+event giving rise to it.
+
+12. GOVERNING LAW
+
+12.1 This Policy shall be governed by the laws of India.
+
+12.2 If any provision of this Policy is held to be unenforceable, the remaining
+provisions shall continue in force.
+
+© 2026 Vanya Commerce Technologies Private Limited. All rights reserved.

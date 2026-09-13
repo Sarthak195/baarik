@@ -1,0 +1,79 @@
+[SAMPLE — synthetic document written for demonstration. Not a real contract.]
+
+MUTUAL NON-DISCLOSURE AGREEMENT
+
+This Mutual Non-Disclosure Agreement is entered into on 9 March 2026 between Halcyon
+Retail Technologies Private Limited, having its registered office at 6th Floor, Orchid
+Corporate Tower, Sector 44, Gurugram – 122003, Haryana ("Halcyon"), and Ms. Priya
+Menon Iyer, an independent consultant residing at 14/A, Panampilly Nagar, Kochi –
+682036, Kerala (the "Recipient").
+
+The parties wish to exchange information for the purpose of evaluating a possible
+consulting engagement (the "Purpose").
+
+1. CONFIDENTIAL INFORMATION
+
+1.1 "Confidential Information" means all information disclosed by Halcyon to the
+Recipient, in any form, whether or not marked confidential, including business plans,
+pricing, vendor lists, customer lists, product roadmaps, internal processes,
+specifications, organisation charts, and the existence and contents of this Agreement.
+
+2. OBLIGATIONS OF THE RECIPIENT
+
+2.1 The Recipient shall hold all Confidential Information in strict confidence and
+shall not disclose it to any person.
+
+2.2 The Recipient shall use the Confidential Information solely for the Purpose.
+
+2.3 The Recipient shall not copy, reproduce or store the Confidential Information
+except as strictly necessary for the Purpose, and shall destroy all copies within
+seven (7) days of a written request by Halcyon.
+
+2.4 The obligations in this Clause 2 shall continue in perpetuity and shall survive
+the termination of this Agreement and of any engagement between the parties.
+
+3. NO EXCLUSIONS
+
+3.1 The Recipient shall not be relieved of any obligation under Clause 2 on the ground
+that the information is or becomes publicly known, was independently developed, was
+already in the Recipient's possession, or is required to be disclosed.
+
+4. NON-SOLICITATION
+
+4.1 For a period of five (5) years from the date of this Agreement, the Recipient
+shall not, directly or indirectly, solicit, employ or engage any employee, contractor,
+customer or supplier of Halcyon.
+
+5. REMEDIES
+
+5.1 The Recipient acknowledges that any breach of this Agreement would cause Halcyon
+irreparable harm for which damages would not be an adequate remedy, and that Halcyon
+shall be entitled to injunctive relief without proof of loss and without furnishing
+any security or undertaking as to damages.
+
+5.2 The Recipient shall indemnify Halcyon against all losses, costs and expenses,
+including legal fees on a full indemnity basis, arising out of any breach by the
+Recipient.
+
+6. NO LICENCE OR WARRANTY
+
+6.1 No licence or right in the Confidential Information is granted to the Recipient.
+Halcyon gives no representation or warranty as to the accuracy or completeness of any
+Confidential Information disclosed.
+
+7. GENERAL
+
+7.1 This Agreement shall be governed by the laws of India, and the courts at Gurugram
+shall have exclusive jurisdiction.
+
+7.2 Halcyon may amend this Agreement by written notice to the Recipient.
+
+Signed for Halcyon Retail Technologies Private Limited
+
+Sd/-
+Devansh Chopra, Director
+
+Signed by the Recipient
+
+Sd/-
+Priya Menon Iyer

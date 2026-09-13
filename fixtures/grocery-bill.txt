@@ -1,0 +1,64 @@
+[SAMPLE — synthetic document written for demonstration. Not a real contract.]
+
+SAMPURNA SUPERMART
+100 Feet Road, Indiranagar, Bengaluru - 560038
+Phone: 080-4455 2210
+GSTIN: 29AACCS9182K1ZP
+FSSAI Lic. No.: 11226334000912
+
+              TAX INVOICE / RETAIL BILL
+
+Invoice No. : IND/2026/0091472
+Date        : 11 March 2026        Time: 19:42
+Counter     : 03                   Cashier: Latha M
+Customer    : Walk-in
+
+------------------------------------------------------------------
+Sl  Item                       HSN     Qty    Rate      Amount
+------------------------------------------------------------------
+ 1  Toor Dal 1 kg              0713    1      178.00     178.00
+ 2  Sunflower Oil 1 L pouch    1512    1      145.00     145.00
+ 3  Chakki Atta 5 kg           1101    1      265.00     265.00
+ 4  Toned Milk 500 ml          0401    4       34.00     136.00
+ 5  Bananas (loose) 1 kg       0803    1       54.00      54.00
+ 6  Toothpaste 150 g           3306    1       99.00      99.00
+ 7  Detergent Powder 1 kg      3402    1      189.00     189.00
+ 8  Glucose Biscuits 200 g     1905    2       30.00      60.00
+------------------------------------------------------------------
+Total items: 8            Total quantity: 12
+------------------------------------------------------------------
+
+TAX SUMMARY
+
+Rate      Taxable Value      CGST        SGST        Tax
+Nil             190.00        0.00        0.00       0.00
+5%              588.00       14.70       14.70      29.40
+18%             348.00       31.32       31.32      62.64
+------------------------------------------------------------------
+Taxable value                                     1,126.00
+Total CGST                                           46.02
+Total SGST                                           46.02
+Gross total                                       1,218.04
+Round off                                            (0.04)
+------------------------------------------------------------------
+NET PAYABLE                                    Rs. 1,218.00
+------------------------------------------------------------------
+
+Amount in words: Rupees One Thousand Two Hundred and Eighteen only
+
+Payment mode : UPI
+UPI Ref No.  : 604812277391
+Bank         : Karnataka Union Bank
+Status       : APPROVED
+
+Savings on this bill: ₹46.00
+Loyalty points earned: 12    Total points balance: 486
+
+------------------------------------------------------------------
+Goods once sold will be taken back only within seven (7) days,
+against this bill, in unopened condition. Perishables are not
+returnable. Subject to Bengaluru jurisdiction.
+
+Thank you for shopping at Sampurna Supermart.
+For queries, call 080-4455 2210 between 9 a.m. and 9 p.m.
+------------------------------------------------------------------
