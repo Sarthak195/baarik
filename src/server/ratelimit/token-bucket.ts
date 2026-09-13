@@ -143,8 +143,9 @@ function secondsUntilNextToken(available: number): number {
  * Record the bucket and keep the map bounded.
  *
  * The entry is deleted before it is set so that `Map` insertion order is least-recently
- * seen first. That is what lets both eviction passes below stop at the first entry they
- * do not want, instead of walking ten thousand buckets on every request.
+ * seen first. That ordering is what makes eviction cheap: the age pass stops at the
+ * first bucket worth keeping, and the ceiling drops from the front, so neither walks
+ * ten thousand buckets on every request.
  */
 function remember(buckets: Map<string, Bucket>, key: string, bucket: Bucket): void {
   buckets.delete(key);

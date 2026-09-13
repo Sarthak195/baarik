@@ -98,7 +98,7 @@ export async function POST(request: Request): Promise<Response> {
     // system, and the reader is better served by being told what they uploaded than by
     // an empty report.
     if (outcome.kind === 'not_a_document') {
-      return redirect(request, backToForm(outcome.reason, 'refused', language));
+      return redirect(backToForm(outcome.reason, 'refused', language));
     }
 
     const view = toReportView({
@@ -123,10 +123,10 @@ export async function POST(request: Request): Promise<Response> {
       degraded,
     });
 
-    return redirect(request, withLanguage(`/report/${outcome.report.reportId}`, language));
+    return redirect(withLanguage(`/report/${outcome.report.reportId}`, language));
   } catch (error) {
     analysisLog.analysisFailed({ reason: reasonFor(error), durationMs: Date.now() - startedAt });
-    return redirect(request, backToForm(messageFor(error), 'error', language));
+    return redirect(backToForm(messageFor(error), 'error', language));
   }
 }
 
@@ -163,8 +163,21 @@ function backToForm(reason: string, key: 'refused' | 'error', language: OutputLa
   return withLanguage(`/?understood=1&${key}=${encodeURIComponent(reason)}`, language);
 }
 
-function redirect(request: Request, target: string): Response {
-  return Response.redirect(new URL(target, request.url), 303);
+/**
+ * Redirect to a path, never to a reconstructed absolute URL.
+ *
+ * `Response.redirect` demands an absolute URL, and the obvious way to build one is
+ * `new URL(target, request.url)`. Behind Cloud Run that is wrong: the container is
+ * addressed internally, so `request.url` reads `http://0.0.0.0:8080/analyze` and every
+ * successful analysis redirected the browser to a host it could not reach. It worked
+ * perfectly in local testing, where the two addresses happen to be the same.
+ *
+ * A relative `Location` is explicitly permitted (RFC 7231 §7.1.2) and every browser
+ * resolves it against the address the user actually requested — so the correct host is
+ * whatever they typed, and no proxy header has to be trusted or parsed.
+ */
+function redirect(target: string): Response {
+  return new Response(null, { status: 303, headers: { location: target } });
 }
 
 /**
