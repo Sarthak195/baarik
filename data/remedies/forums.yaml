@@ -1,0 +1,294 @@
+# The forum routing table — real Indian forums, no model involved.
+#
+# Parsed and Zod-validated in the server layer, then handed to `routeNextSteps` as data:
+# `src/core` never reads a file. Each row maps to `ForumRoute` in
+# `src/core/remedies/types.ts`. Keys omitted from a row are empty or false, and the
+# schema supplies the default, the same way a rubric rule omits `appliesTo`.
+#
+# Every row says what a forum does, what it costs and what a statute provides. No row
+# says the reader has a claim or predicts what a forum will do — Advocates Act 1961
+# ss.29 and 33 with *BCI v A.K. Balaji* (2018) reserve that to enrolled advocates. The
+# `caveats` list is mandatory and a test asserts it is never empty.
+#
+# Fees, pecuniary limits and portals change. Each row cites the provision that sets them
+# so a reader can check rather than trust, and the caveats say so plainly.
+version: '2026-09-13'
+
+forums:
+  - id: consumer_commission
+    name: District Consumer Disputes Redressal Commission
+    handles: Defective goods, deficient services, unfair trade practices and unfair contract terms, for anything bought for personal use.
+    statute: Consumer Protection Act, 2019, ss.34, 35 and 69
+    statuteUrl: https://www.indiacode.nic.in/
+    portal:
+      name: e-Jagriti, which took over consumer e-filing from e-Daakhil on 1 January 2025
+      url: https://e-jagriti.gov.in/
+    helpline: 1915 — National Consumer Helpline
+    fee:
+      summary: Nothing is payable where the claim is up to Rs 5,00,000, and Rs 200 from Rs 5,00,001 to Rs 10,00,000, under rule 7 of the Consumer Protection (Consumer Disputes Redressal Commissions) Rules, 2020 as amended in 2023.
+      amountInr: null
+      freeForClaimsUpToInr: 500000
+    # The least known and most useful line in this table.
+    filingPlace: s.34(2)(d) — where you ordinarily reside or personally work for gain. A clause in the contract naming another city's courts does not displace it.
+    lawyerRequired: false
+    entitlements:
+      - s.39 lets the Commission order the defect removed, the goods replaced, the price refunded, compensation paid, or an unfair contract term discontinued.
+      - s.2(46) defines an unfair contract by six limbs, including a penalty disproportionate to the loss and a right to terminate unilaterally without reasonable cause.
+    limitationRuleId: cpa-2019-s69
+    triggers:
+      documentTypes: [loan_agreement, privacy_policy, other]
+      problems: [goods_or_services_defect, bank_or_loan_conduct, insurance_claim, builder_delay_or_refund]
+      constructs: [forfeiture_of_paid_amounts, unilateral_amendment_without_notice, automatic_renewal_without_notice]
+      verdicts: [cannot_oust_this_forum]
+      driverSeverities: [critical]
+    caveats:
+      - A complaint lies for goods or services obtained for personal use. s.2(7) excludes anything obtained for resale or for a commercial purpose, and a contract of personal service is outside the definition of service in s.2(42).
+      - Whether what happened is a defect or a deficiency is for the Commission to decide on the evidence.
+      - Fee slabs are set by rules that change. Confirm the current fee on the portal before filing.
+
+  - id: rera_authority
+    name: State Real Estate Regulatory Authority
+    handles: Complaints against a promoter in a registered real estate project, including delayed possession, refund and interest.
+    statute: Real Estate (Regulation and Development) Act, 2016, ss.18 and 31
+    statuteUrl: https://www.indiacode.nic.in/
+    portal:
+      name: The Unified RERA Portal, which lists every State authority; the complaint itself is filed on your State's own portal
+      url: https://rera.mohua.gov.in/
+    fee:
+      summary: About Rs 1,000 in most States and Rs 5,000 in Maharashtra. The amount is fixed by State rules made under s.31.
+      amountInr: 1000
+      freeForClaimsUpToInr: null
+    filingPlace: With the Authority of the State in which the project is registered, in the form its rules prescribe.
+    lawyerRequired: false
+    entitlements:
+      - s.18(1) — where the promoter fails to give possession by the agreed date, the allottee may withdraw and claim the amount paid back with interest, or stay in the project and claim interest for every month of delay.
+      - s.31 lets any aggrieved person complain to the Authority or to the adjudicating officer for a contravention of the Act or the rules.
+    # No limitation row: neither the Act nor the rules prescribe a period, and a computed
+    # deadline would be an invention. The caveat below says so instead.
+    limitationRuleId: null
+    triggers:
+      problems: [builder_delay_or_refund]
+    caveats:
+      - RERA applies to projects required to be registered under s.3. A small project or one completed before the Act may fall outside it.
+      - Neither the Act nor the rules prescribe a limitation period for a s.31 complaint, and at least one High Court has held the Limitation Act, 1963 inapplicable to it. Delay is still something the Authority can weigh, so it is not a reason to wait.
+      - The rate of interest is the one prescribed by the State rules, not the rate written into the builder's agreement.
+
+  - id: labour_conciliation
+    name: Conciliation Officer or Labour Commissioner, then the Labour Court
+    handles: Unpaid or delayed wages, illegal termination, retrenchment, gratuity and provident fund.
+    statute: Code on Wages, 2019, s.17; Industrial Relations Code, 2020; Industrial Disputes Act, 1947, s.2A
+    statuteUrl: https://www.indiacode.nic.in/
+    portal:
+      name: SAMADHAN, the Ministry of Labour and Employment's dispute portal
+      url: https://samadhan.labour.gov.in/
+    fee:
+      summary: Free. Raising a dispute and the conciliation that follows cost nothing.
+      amountInr: 0
+      freeForClaimsUpToInr: null
+    filingPlace: With the Conciliation Officer or Labour Commissioner having jurisdiction over the establishment. SAMADHAN routes the complaint to the right office.
+    lawyerRequired: false
+    prerequisites:
+      - step: Raise the dispute before the Conciliation Officer first. s.2A(2) allows a direct application to the Labour Court only after this.
+        waitDays: 45
+        url: null
+      - step: Provident fund grievances go to EPFiGMS instead, which is run by the EPFO and answers separately.
+        waitDays: null
+        url: https://epfigms.gov.in/
+    entitlements:
+      - Code on Wages, 2019, s.17(2) — where an employee is removed, dismissed, retrenched or resigns, the wages payable must be paid within two working days.
+      - Industrial Disputes Act, 1947, s.25F — retrenchment without one month's notice or notice pay, and without retrenchment compensation, is invalid. The Industrial Relations Code, 2020 carries the same conditions forward.
+    limitationRuleId: id-act-1947-s2a3
+    triggers:
+      documentTypes: [employment_offer]
+      problems: [unpaid_salary_or_termination]
+      driverSeverities: [high, critical]
+    caveats:
+      - The four Labour Codes were brought into force on 21 November 2025 and the Industrial Disputes Act, 1947 no longer stands on its own. Rights that had accrued and proceedings already begun are saved, and the corresponding provision of the Industrial Relations Code, 2020 governs a termination after that date — confirm which applies to your dates before relying on the period shown.
+      - State rules under the Codes have been notified unevenly, so what the office in front of you follows may still be the older procedure.
+      - The conciliation route is open to a workman as defined in s.2(s) of the 1947 Act and the corresponding definition in the Code. Mainly supervisory or managerial work above the wage threshold falls outside it.
+      - Gratuity is claimed separately, from the Controlling Authority.
+
+  - id: msefc
+    name: Micro and Small Enterprise Facilitation Council
+    handles: A registered micro or small enterprise's unpaid invoice against a buyer — conciliation first, then arbitration by the Council itself.
+    statute: Micro, Small and Medium Enterprises Development Act, 2006, ss.15, 16 and 18
+    statuteUrl: https://www.indiacode.nic.in/
+    portal:
+      name: MSME Samadhaan
+      url: https://samadhaan.msme.gov.in/
+    fee:
+      summary: No filing fee.
+      amountInr: 0
+      freeForClaimsUpToInr: null
+    filingPlace: With the Council of the State where the supplier is located, under s.18(4), whatever the contract says about jurisdiction.
+    lawyerRequired: false
+    prerequisites:
+      - step: Register on the Udyam portal. Registration is free and takes minutes, but only a registered micro or small enterprise can make a reference.
+        waitDays: null
+        url: https://udyamregistration.gov.in/
+    entitlements:
+      - s.15 — the buyer must pay before the agreed date and in no case later than forty-five days from the day the goods or services were accepted or deemed accepted.
+      - s.16 — on default the buyer is liable to compound interest, with monthly rests, at three times the bank rate notified by the Reserve Bank, from the appointed day.
+      - s.18(5) — the Council is to decide the reference within ninety days of its being made.
+      - s.19 — a buyer challenging the Council's award in court must first deposit 75% of the amount awarded.
+    limitationRuleId: limitation-act-1963-art55
+    triggers:
+      documentTypes: [freelance_contract]
+      problems: [unpaid_invoice]
+      constructs: [sole_discretion_on_payment]
+      driverSeverities: [critical]
+    caveats:
+      - The forty-five day rule and the s.16 interest apply where the supplier was a registered micro or small enterprise. Registration is free but must be in place.
+      - Whether the goods or services were accepted, and on what date, is a question of fact for the Council.
+
+  - id: rbi_ombudsman
+    name: RBI Ombudsman
+    handles: Deficiency in service by a bank, NBFC, payment system participant or credit information company, including recovery conduct, wrongly levied charges and credit-report errors.
+    statute: Reserve Bank - Integrated Ombudsman Scheme, 2026, in force from 1 July 2026 in place of the 2021 Scheme
+    statuteUrl: https://www.rbi.org.in/
+    portal:
+      name: RBI Complaint Management System
+      url: https://cms.rbi.org.in/
+    helpline: 14448 — RBI contact centre for the Ombudsman Scheme
+    fee:
+      summary: Free at every stage.
+      amountInr: 0
+      freeForClaimsUpToInr: null
+    filingPlace: Online from anywhere. Complaints are received centrally, so there is no local office to travel to.
+    lawyerRequired: false
+    prerequisites:
+      - step: Complain in writing to the regulated entity's nodal or principal nodal officer first. The Ombudsman takes the complaint only after it replies, rejects it, or lets thirty days pass.
+        waitDays: 30
+        url: null
+    entitlements:
+      - The Ombudsman may direct the regulated entity to pay compensation for the loss actually suffered, up to Rs 30,00,000 under the 2026 Scheme.
+      - Compensation of up to Rs 3,00,000 may be awarded in addition for loss of time, expenses incurred, and harassment and mental anguish suffered.
+    limitationRuleId: rbi-ios-2026-c10
+    triggers:
+      documentTypes: [loan_agreement]
+      problems: [bank_or_loan_conduct]
+      constructs: [self_help_remedy]
+      driverSeverities: [critical]
+    caveats:
+      - The 2026 Scheme replaced the 2021 Scheme on 1 July 2026 and shortened the window to ninety days. Complaints already pending on 30 June 2026 continue under the old Scheme.
+      - The Scheme covers deficiency in service. A complaint about a commercial judgement, such as the rate of interest a lender chose to charge, is outside it.
+      - A complaint on the same cause already pending or decided by a court, tribunal or consumer commission is not maintainable before the Ombudsman.
+      - Lending apps with no regulated entity behind them are outside the Scheme. RBI's Sachet portal (sachet.rbi.org.in) and the cybercrime helpline 1930 are the routes there.
+
+  - id: insurance_ombudsman
+    name: Insurance Ombudsman
+    handles: Repudiated, delayed or partly settled claims, premium and policy-term disputes, and mis-selling by an insurer or an insurance broker.
+    statute: Insurance Ombudsman Rules, 2017, as amended in 2023
+    statuteUrl: https://irdai.gov.in/
+    portal:
+      name: Bima Bharosa, the IRDAI grievance portal
+      url: https://bimabharosa.irdai.gov.in/
+    helpline: 155255 — IRDAI grievance call centre
+    fee:
+      summary: Free. No fee is payable to the Ombudsman at any stage.
+      amountInr: 0
+      freeForClaimsUpToInr: null
+    filingPlace: With the Ombudsman in whose territorial jurisdiction the office of the insurer complained against falls. The Council for Insurance Ombudsmen lists the territories.
+    lawyerRequired: false
+    prerequisites:
+      - step: Make a written representation to the insurer's Grievance Redressal Officer. Rule 14(3)(a) lets you go to the Ombudsman once the insurer rejects it or lets a month pass without replying, and IRDAI requires the insurer to resolve a grievance within fifteen days.
+        waitDays: 30
+        url: null
+    entitlements:
+      - Rule 17(3) — the Ombudsman may make an award directing the insurer to pay, up to Rs 50,00,000 since the 2023 amendment raised the limit from Rs 30,00,000.
+      - An award is binding on the insurer, which must comply with it and inform the Ombudsman within thirty days.
+    limitationRuleId: insurance-ombudsman-rules-2017-r14
+    triggers:
+      problems: [insurance_claim]
+    caveats:
+      - The Ombudsman decides only the kinds of dispute listed in rule 13, and only within the pecuniary limit in rule 17.
+      - An award binds the insurer, not the complainant, who may still go to a consumer commission or a court instead.
+      - Rule 14(4) lets the Ombudsman condone a late complaint after hearing the insurer and recording reasons, so the one-year window is not always the end of the road.
+      - The pecuniary limit and the time limit have been amended more than once. Confirm the current figures on the portal before filing.
+
+  - id: grievance_appellate_committee
+    name: Grievance Appellate Committee
+    handles: Appeals against what a social-media or other intermediary decided on your complaint — account suspension, content taken down, content left up, and privacy grievances.
+    statute: Information Technology (Intermediary Guidelines and Digital Media Ethics Code) Rules, 2021, rules 3(2) and 3A
+    statuteUrl: https://www.meity.gov.in/
+    portal:
+      name: Grievance Appellate Committee portal
+      url: https://gac.gov.in/
+    fee:
+      summary: Free.
+      amountInr: 0
+      freeForClaimsUpToInr: null
+    filingPlace: Online. The appeal is filed, heard and decided digitally, so there is nowhere to travel to.
+    lawyerRequired: false
+    prerequisites:
+      - step: Complain to the intermediary's Grievance Officer first. Rule 3(2)(a) requires an acknowledgement within twenty-four hours and resolution within fifteen days, and within seventy-two hours for most removal requests.
+        waitDays: 15
+        url: null
+    entitlements:
+      - Rule 3A(3) — an appeal lies to the Committee within thirty days of the Grievance Officer's communication, and since the 2023 amendment also where the Officer did not resolve the complaint.
+      - Rule 3A(4) — the Committee is to endeavour to resolve the appeal within thirty calendar days, and the intermediary must comply with its order and report compliance.
+    limitationRuleId: it-rules-2021-r3a
+    triggers:
+      documentTypes: [privacy_policy]
+      problems: [platform_action_or_privacy]
+      constructs: [unilateral_amendment_without_notice]
+      driverSeverities: [high, critical]
+    caveats:
+      - The Committee reviews what the Grievance Officer decided. It is not a route for a money claim.
+      - Rule 3A does not take away the right to go to a court instead.
+      - Personal-data complaints under the Digital Personal Data Protection Act, 2023 go to the Data Protection Board as its provisions are brought into force. Check which route is open before filing.
+
+  - id: legal_services_authority
+    name: District or State Legal Services Authority
+    handles: Free legal advice, drafting and representation by a panel advocate for anyone within s.12 of the Legal Services Authorities Act, 1987.
+    statute: Legal Services Authorities Act, 1987, ss.12 and 13
+    statuteUrl: https://www.indiacode.nic.in/
+    portal:
+      name: NALSA
+      url: https://nalsa.gov.in/
+    helpline: 15100 — NALSA legal services helpline
+    fee:
+      summary: Free, including court fees, process fees and the panel advocate, for anyone eligible under s.12.
+      amountInr: 0
+      freeForClaimsUpToInr: null
+    filingPlace: At the District Legal Services Authority in your district court complex, which accepts walk-in applications, or online through the NALSA portal.
+    lawyerRequired: false
+    entitlements:
+      - s.12(c) and s.12(f) entitle every woman, every child and every industrial workman to free legal services irrespective of what they earn.
+      - s.12(h) entitles a person whose annual income is below the ceiling their State has fixed, and Rs 5,00,000 applies to Supreme Court matters.
+      - Tele-Law connects you to a panel lawyer free of charge through a Common Service Centre or the Tele-Law app (tele-law.in), which is offered in 22 languages.
+    limitationRuleId: null
+    triggers:
+      situations: [cannot_afford_lawyer]
+      universal: true
+    caveats:
+      - Eligibility is decided by the Authority on the application and the documents filed with it.
+      - Applying for free legal aid does not stop the limitation period for the underlying claim from running.
+
+  - id: lok_adalat
+    name: Lok Adalat
+    handles: Settlement by consent of a pending case or of a dispute before any case is filed, organised by the Legal Services Authority.
+    statute: Legal Services Authorities Act, 1987, ss.19 to 22B
+    statuteUrl: https://www.indiacode.nic.in/
+    portal:
+      name: NALSA
+      url: https://nalsa.gov.in/
+    helpline: 15100 — NALSA legal services helpline
+    fee:
+      summary: Free, and s.21 refunds the court fee already paid when a pending case is settled.
+      amountInr: 0
+      freeForClaimsUpToInr: null
+    filingPlace: Through the District Legal Services Authority, which publishes the dates of the National Lok Adalat held each quarter.
+    lawyerRequired: false
+    entitlements:
+      - s.21 — an award of a Lok Adalat is deemed to be a decree of a civil court, is final, and no appeal lies against it.
+      - s.21(1) proviso — the court fee paid in a pending case is refunded when the matter is settled in a Lok Adalat.
+      - s.22B — a Permanent Lok Adalat hears public utility service disputes up to Rs 1,00,00,000 and may decide the matter on merits if no settlement is reached.
+    limitationRuleId: null
+    triggers:
+      situations: [prefers_settlement]
+      universal: true
+    caveats:
+      - A Lok Adalat records a settlement both sides agree to. Apart from a Permanent Lok Adalat under s.22C, it decides nothing by itself.
+      - Because an award is final and no appeal lies from it, what is agreed there cannot later be reopened.
+      - Waiting for a Lok Adalat date does not stop the limitation period for filing from running.

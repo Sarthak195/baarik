@@ -1,0 +1,152 @@
+# Limitation periods — how long a reader has left.
+#
+# A remedy that can no longer be reached is not a remedy, and a "next steps" panel that
+# omits the deadline is the most common way this kind of feature becomes useless.
+#
+# Parsed and Zod-validated in the server layer, then handed to `routeNextSteps` as data:
+# `src/core` never reads a file. Each row maps to `RemedyLimitationRule` in
+# `src/core/remedies/types.ts` and is consumed by `computeLimitation`.
+#
+# `period.unit` is the statute's own unit. Months and days are not interchangeable —
+# thirty days is not a month in February — so neither is ever converted into the other.
+#
+# `stages` are windows that run from a DIFFERENT event than the rule's own cause of
+# action, and so cannot be part of the same countdown. They are shown, never counted.
+#
+# Every row states what a statute provides. None of them states that the reader has a
+# claim, or that a forum will excuse a late filing.
+version: '2026-09-13'
+
+rules:
+  - id: cpa-2019-s69
+    causeOfAction: >-
+      The date on which the cause of action arose — the defect, the deficiency in service
+      or the unfair trade practice — not the date the agreement was signed.
+    period:
+      unit: months
+      count: 24
+    statute: Consumer Protection Act, 2019, s.69
+    statuteUrl: https://www.indiacode.nic.in/
+    # s.69(2) lets a Commission admit a late complaint on sufficient cause, for reasons
+    # recorded in writing. An expired consumer clock is rarely the end of the road.
+    condonationPossible: true
+    stages:
+      - label: Appeal to the State Commission against a District Commission order, after depositing 50% of the amount ordered
+        days: 45
+        from: the date of the District Commission's order
+        statute: Consumer Protection Act, 2019, s.41
+      - label: Appeal to the National Commission against a State Commission order
+        days: 30
+        from: the date of the State Commission's order
+        statute: Consumer Protection Act, 2019, s.51
+
+  - id: limitation-act-1963-art55
+    causeOfAction: >-
+      The date the contract is broken — for money due, the date payment fell due rather
+      than the date the invoice was raised.
+    period:
+      unit: months
+      count: 36
+    statute: Limitation Act, 1963, Schedule, art.55
+    statuteUrl: https://www.indiacode.nic.in/
+    # s.5 of the Limitation Act allows delay to be excused in appeals and applications,
+    # not in suits. A civil suit filed after three years is simply barred by s.3.
+    condonationPossible: false
+    stages: []
+
+  - id: ni-act-1881-s142
+    causeOfAction: >-
+      The day after the fifteen days given to the drawer to pay under proviso (c) to s.138
+      expire. The two earlier windows below run from different events and are counted
+      separately.
+    period:
+      unit: months
+      count: 1
+    statute: Negotiable Instruments Act, 1881, s.142(1)(b)
+    statuteUrl: https://www.indiacode.nic.in/
+    # The proviso to s.142(1)(b) lets a court take cognizance after the month if the
+    # complainant satisfies it that there was sufficient cause for not filing in time.
+    condonationPossible: true
+    stages:
+      - label: Send the drawer a written demand notice for the cheque amount
+        days: 30
+        from: the date the bank's information about the dishonour is received
+        statute: Negotiable Instruments Act, 1881, s.138 proviso (b)
+      - label: The drawer's time to pay before the offence is complete
+        days: 15
+        from: the date the drawer receives the demand notice
+        statute: Negotiable Instruments Act, 1881, s.138 proviso (c)
+
+  - id: id-act-1947-s2a3
+    causeOfAction: >-
+      The date of discharge, dismissal, retrenchment or other termination of service.
+    period:
+      unit: months
+      count: 36
+    statute: Industrial Disputes Act, 1947, s.2A(3)
+    statuteUrl: https://www.indiacode.nic.in/
+    # s.2A(3) fixes three years for the workman's direct application to the Labour Court
+    # and provides no power to excuse a delay. The 1947 Act was repealed when the four
+    # Labour Codes came into force on 21 November 2025, saving accrued rights and pending
+    # proceedings; for a later termination the corresponding provision of the Industrial
+    # Relations Code, 2020 governs, and the forum row says so.
+    condonationPossible: false
+    stages:
+      - label: Wait after applying to the Conciliation Officer before going to the Labour Court
+        days: 45
+        from: the date the application for conciliation is made
+        statute: Industrial Disputes Act, 1947, s.2A(2)
+
+  - id: rbi-ios-2026-c10
+    causeOfAction: >-
+      The date of the regulated entity's reply; where it never replied, the date thirty
+      days after the complaint was made to it.
+    # The 2026 Scheme replaced the 2021 Scheme on 1 July 2026 and cut the window from one
+    # year to ninety days, which is short enough that the count must be exact.
+    period:
+      unit: days
+      count: 90
+    statute: Reserve Bank - Integrated Ombudsman Scheme, 2026, clause 10
+    statuteUrl: https://www.rbi.org.in/
+    # The Scheme states no general power to excuse a late complaint. A consumer complaint
+    # under the Consumer Protection Act, 2019 is a separate route with its own period.
+    condonationPossible: false
+    stages: []
+
+  - id: insurance-ombudsman-rules-2017-r14
+    causeOfAction: >-
+      The date the insurer rejected the representation, or the date one month after the
+      representation was made if the insurer did not reply.
+    period:
+      unit: months
+      count: 12
+    statute: Insurance Ombudsman Rules, 2017, rule 14(3)(b)
+    statuteUrl: https://irdai.gov.in/
+    # Rule 14(4) lets the Ombudsman condone a delay after calling for the insurer's
+    # objections and recording reasons. The consumer route runs in parallel regardless.
+    condonationPossible: true
+    stages: []
+
+  - id: it-rules-2021-r3a
+    causeOfAction: >-
+      The date the Grievance Officer's decision is received, or the date the fifteen days
+      the Officer had to resolve the complaint expire.
+    period:
+      unit: days
+      count: 30
+    statute: >-
+      Information Technology (Intermediary Guidelines and Digital Media Ethics Code)
+      Rules, 2021, rule 3A(3)
+    statuteUrl: https://www.meity.gov.in/
+    # Rule 3A states no power to excuse a late appeal. Rule 3A(7) preserves the reader's
+    # right to go to court instead.
+    condonationPossible: false
+    stages:
+      - label: The Grievance Officer must acknowledge the complaint
+        days: 1
+        from: the date the complaint is made to the intermediary's Grievance Officer
+        statute: IT Rules, 2021, rule 3(2)(a) — twenty-four hours
+      - label: The Grievance Officer must resolve the complaint
+        days: 15
+        from: the date the complaint is made to the intermediary's Grievance Officer
+        statute: IT Rules, 2021, rule 3(2)(a)
