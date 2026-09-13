@@ -17,7 +17,7 @@ import tseslint from 'typescript-eslint';
  *
  * Note: this consumes `@next/eslint-plugin-next`'s flat config directly rather than
  * `eslint-config-next`, whose transitive plugins cap at ESLint 9 and crash the
- * eslintrc compatibility layer under ESLint 10. See docs/adr/0002-eslint-flat-config.md.
+ * eslintrc compatibility layer under ESLint 10. See docs/adr/0007-toolchain-pins.md.
  */
 export default tseslint.config(
   {

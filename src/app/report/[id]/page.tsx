@@ -17,6 +17,7 @@ import { PageShell } from '@/components/ui/PageShell';
 import { dictionaryFor, parseLanguage, withLanguage } from '@/i18n';
 import { reportById } from '@/lib/demo';
 import { getReport } from '@/server/store/report-store';
+import { ExpiredReport } from '@/components/report/ExpiredReport';
 import type { RouteParams, SearchParams } from '@/lib/page-props';
 
 interface ReportPageProps {
@@ -25,6 +26,9 @@ interface ReportPageProps {
 }
 
 const RESULTS_HEADING_ID = 'analysis-results';
+
+/** A live report is keyed by randomUUID; a sample is keyed by a readable slug. */
+const LIVE_REPORT_ID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 export async function generateMetadata({ params }: ReportPageProps): Promise<Metadata> {
   const { id } = await params;
@@ -53,7 +57,18 @@ export default async function ReportPage({
   // fallback for a failed lookup — they are separate reports with their own ids — so
   // a miss on both is genuinely a 404 rather than a silent substitution.
   const report = getReport(id, Date.now()) ?? reportById(id);
-  if (report === null) notFound();
+
+  if (report === null) {
+    // An id shaped like a generated one belonged to a live analysis that is gone: the
+    // store is memory only, so a restart, a thirty-minute wait, or a second Cloud Run
+    // instance all lose it. That is the visible cost of storing nothing, and the reader
+    // deserves to be told which it was rather than shown a bare 404.
+    if (LIVE_REPORT_ID.test(id)) {
+      const language = parseLanguage(query.lang);
+      return <ExpiredReport dictionary={dictionaryFor(language)} language={language} />;
+    }
+    notFound();
+  }
 
   // A live report has no fixture entry, and only fixtures are samples. Saying
   // "this is a sample" over someone's own contract would be worse than saying nothing.

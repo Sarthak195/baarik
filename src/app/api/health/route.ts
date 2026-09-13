@@ -36,6 +36,7 @@ export async function GET(): Promise<Response> {
     enforceabilityRows = knowledge.enforceability.length;
     forums = knowledge.forums.length;
     limitationRules = knowledge.limitation.length;
+    if (rubricRules === 0) problems.push('the rubric holds no rules; every document would score 0.');
   } catch (error) {
     problems.push(`data/ did not load: ${describe(error)}`);
   }

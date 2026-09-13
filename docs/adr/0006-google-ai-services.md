@@ -19,9 +19,14 @@ mandate a particular cloud service.
 - **Gemini Developer API** via `@google/genai` 2.22.0, through
   `ai.interactions.create` — the Interactions API, default since June 2026.
   `generateContent` is legacy and CI fails if it appears.
-- `gemini-3.8-flash` for document reasoning; `gemini-2.5-flash-lite` for
-  classification and per-clause rewriting; `gemini-2.5-flash` as the degradation
-  target. `thinking_level` replaces `temperature`/`top_p`/`top_k`, which 3.x deprecates.
+- `gemini-3.8-flash` for document reasoning; `gemini-3.1-flash-lite` for classification
+  and per-clause rewriting; `gemini-3.5-flash` as the degradation target.
+  `thinking_level` replaces `temperature`/`top_p`/`top_k`, which 3.x deprecates.
+  **Amended 13 Sept 2026:** this ADR originally named the 2.5 family. Those ids are
+  returned by `models.list` for a current key and answer every real request with
+  `404 — no longer available to new users`, so the tiers moved to 3.x. The list
+  endpoint reports what a key can see, not what it can call; `src/server/genai/models.ts`
+  records the probe that established this.
 - **Native PDF vision** as the scanned-document fallback, behind a guard that fires
   when local extraction yields under ~200 characters per page.
 - **Implicit context caching**, exploited by placing the document first and the varying

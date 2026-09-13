@@ -2,6 +2,7 @@ import { randomUUID, createHash } from 'node:crypto';
 
 import { toCanonicalDocument } from '@/core/document/normalise';
 import type { RawExtraction } from '@/core/document/types';
+import type { OutputLanguage } from '@/schemas/document-type';
 import { parseLanguage, withLanguage } from '@/i18n';
 import { toReportView } from '@/lib/report-view';
 import { geminiKeyPool } from '@/server/config/env';
@@ -71,7 +72,7 @@ export async function POST(request: Request): Promise<Response> {
     // system, and the reader is better served by being told what they uploaded than by
     // an empty report.
     if (outcome.kind === 'not_a_document') {
-      return redirect(request, withLanguage(`/?refused=${encodeURIComponent(outcome.reason)}`, language));
+      return redirect(request, backToForm(outcome.reason, 'refused', language));
     }
 
     const view = toReportView({
@@ -84,7 +85,7 @@ export async function POST(request: Request): Promise<Response> {
     putReport(outcome.report.reportId, view, Date.now());
     return redirect(request, withLanguage(`/report/${outcome.report.reportId}`, language));
   } catch (error) {
-    return redirect(request, withLanguage(`/?error=${encodeURIComponent(messageFor(error))}`, language));
+    return redirect(request, backToForm(messageFor(error), 'error', language));
   }
 }
 
@@ -95,7 +96,10 @@ export async function POST(request: Request): Promise<Response> {
  * sends both is sending a stale textarea alongside a deliberate choice.
  */
 async function extract(form: FormData): Promise<RawExtraction> {
-  const file = form.get('document');
+  // The field name is the form's, not this handler's choosing: PasteForm posts
+  // `documentFile`, and reading anything else silently discarded every upload and fell
+  // through to the empty-paste path.
+  const file = form.get('documentFile');
   if (file instanceof File && file.size > 0) {
     return detectAndExtract({
       bytes: new Uint8Array(await file.arrayBuffer()),
@@ -105,6 +109,17 @@ async function extract(form: FormData): Promise<RawExtraction> {
 
   const text = readField(form, 'documentText');
   return detectAndExtract({ text: text ?? '' });
+}
+
+/**
+ * Send the reader back to the form with the reason, not back to the gate.
+ *
+ * `understood=1` is carried through deliberately: they acknowledged the disclaimer to
+ * get here, and making them do it again to read an error message would be a second
+ * punishment for a failed upload.
+ */
+function backToForm(reason: string, key: 'refused' | 'error', language: OutputLanguage): string {
+  return withLanguage(`/?understood=1&${key}=${encodeURIComponent(reason)}`, language);
 }
 
 function redirect(request: Request, target: string): Response {

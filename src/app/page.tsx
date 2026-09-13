@@ -1,6 +1,7 @@
 import type { JSX } from 'react';
 
 import { OnboardingNotice } from '@/components/disclaimer/OnboardingNotice';
+import { Callout } from '@/components/ui/Callout';
 import { PageShell } from '@/components/ui/PageShell';
 import { PasteForm } from '@/components/upload/PasteForm';
 import { PrivacyPromise } from '@/components/upload/PrivacyPromise';
@@ -31,10 +32,25 @@ export default async function HomePage({
   const dictionary = dictionaryFor(language);
   const acknowledged = params.understood === '1';
 
+  // /analyze redirects here with a reason when it cannot produce a report. Without
+  // this the reader is bounced back to a blank form having been told nothing, and the
+  // rate-limit message pointing at the free samples is unreachable.
+  const problem = firstOf(params.refused) ?? firstOf(params.error);
+
   return (
-    <PageShell dictionary={dictionary} language={language} current="home">
+    <PageShell
+      dictionary={dictionary}
+      language={language}
+      current="home"
+      currentPath={acknowledged ? '/?understood=1' : '/'}
+    >
       {acknowledged ? (
         <div className="space-y-12">
+          {problem === undefined ? null : (
+            <Callout tone="warning">
+              {problem}
+            </Callout>
+          )}
           <header className="max-w-[62ch]">
             <p className="text-faint mb-3 text-xs font-semibold tracking-[0.14em] uppercase">
               {dictionary.meta.tagline}
@@ -61,4 +77,10 @@ export default async function HomePage({
       )}
     </PageShell>
   );
+}
+
+/** A query value is `string | string[] | undefined`; only the first is meaningful here. */
+function firstOf(value: string | readonly string[] | undefined): string | undefined {
+  if (value === undefined) return undefined;
+  return typeof value === 'string' ? value : value[0];
 }

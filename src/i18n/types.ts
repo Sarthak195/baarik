@@ -81,6 +81,10 @@ export interface Dictionary {
     readonly sampleBanner: string;
     /** Shown over a live analysis, where the sample banner would be a lie. */
     readonly liveBanner: string;
+    readonly expiredHeading: string;
+    readonly expiredExplanation: string;
+    readonly expiredNotAnError: string;
+    readonly expiredAction: string;
     readonly deadlineLabel: string;
     readonly feeLabel: string;
     readonly filingPlaceLabel: string;

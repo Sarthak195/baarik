@@ -92,6 +92,12 @@ export const en: Dictionary = {
     sampleBanner: 'Sample — synthetic, written for demonstration. Not a real contract.',
     liveBanner:
       'Analysed from the document you supplied. Nothing was stored — download this report before you close the tab.',
+    expiredHeading: 'That report is no longer available',
+    expiredExplanation:
+      'Reports are held in memory and never written anywhere, so they do not survive a restart and are dropped after thirty minutes. This one is gone.',
+    expiredNotAnError:
+      'This is not a fault. It is what "no document is stored" means in practice — there was nowhere for it to be kept.',
+    expiredAction: 'Analyse a document again, or open one of the worked samples',
     deadlineLabel: 'Deadline',
     feeLabel: 'What it costs',
     filingPlaceLabel: 'Where to file',

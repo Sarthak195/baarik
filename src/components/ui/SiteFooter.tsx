@@ -1,12 +1,18 @@
 import type { JSX } from 'react';
 
-import { dictionaryFor, LANGUAGES, type Dictionary } from '@/i18n';
+import { dictionaryFor, LANGUAGES, withLanguage, type Dictionary } from '@/i18n';
 import { cn } from '@/lib/cn';
 import type { OutputLanguage } from '@/schemas/document-type';
 
 export interface SiteFooterProps {
   readonly dictionary: Dictionary;
   readonly language: OutputLanguage;
+  /**
+   * The path a language switch should return to, query included. Without it the
+   * switch used to post to a bare `?lang=hi`, discarding everything else — which
+   * re-blocked the onboarding disclaimer for anyone who chose Hindi.
+   */
+  readonly currentPath?: string | undefined;
 }
 
 /**
@@ -22,7 +28,7 @@ export interface SiteFooterProps {
  * against whatever page the reader is on. That keeps it working on every route without
  * the footer needing to know the current path, and without any JavaScript.
  */
-export function SiteFooter({ dictionary, language }: SiteFooterProps): JSX.Element {
+export function SiteFooter({ dictionary, language, currentPath = '/' }: SiteFooterProps): JSX.Element {
   return (
     <footer className="border-rule mt-16 border-t">
       <div className="text-muted mx-auto max-w-4xl space-y-4 px-4 py-8 text-sm sm:px-6">
@@ -34,7 +40,9 @@ export function SiteFooter({ dictionary, language }: SiteFooterProps): JSX.Eleme
           {LANGUAGES.map((code) => (
             <a
               key={code}
-              href={code === 'en' ? '?' : `?lang=${code}`}
+              // Switching language must not discard the rest of the query. It used to,
+              // which re-blocked the onboarding disclaimer every time someone chose Hindi.
+              href={withLanguage(currentPath, code)}
               hrefLang={code}
               lang={code}
               aria-current={code === language ? 'true' : undefined}

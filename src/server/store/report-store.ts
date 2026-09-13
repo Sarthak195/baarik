@@ -6,15 +6,23 @@ import type { ReportView } from '@/lib/demo/types';
  * Where a freshly analysed report lives between the POST that created it and the GET
  * that renders it.
  *
- * In memory, bounded, and lost on restart — which is not a limitation to be worked
- * around but the literal content of ADR 0008. The product tells the reader that
- * nothing is stored, and that promise is only true if there is nowhere for a document
- * to be stored. A database here would make the landing page's first sentence a lie.
+ * In memory, bounded, and lost on restart — which is not a limitation to work around
+ * but the literal content of ADR 0008. The product tells the reader that nothing is
+ * stored, and that promise is only true if there is nowhere for a document to be
+ * stored. A database here would make the landing page's first sentence a lie.
  *
- * The consequence is visible and owned: a report does not survive a redeploy, a scale
- * event, or a second Cloud Run instance. The report page says so, and offers a
- * download. Keyed by a random id rather than the document hash so that two people
- * analysing the same contract cannot land on each other's report by guessing a URL.
+ * The map is hung off `globalThis` rather than held in a module-level constant. Next
+ * bundles route handlers and pages into separate server chunks, so a plain module
+ * constant is instantiated **twice** in one process: `/analyze` wrote a report into
+ * one map and `/report/[id]` read from another, and every live report 404'd while the
+ * committed samples kept working. A process-global is the narrowest thing that spans
+ * both bundles, and it keeps the no-persistence guarantee intact — it is still only
+ * memory, still lost on restart.
+ *
+ * What it does not span is instances. Two Cloud Run containers do not share a heap, so
+ * a report created on one is genuinely gone on the other. That is why a miss renders
+ * an explained "no longer available" page rather than a bare 404: the reader is told
+ * what happened and offered the samples, which need no quota.
  */
 export interface StoredReport {
   readonly view: ReportView;
@@ -28,22 +36,38 @@ export interface StoredReport {
 const MAX_REPORTS = 50;
 
 /**
- * Reports older than this are dropped even if the cache is not full.
+ * Reports older than this are dropped even when the cache is not full.
  *
- * A document sitting in memory is a document that could be read by anything sharing
- * the process. Thirty minutes is longer than anyone spends on one report and shorter
- * than a deployment's lifetime.
+ * A document held in memory is a document something sharing the process could read.
+ * Thirty minutes is longer than anyone spends on one report and far shorter than a
+ * deployment's lifetime.
  */
 const MAX_AGE_MS = 30 * 60 * 1000;
 
-const reports = new Map<string, StoredReport>();
+const STORE_KEY = Symbol.for('baarik.reportStore');
+
+type GlobalWithStore = typeof globalThis & {
+  [STORE_KEY]?: Map<string, StoredReport>;
+};
+
+function store(): Map<string, StoredReport> {
+  const container = globalThis as GlobalWithStore;
+  const existing = container[STORE_KEY];
+  if (existing !== undefined) return existing;
+
+  const created = new Map<string, StoredReport>();
+  container[STORE_KEY] = created;
+  return created;
+}
 
 export function putReport(id: string, view: ReportView, now: number): void {
+  const reports = store();
   reports.set(id, { view, createdAt: now });
-  evict(now);
+  evict(reports, now);
 }
 
 export function getReport(id: string, now: number): ReportView | null {
+  const reports = store();
   const stored = reports.get(id);
   if (stored === undefined) return null;
 
@@ -55,15 +79,15 @@ export function getReport(id: string, now: number): ReportView | null {
 }
 
 export function reportCount(): number {
-  return reports.size;
+  return store().size;
 }
 
 /** Discard everything. Used by tests; never called in production. */
 export function clearReports(): void {
-  reports.clear();
+  store().clear();
 }
 
-function evict(now: number): void {
+function evict(reports: Map<string, StoredReport>, now: number): void {
   for (const [id, stored] of reports) {
     if (now - stored.createdAt > MAX_AGE_MS) reports.delete(id);
   }

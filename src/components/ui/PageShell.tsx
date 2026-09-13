@@ -10,6 +10,8 @@ export interface PageShellProps {
   readonly language: OutputLanguage;
   readonly current: NavKey;
   readonly children: ReactNode;
+  /** Forwarded to the footer so a language switch preserves the current query. */
+  readonly currentPath?: string | undefined;
 }
 
 /**
@@ -31,6 +33,7 @@ export function PageShell({
   language,
   current,
   children,
+  currentPath,
 }: PageShellProps): JSX.Element {
   return (
     <div lang={language} className="flex min-h-dvh flex-col">
@@ -51,7 +54,7 @@ export function PageShell({
         {children}
       </main>
 
-      <SiteFooter dictionary={dictionary} language={language} />
+      <SiteFooter dictionary={dictionary} language={language} currentPath={currentPath} />
     </div>
   );
 }

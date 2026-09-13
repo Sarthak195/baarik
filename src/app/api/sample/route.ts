@@ -39,7 +39,9 @@ export function GET(request: Request): Response {
 
 function available(): string {
   const ids = listSampleIds();
-  return ids.length > 0 ? ids.join(', ') : '(none — golden/reports is missing from this deployment)';
+  return ids.length > 0
+    ? ids.join(', ')
+    : '(none — golden/reports is missing from this deployment)';
 }
 
 /**
