@@ -4,7 +4,7 @@ import { LABOUR_CONCILIATION, LEGAL_SERVICES_AUTHORITY } from './forums';
 import { OFFER_LETTER_CLAUSES } from './offer-letter-clauses';
 import { OFFER_LETTER_RISK } from './offer-letter-drivers';
 import { OFFER_LETTER_TEXT } from './offer-letter-text';
-import type { DemoReport } from './types';
+import type { ReportView } from './types';
 
 /**
  * The hero document: an offer letter with a void non-compete, a bond that does not
@@ -78,7 +78,7 @@ const NEXT_STEPS: readonly NextStep[] = [
   },
 ];
 
-export const OFFER_LETTER_REPORT: DemoReport = {
+export const OFFER_LETTER_REPORT: ReportView = {
   id: 'offer-letter-meridian',
   title: 'Letter of Appointment — Software Engineer II',
   documentType: 'employment_offer',

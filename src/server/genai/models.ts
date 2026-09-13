@@ -43,7 +43,44 @@ export const MODELS = {
   fallback: 'gemini-3.5-flash',
 } as const;
 
-export type ModelId = (typeof MODELS)[keyof typeof MODELS];
+export type ModelId = (typeof MODELS)[keyof typeof MODELS] | (string & {});
+
+/**
+ * Ordered substitutes for each tier.
+ *
+ * Free-tier quota is counted **per model per key**, not per key, so a request that
+ * cannot be served by one model may still be served by its sibling on the same key.
+ * With six keys and four usable reasoning models that turns a ceiling of twenty
+ * requests a day into something around twenty times larger, for free, by asking for a
+ * different model rather than waiting.
+ *
+ * The order is by capability, so a substitution costs the least quality available at
+ * the time. Every id here was confirmed callable on 13 September 2026; the 2.5 family
+ * is deliberately absent because it is retired for new keys.
+ *
+ * The ladder does not encode any model's limit, because those are unpublished and
+ * change. It discovers exhaustion by being told, and remembers it for the life of the
+ * process.
+ */
+export const MODEL_LADDER = {
+  reasoning: ['gemini-3.8-flash', 'gemini-3.7-flash', 'gemini-3.6-flash', 'gemini-3.5-flash'],
+  cheap: ['gemini-3.1-flash-lite', 'gemini-3.5-flash-lite', 'gemini-3.5-flash'],
+} as const satisfies Record<string, readonly string[]>;
+
+export type LadderTier = keyof typeof MODEL_LADDER;
+
+/**
+ * The tier a model id belongs to, so a caller naming a model still gets its substitutes.
+ *
+ * `gemini-3.5-flash` appears at the foot of both ladders — it is the reasoning tier's
+ * designated fallback and also the last resort for cheap work. Reasoning is checked
+ * first so that a request naming it is treated as the capable model it is, rather than
+ * being demoted into a ladder it happens to also terminate.
+ */
+export function tierFor(model: ModelId): LadderTier {
+  if ((MODEL_LADDER.reasoning as readonly string[]).includes(model)) return 'reasoning';
+  return (MODEL_LADDER.cheap as readonly string[]).includes(model) ? 'cheap' : 'reasoning';
+}
 
 /**
  * Gemini 3.x replaced sampling controls with a thinking budget:

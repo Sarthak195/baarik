@@ -9,7 +9,7 @@ import {
 } from './forums';
 import { RENT_CLAUSES, RENT_DRIVERS, RENT_TOP_DRIVERS } from './rent-agreement-clauses';
 import { RENT_AGREEMENT_TEXT as TEXT } from './rent-agreement-text';
-import type { DemoReport } from './types';
+import type { ReportView } from './types';
 
 /**
  * The second demonstration document, and the one that carries a live deadline.
@@ -73,7 +73,7 @@ const NEXT_STEPS: readonly NextStep[] = [
   },
 ];
 
-export const RENT_AGREEMENT_REPORT: DemoReport = {
+export const RENT_AGREEMENT_REPORT: ReportView = {
   id: 'rent-agreement-koramangala',
   title: 'Leave and Licence Agreement — Koramangala',
   documentType: 'rent_agreement',

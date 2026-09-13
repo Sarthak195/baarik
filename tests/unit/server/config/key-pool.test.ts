@@ -97,3 +97,72 @@ describe('KeyPool', () => {
     expect(pool.snapshot()).toEqual(['a', 'b']);
   });
 });
+
+/**
+ * The gateway budgets exactly `size` attempts per model and penalises every key that
+ * answers 429, so what the pool does under a whole round of failures decides whether a
+ * model really gets all six keys or quietly gets fewer. These pin the properties the
+ * ladder leans on, which the single-penalty cases above do not reach.
+ */
+describe('KeyPool under sustained failure', () => {
+  it('still reaches every key exactly once per rotation after a penalty', () => {
+    const pool = new KeyPool(['a', 'b', 'c']);
+    pool.penalise('a');
+
+    // Demotion reorders the rotation; it never shortens it.
+    expect([pool.next(), pool.next(), pool.next()]).toEqual(['b', 'c', 'a']);
+  });
+
+  it('comes back to its starting order once every key has been penalised in turn', () => {
+    // This is what lets the gateway drop to the next model and start from the preferred
+    // key, rather than from wherever the previous model's run of 429s left the cursor.
+    const pool = new KeyPool(['a', 'b', 'c']);
+
+    for (const key of ['a', 'b', 'c']) pool.penalise(key);
+
+    expect(pool.snapshot()).toEqual(['a', 'b', 'c']);
+    expect(pool.next()).toBe('a');
+  });
+
+  it('costs exactly one wasted attempt per cycle for a key that always fails', () => {
+    const pool = new KeyPool(['revoked', 'good-1', 'good-2']);
+    const served: string[] = [];
+
+    for (let draw = 0; draw < 12; draw += 1) {
+      const key = pool.next();
+      served.push(key);
+      if (key === 'revoked') pool.penalise(key);
+    }
+
+    // Four cycles, one wasted attempt each — the price of keeping a dead key in the pool
+    // so that re-enabling it needs no restart. Every working key carries an equal share.
+    expect(served.filter((key) => key === 'revoked')).toHaveLength(4);
+    expect(served.filter((key) => key === 'good-1')).toHaveLength(4);
+    expect(served.filter((key) => key === 'good-2')).toHaveLength(4);
+  });
+
+  it('leaves a repeatedly penalised key at the back instead of duplicating it', () => {
+    const pool = new KeyPool(['a', 'b', 'c']);
+    pool.penalise('a');
+    pool.penalise('a');
+
+    // The gateway's attempt budget is `size`, so a pool that grew on every 429 would
+    // hand out the same dead key twice within one model's round.
+    expect(pool.snapshot()).toEqual(['b', 'c', 'a']);
+    expect(pool.size).toBe(3);
+  });
+
+  it('keeps handing out its only key however often that key is penalised', () => {
+    // The single-key deployment is the realistic degraded case: a contributor running
+    // locally with one key must still get an answer, not a pool that has emptied itself.
+    const pool = new KeyPool(['only']);
+
+    for (let round = 0; round < 3; round += 1) {
+      expect(pool.next()).toBe('only');
+      pool.penalise('only');
+    }
+
+    expect(pool.size).toBe(1);
+    expect(pool.snapshot()).toEqual(['only']);
+  });
+});

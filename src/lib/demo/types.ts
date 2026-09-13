@@ -12,7 +12,15 @@ import type { DocumentType } from '@/schemas/document-type';
  * below it does — which is the test of whether the components really are pure
  * functions of their props, rather than components that happen to be today.
  */
-export interface DemoReport {
+/**
+ * What the report page renders.
+ *
+ * Named for what it is rather than where it came from: the same shape carries a
+ * committed fixture and a live analysis, and `src/lib/report-view.ts` adapts pipeline
+ * output into it. The page is a pure function of this type, so the source of a report
+ * can change without any component knowing.
+ */
+export interface ReportView {
   /** The URL segment. Stable, because these links get shared. */
   readonly id: string;
   readonly title: string;

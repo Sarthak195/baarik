@@ -90,6 +90,8 @@ export const en: Dictionary = {
     sourceLede: 'Highlighted spans are the exact text each clause card quotes.',
     download: 'Download this report',
     sampleBanner: 'Sample — synthetic, written for demonstration. Not a real contract.',
+    liveBanner:
+      'Analysed from the document you supplied. Nothing was stored — download this report before you close the tab.',
     deadlineLabel: 'Deadline',
     feeLabel: 'What it costs',
     filingPlaceLabel: 'Where to file',

@@ -1,6 +1,6 @@
 import { OFFER_LETTER_REPORT } from './offer-letter';
 import { RENT_AGREEMENT_REPORT } from './rent-agreement';
-import type { DemoReport, SampleSummary } from './types';
+import type { ReportView, SampleSummary } from './types';
 
 /**
  * The demonstration registry.
@@ -10,11 +10,11 @@ import type { DemoReport, SampleSummary } from './types';
  * an `AnalysisCache` lookup in place of the map and nothing else changed. No component
  * below the page knows the difference, because none of them fetches anything.
  */
-const REPORTS: readonly DemoReport[] = [OFFER_LETTER_REPORT, RENT_AGREEMENT_REPORT];
+const REPORTS: readonly ReportView[] = [OFFER_LETTER_REPORT, RENT_AGREEMENT_REPORT];
 
 export const DEFAULT_REPORT_ID = OFFER_LETTER_REPORT.id;
 
-export function reportById(id: string): DemoReport | null {
+export function reportById(id: string): ReportView | null {
   return REPORTS.find((report) => report.id === id) ?? null;
 }
 

@@ -16,6 +16,7 @@ import { Callout } from '@/components/ui/Callout';
 import { PageShell } from '@/components/ui/PageShell';
 import { dictionaryFor, parseLanguage, withLanguage } from '@/i18n';
 import { reportById } from '@/lib/demo';
+import { getReport } from '@/server/store/report-store';
 import type { RouteParams, SearchParams } from '@/lib/page-props';
 
 interface ReportPageProps {
@@ -47,8 +48,16 @@ export default async function ReportPage({
   searchParams,
 }: ReportPageProps): Promise<JSX.Element> {
   const [{ id }, query] = await Promise.all([params, searchParams]);
-  const report = reportById(id);
+
+  // A live analysis first, then the committed fixtures. The fixtures are not a
+  // fallback for a failed lookup — they are separate reports with their own ids — so
+  // a miss on both is genuinely a 404 rather than a silent substitution.
+  const report = getReport(id, Date.now()) ?? reportById(id);
   if (report === null) notFound();
+
+  // A live report has no fixture entry, and only fixtures are samples. Saying
+  // "this is a sample" over someone's own contract would be worse than saying nothing.
+  const isSample = reportById(id) !== null;
 
   const language = parseLanguage(query.lang);
   const dictionary = dictionaryFor(language);
@@ -72,9 +81,15 @@ export default async function ReportPage({
     <PageShell dictionary={dictionary} language={language} current="home">
       <div className="space-y-12">
         <header>
-          <Callout tone="warning" className="mb-6">
-            {dictionary.report.sampleBanner}
-          </Callout>
+          {isSample ? (
+            <Callout tone="warning" className="mb-6">
+              {dictionary.report.sampleBanner}
+            </Callout>
+          ) : (
+            <Callout tone="neutral" className="mb-6">
+              {dictionary.report.liveBanner}
+            </Callout>
+          )}
           <p className="text-faint text-xs font-semibold tracking-[0.14em] uppercase">
             {dictionary.documentTypes[report.documentType]}
           </p>
