@@ -39,7 +39,9 @@ export type Predicate =
       readonly op: 'multiple_gte';
       readonly field: NumericFactField;
       readonly of: NumericFactField;
-      readonly divideBaseBy?: number;
+      /** Optional because most bases need no scaling; explicitly `| undefined` to
+       *  satisfy `exactOptionalPropertyTypes` when built from a parsed YAML object. */
+      readonly divideBaseBy?: number | undefined;
       readonly value: number;
     }
   | { readonly op: 'construct_present'; readonly construct: ConstructId }
@@ -59,7 +61,12 @@ export type Predicate =
 export interface FactView {
   number(field: NumericFactField): number | null;
   construct(id: ConstructId): Presence;
-  evidenceFor(field: NumericFactField | ConstructId): QuoteLocation | null;
+  /**
+   * Accepts a plain string because rubric rules name their evidence source in YAML,
+   * where the value has not yet been narrowed. An unrecognised name yields null — a
+   * missing highlight, never a missing finding.
+   */
+  evidenceFor(field: string): QuoteLocation | null;
   readonly documentType: DocumentType;
 }
 

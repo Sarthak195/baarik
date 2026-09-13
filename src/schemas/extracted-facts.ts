@@ -120,3 +120,36 @@ export type ExtractedFacts = z.infer<typeof ExtractedFactsSchema>;
 export type NumericFactField = {
   [K in keyof ExtractedFacts]: ExtractedFacts[K] extends number | null ? K : never;
 }[keyof ExtractedFacts];
+
+/**
+ * The same vocabulary as a runtime value, so a YAML rule naming a field that does not
+ * exist fails at boot with the offending id rather than silently never firing.
+ *
+ * The satisfies clause ties the two together: adding a numeric field to the schema
+ * without listing it here is a type error, and listing one that is not numeric is too.
+ */
+export const NUMERIC_FACT_FIELDS = [
+  'noticeDaysYouMustGive',
+  'noticeDaysTheyMustGive',
+  'cureDaysYouGet',
+  'cureDaysTheyGet',
+  'lockInMonths',
+  'termMonths',
+  'depositRefundDays',
+  'paymentTermDays',
+  'dataRetentionDays',
+  'confidentialityMonths',
+  'nonCompeteMonths',
+  'monthlyRentInr',
+  'securityDepositInr',
+  'annualRentIncreasePercent',
+  'annualCtcInr',
+  'bondAmountInr',
+  'bondMonths',
+  'principalInr',
+  'annualInterestPercent',
+  'processingFeePercent',
+  'prepaymentPenaltyPercent',
+  'latePaymentPercentPerMonth',
+  'liabilityCapInr',
+] as const satisfies readonly NumericFactField[];
