@@ -20,6 +20,10 @@ rules:
     weight: 14
     evidenceFrom: deposit_refund_timeline
     askYourLawyer: 'Can a clause be added fixing the refund date and interest if the deposit is returned late?'
+    benchmark:
+      source: 'Model Tenancy Act, 2021, section 11 — a model law, binding only where a State has enacted it'
+      url: 'https://mohua.gov.in/upload/uploadfiles/files/Model-Tenancy-Act-English-02_06_2021.pdf'
+      text: "The security deposit to be paid in advance by the tenant shall not exceed two months' rent in the case of residential premises and six months' rent in the case of non-residential premises, and shall be refunded to the tenant on the date of taking over vacant possession of the premises, after making due deduction of any liability of the tenant."
     explain:
       en: 'This agreement never says when your deposit must be returned. Without a date there is nothing to be late against, and the money can sit with the other side while you argue about deductions.'
       hi: 'इस अनुबंध में कहीं नहीं लिखा कि आपकी जमा राशि कब लौटाई जाएगी। तारीख तय न हो तो देरी साबित करने का आधार ही नहीं बचता, और कटौतियों पर बहस चलने तक पैसा दूसरे पक्ष के पास पड़ा रहता है।'
@@ -67,6 +71,10 @@ rules:
     weight: 12
     evidenceFrom: data_retention_limit
     askYourLawyer: 'How long is my data kept after I stop using this service, and how do I ask for erasure?'
+    benchmark:
+      source: 'Digital Personal Data Protection Act, 2023, section 8(7)'
+      url: 'https://indiacode.nic.in/show-data?abv=CEN&actid=AC_CEN_45_0_00003_2023-22_1763464807080&orderno=8&orgactid=AC_CEN_45_0_00003_2023-22_1763464807080&sectionId=101274&sectionno=8&statehandle=123456789%2F1362'
+      text: 'A Data Fiduciary shall erase personal data upon the Data Principal withdrawing her consent or as soon as it is reasonable to assume that the specified purpose is no longer being served, whichever is earlier, unless retention is necessary for compliance with any law for the time being in force.'
     explain:
       en: 'This policy sets no period after which your data is deleted. Indefinite retention is the default when nothing is written, and the DPDP Act works the other way round.'
       hi: 'इस नीति में ऐसी कोई अवधि तय नहीं है जिसके बाद आपका डेटा मिटाया जाए। जब कुछ लिखा ही न हो तो डेटा अनिश्चितकाल तक रखा जाता है, जबकि डीपीडीपी अधिनियम इसका उल्टा कहता है।'

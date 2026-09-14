@@ -2,7 +2,10 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import type { JSX } from 'react';
 
+import { getAnswer } from '@/app/api/ask/answer-store';
 import { TimeSensitiveInterrupt } from '@/components/disclaimer/TimeSensitiveInterrupt';
+import { AskPanel } from '@/components/qa/AskPanel';
+import { parseAskError } from '@/components/qa/types';
 import { AnalysisProgress } from '@/components/report/AnalysisProgress';
 import { ClauseCard } from '@/components/report/ClauseCard';
 import { MissingClauses } from '@/components/report/MissingClauses';
@@ -16,6 +19,7 @@ import { Callout } from '@/components/ui/Callout';
 import { PageShell } from '@/components/ui/PageShell';
 import { dictionaryFor, parseLanguage, withLanguage } from '@/i18n';
 import { reportById } from '@/lib/demo';
+import { LIMITS } from '@/server/config/limits';
 import { getReport } from '@/server/store/report-store';
 import { ExpiredReport } from '@/components/report/ExpiredReport';
 import type { RouteParams, SearchParams } from '@/lib/page-props';
@@ -77,6 +81,13 @@ export default async function ReportPage({
   const language = parseLanguage(query.lang);
   const dictionary = dictionaryFor(language);
   const acknowledgedDeadline = query.continue === '1';
+
+  // `/api/ask` answered a moment ago and sent the reader back here with a token. The
+  // token is redeemed against this report's id, so one moved to another report's URL
+  // by hand resolves to nothing rather than to somebody else's question.
+  const answered = typeof query.answered === 'string' ? query.answered : null;
+  const answer = answered === null ? null : getAnswer(answered, report.id, Date.now());
+  const askError = parseAskError(query.askError);
 
   if (report.timeSensitive && !acknowledgedDeadline) {
     const urgent = report.nextSteps.find((step) => step.clock !== null);
@@ -148,6 +159,18 @@ export default async function ReportPage({
         />
 
         <NextStepsPanel steps={report.nextSteps} dictionary={dictionary} />
+
+        {/* Above the discarded findings on purpose. Asking a question of the document
+            is one of the four things this product claims to do; burying it under a
+            section about what the system got wrong would read as an afterthought. */}
+        <AskPanel
+          dictionary={dictionary}
+          language={language}
+          reportId={report.id}
+          maxQuestionChars={LIMITS.maxQuestionChars}
+          answer={answer ?? undefined}
+          error={askError ?? undefined}
+        />
 
         <UnverifiedFindings rejected={report.rejected} dictionary={dictionary} />
 

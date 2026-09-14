@@ -5,6 +5,7 @@ import type { ClauseView } from '@/lib/clause-view';
 import { signalFor } from '@/lib/severity';
 import { PerAnswerNote } from '@/components/disclaimer/PerAnswerNote';
 import { QuoteIcon } from '@/components/ui/Icons';
+import { Benchmark } from './Benchmark';
 import { ClauseActions } from './ClauseActions';
 import { ClauseEnforceability } from './ClauseEnforceability';
 import { SeverityChip } from './SeverityChip';
@@ -91,6 +92,13 @@ export function ClauseCard({ clause, dictionary }: ClauseCardProps): JSX.Element
         <Row label={card.matters}>
           <p>{clause.whyItMatters}</p>
           {driver !== null && <p className="text-muted mt-2 text-sm">{driver.explain}</p>}
+          {/* The baseline belongs to this row and no other: the sentence above says
+              what this document's number is, and the benchmark says what a published
+              source uses instead. Separating them would make the comparison a claim
+              the reader has to assemble. */}
+          {clause.benchmark !== undefined && (
+            <Benchmark benchmark={clause.benchmark} dictionary={dictionary} />
+          )}
         </Row>
 
         <Row label={card.enforceability}>

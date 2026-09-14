@@ -29,6 +29,22 @@ function walk(dir) {
   });
 }
 
+/**
+ * Count lines the way every other tool does.
+ *
+ * A POSIX text file ends with a newline, so splitting on it yields a trailing empty
+ * element that is not a line. Counting it made this guard silently one line stricter
+ * than the number it printed, and disagree with `wc -l` on every well-formed file --
+ * which surfaced only once a file landed at exactly the cap and was reported as 251.
+ *
+ * @param {string} contents
+ */
+function countLines(contents) {
+  const lines = contents.split(String.fromCharCode(10));
+  if (lines[lines.length - 1] === '') lines.pop();
+  return lines.length;
+}
+
 const offenders = ROOTS.filter((root) => {
   try {
     return statSync(root).isDirectory();
@@ -37,7 +53,7 @@ const offenders = ROOTS.filter((root) => {
   }
 })
   .flatMap(walk)
-  .map((path) => ({ path, lines: readFileSync(path, 'utf8').split('\n').length }))
+  .map((path) => ({ path, lines: countLines(readFileSync(path, 'utf8')) }))
   .filter((file) => file.lines > MAX_LINES)
   .sort((left, right) => right.lines - left.lines);
 

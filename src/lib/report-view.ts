@@ -2,6 +2,8 @@ import type { AnalysisReport } from '@/core/report/types';
 import type { GroundedFinding } from '@/core/grounding/verify';
 import type { EnforceabilityVerdict } from '@/core/enforceability/types';
 import type { RiskDriver } from '@/core/risk/types';
+import type { Benchmark, RubricRule } from '@/core/rubric/types';
+import { loadKnowledge } from '@/server/knowledge/repository';
 import {
   confidenceFor,
   type ClauseAction,
@@ -25,11 +27,18 @@ export function toReportView(input: {
   readonly documentText: string;
   readonly title: string;
   readonly blurb: string;
+  /**
+   * The rules the analysis was scored against. Defaults to the loaded knowledge base,
+   * because a driver records which rule fired but not what that rule is measured
+   * against, and re-reading the rules here is free — `loadKnowledge` is memoised.
+   */
+  readonly rules?: readonly RubricRule[] | undefined;
 }): ReportView {
   const driversByRule = new Map(input.analysis.risk.drivers.map((d) => [d.ruleId, d]));
   const lawByConstruct = new Map(
     input.analysis.enforceability.map((verdict) => [verdict.construct, verdict]),
   );
+  const benchmarks = benchmarksByRule(input.rules ?? loadKnowledge().rubric.rules);
 
   return {
     id: input.analysis.reportId,
@@ -38,7 +47,7 @@ export function toReportView(input: {
     blurb: input.blurb,
     documentText: input.documentText,
     clauses: input.analysis.findings.map((finding) =>
-      toClauseView(finding, driversByRule, lawByConstruct),
+      toClauseView(finding, driversByRule, lawByConstruct, benchmarks),
     ),
     risk: input.analysis.risk,
     grounding: input.analysis.grounding,
@@ -63,6 +72,7 @@ function toClauseView(
   finding: GroundedFinding,
   driversByRule: ReadonlyMap<string, RiskDriver>,
   lawByConstruct: ReadonlyMap<string, EnforceabilityVerdict>,
+  benchmarks: ReadonlyMap<string, Benchmark>,
 ): ClauseView {
   const driver = findOverlapping([...driversByRule.values()], finding);
   const law = findOverlapping([...lawByConstruct.values()], finding);
@@ -71,6 +81,10 @@ function toClauseView(
     finding,
     driver: driver ?? null,
     enforceability: law ?? null,
+    // Joined by rule id rather than by span, unlike the two above: the benchmark
+    // belongs to the rule that fired, so once the driver is known there is nothing
+    // left to match. Most rules have none, and the row simply does not appear.
+    benchmark: driver === undefined ? undefined : benchmarks.get(driver.ruleId),
     // The rule's rendered explanation already carries this document's own numbers,
     // which is exactly what "why it matters" asks for; the plain summary is the
     // fallback when no rule fired on the clause.
@@ -79,6 +93,22 @@ function toClauseView(
     actions: actionsFrom(driver ?? null, law ?? null),
     confidence: confidenceFor(finding, law ?? null),
   };
+}
+
+/**
+ * Index the published baselines the rubric carries, by the rule that carries them.
+ *
+ * Only a minority of rules qualify. A benchmark has to be a real, citable, published
+ * figure — the Model Tenancy Act's two months' deposit, the MSMED Act's forty-five
+ * days — and where a threshold is this project's own judgement the rule deliberately
+ * carries none. A fabricated citation in a legal tool is worse than a bare number.
+ */
+export function benchmarksByRule(rules: readonly RubricRule[]): ReadonlyMap<string, Benchmark> {
+  const index = new Map<string, Benchmark>();
+  for (const rule of rules) {
+    if (rule.benchmark !== null) index.set(rule.id, rule.benchmark);
+  }
+  return index;
 }
 
 /** The first item whose evidence span overlaps the finding, if any. */

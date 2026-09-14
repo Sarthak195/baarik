@@ -49,6 +49,10 @@ rules:
     severity: medium
     weight: 8
     evidenceFrom: securityDepositInr
+    benchmark:
+      source: 'Model Tenancy Act, 2021, section 11 — a model law, binding only where a State has enacted it'
+      url: 'https://mohua.gov.in/upload/uploadfiles/files/Model-Tenancy-Act-English-02_06_2021.pdf'
+      text: "The security deposit paid in advance by the tenant shall not exceed two months' rent in the case of residential premises."
     explain:
       en: 'The deposit is Rs {securityDepositInr}, between two and three months of the Rs {monthlyRentInr} monthly rent.'
       hi: 'जमा राशि {securityDepositInr} रुपये है, जो {monthlyRentInr} रुपये मासिक किराए के दो से तीन महीने के बराबर है।'
@@ -105,6 +109,10 @@ rules:
     weight: 16
     evidenceFrom: bondAmountInr
     askYourLawyer: 'What training or cost is this bond said to recover, and what proof of that cost exists?'
+    benchmark:
+      source: 'Indian Contract Act, 1872, section 74 — compensation for breach of contract where a penalty is stipulated'
+      url: 'https://www.indiacode.nic.in/show-data?actid=AC_CEN_3_20_00035_187209_1523268996428&orderno=75'
+      text: 'When a contract has been broken, if a sum is named in the contract as the amount to be paid in case of such breach, or if the contract contains any other stipulation by way of penalty, the party complaining of the breach is entitled, whether or not actual damage or loss is proved to have been caused thereby, to receive from the party who has broken the contract reasonable compensation not exceeding the amount so named or, as the case may be, the penalty stipulated for.'
     explain:
       en: 'The bond is Rs {bondAmountInr}, six months or more of your Rs {annualCtcInr} annual package. Section 74 of the Contract Act allows recovery of a named sum only up to the loss actually shown.'
       hi: 'बॉन्ड की राशि {bondAmountInr} रुपये है, जो आपके {annualCtcInr} रुपये के सालाना पैकेज के छह महीने या उससे अधिक के बराबर है। अनुबंध अधिनियम की धारा 74 के अनुसार तय की गई रकम केवल सिद्ध हुए नुकसान की सीमा तक ही वसूली जा सकती है।'
@@ -130,6 +138,10 @@ rules:
     severity: medium
     weight: 9
     evidenceFrom: bondAmountInr
+    benchmark:
+      source: 'Indian Contract Act, 1872, section 74 — compensation for breach of contract where a penalty is stipulated'
+      url: 'https://www.indiacode.nic.in/show-data?actid=AC_CEN_3_20_00035_187209_1523268996428&orderno=75'
+      text: 'When a contract has been broken, if a sum is named in the contract as the amount to be paid in case of such breach, or if the contract contains any other stipulation by way of penalty, the party complaining of the breach is entitled, whether or not actual damage or loss is proved to have been caused thereby, to receive from the party who has broken the contract reasonable compensation not exceeding the amount so named or, as the case may be, the penalty stipulated for.'
     explain:
       en: 'The bond is Rs {bondAmountInr}, between three and six months of your Rs {annualCtcInr} annual package.'
       hi: 'बॉन्ड की राशि {bondAmountInr} रुपये है, जो आपके {annualCtcInr} रुपये सालाना पैकेज के तीन से छह महीने के बराबर है।'
@@ -197,6 +209,10 @@ rules:
     weight: 14
     evidenceFrom: latePaymentPercentPerMonth
     askYourLawyer: 'Is this charge a genuine pre-estimate of the loss caused by delay, or a penalty on top of interest?'
+    benchmark:
+      source: 'Reserve Bank of India — Fair Lending Practice: Penal Charges in Loan Accounts, circular of 18 August 2023. Binds banks and regulated NBFCs; against any other counterparty it is a published benchmark, not law'
+      url: 'https://www.rbi.org.in/'
+      text: "Penalty, if charged, for non-compliance of material terms and conditions of loan contract by the borrower shall be treated as 'penal charges' and shall not be levied in the form of 'penal interest' that is added to the rate of interest charged on the advances."
     explain:
       en: 'Late payment carries {latePaymentPercentPerMonth}% a month, which is more than 24% a year on its own, separate from any interest already running.'
       hi: 'देर से भुगतान पर हर महीने {latePaymentPercentPerMonth}% लगता है, जो अकेले ही सालाना 24% से अधिक बैठता है और पहले से चल रहे ब्याज से अलग है।'

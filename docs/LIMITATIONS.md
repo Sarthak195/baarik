@@ -115,11 +115,13 @@ That is an honest four out of 43, and it is the number, not a rounding of it.
 These are real gaps between what the code contains and what a reader can reach. Stating
 them is cheaper than having an evaluator find them.
 
-**Question-answering has no route.** `answerQuestion` in
-`src/server/pipeline/stages.ts` is implemented, uses `QaAnswerSchema`
-(`src/schemas/qa-answer.ts`) with `foundInDocument` as a first-class refusal, and its
-prompt is guardrail-tested. There is no HTTP route that calls it and no UI that exposes
-it. The capability is in the pipeline; it is not in the product.
+**Question-answering is single-turn.** `POST /api/ask` is wired and works without
+JavaScript, and every answer's quote is verified against the document by the same
+`locateQuote` gate findings pass. What it does not do is remember the previous
+question: each one is answered from the document alone, with no conversation state.
+That is deliberate — session memory would grow the prompt without bound on a tier
+allowing twenty requests a day — but it means a follow-up like "and what about the
+second one?" has no antecedent to resolve.
 
 **Per-clause re-explanation has no route.** `src/server/prompts/simplify-clause.ts`
 defines `SIMPLIFY_CLAUSE_SYSTEM` and `buildSimplifyClauseInstruction`, both covered by

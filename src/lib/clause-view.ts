@@ -1,6 +1,7 @@
 import type { EnforceabilityVerdict } from '@/core/enforceability/types';
 import type { GroundedFinding } from '@/core/grounding/verify';
 import type { RiskDriver } from '@/core/risk/types';
+import type { Benchmark } from '@/core/rubric/types';
 import type { Party } from '@/schemas/finding';
 
 /**
@@ -61,6 +62,21 @@ export interface ClauseView {
   readonly favours: FavoursArithmetic;
   readonly actions: readonly ClauseAction[];
   readonly confidence: ClauseConfidence;
+  /**
+   * The published figure the driver's number is measured against — capability 2 of the
+   * brief, comparison against a statutory or market baseline rather than against a
+   * second document the reader does not have.
+   *
+   * It is carried here rather than on the driver because `RiskDriver` is built in
+   * `src/core/risk/engine.ts` and has no benchmark field; the rule does, so the join
+   * from driver back to rule happens in `report-view.ts` alongside the other joins.
+   *
+   * Optional rather than nullable so that a `ClauseView` assembled from a source that
+   * never had a rubric rule — a hand-built fixture, say — is still a valid one. Most
+   * rules carry no benchmark at all, and that silence is deliberate: a threshold that
+   * is this project's own judgement must not be dressed in a citation.
+   */
+  readonly benchmark?: Benchmark | undefined;
 }
 
 /**
