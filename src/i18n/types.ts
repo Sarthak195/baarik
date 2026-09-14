@@ -85,6 +85,17 @@ export interface Dictionary {
     readonly expiredExplanation: string;
     readonly expiredNotAnError: string;
     readonly expiredAction: string;
+    /** Grounded question answering — capability 4 of the brief. */
+    readonly askHeading: string;
+    readonly askLede: string;
+    readonly askLabel: string;
+    readonly askPlaceholder: string;
+    readonly askSubmit: string;
+    readonly askNotFound: string;
+    readonly askCitedFrom: string;
+    readonly askCertainty: { readonly stated: string; readonly implied: string; readonly not_addressed: string };
+    /** Measured-against rows — capability 2 of the brief. */
+    readonly benchmarkLabel: string;
     readonly deadlineLabel: string;
     readonly feeLabel: string;
     readonly filingPlaceLabel: string;

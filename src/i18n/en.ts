@@ -98,6 +98,20 @@ export const en: Dictionary = {
     expiredNotAnError:
       'This is not a fault. It is what "no document is stored" means in practice — there was nowhere for it to be kept.',
     expiredAction: 'Analyse a document again, or open one of the worked samples',
+    askHeading: 'Ask about this document',
+    askLede:
+      'Answered only from the document you supplied. If it does not address your question, you will be told so rather than given a plausible guess.',
+    askLabel: 'Your question',
+    askPlaceholder: 'Can they stop me joining a competitor?',
+    askSubmit: 'Ask',
+    askNotFound: 'Not found in this document',
+    askCitedFrom: 'Answered from this passage',
+    askCertainty: {
+      stated: 'The document says this directly',
+      implied: 'This follows from what the document says',
+      not_addressed: 'The document does not deal with this',
+    },
+    benchmarkLabel: 'Measured against',
     deadlineLabel: 'Deadline',
     feeLabel: 'What it costs',
     filingPlaceLabel: 'Where to file',
