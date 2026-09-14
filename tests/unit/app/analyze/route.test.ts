@@ -6,6 +6,7 @@ import { POST as analyze } from '@/app/analyze/route';
 import type * as EnvModule from '@/server/config/env';
 import { LIMITS } from '@/server/config/limits';
 import { clearRateLimits } from '@/server/ratelimit/token-bucket';
+import { clearAnalysisCache } from '@/server/store/analysis-cache';
 import { clearReports, getReport, reportCount } from '@/server/store/report-store';
 
 import { installGateway, resetGateway, sentRequests } from '../../../fakes/genai-gateway';
@@ -75,6 +76,9 @@ beforeEach(() => {
   clearRateLimits();
   clearReports();
   resetGateway();
+  // Without this every test after the first would be served from the cache, and the
+  // assertions about what reached the model would silently stop testing anything.
+  clearAnalysisCache();
 });
 
 function fixtureText(id: string): string {
@@ -451,5 +455,70 @@ describe('a body that is not a form', () => {
     const response = await post('not a form', { 'content-type': 'application/octet-stream' });
 
     expect(response.status).toBe(429);
+  });
+});
+
+/**
+ * The analysis cache, at the boundary where its value is realised.
+ *
+ * One analysis is three model calls against a tier allowing roughly twenty per model per
+ * key per day, and about three minutes of wall clock. Before this existed, the same
+ * rental agreement uploaded by two people — or by one person who lost their report to a
+ * refresh — paid that twice. `ADR 0008` had described the cache for a week before any
+ * implementation existed behind it.
+ *
+ * The assertion that matters is on `sentRequests()`, not on the response: two identical
+ * uploads that both return a report prove nothing on their own, because a cache that
+ * silently re-ran the pipeline would look the same from outside.
+ */
+describe('the analysis cache', () => {
+  it('spends no model calls on a document it has just analysed', async () => {
+    installGateway(replayGolden(ANALYSED));
+    const body = () => formOf({ documentText: fixtureText(ANALYSED) });
+
+    const first = await post(body());
+    const spentOnFirst = sentRequests().length;
+    expect(spentOnFirst).toBeGreaterThan(0);
+
+    const second = await post(body());
+
+    expect(location(second)).toMatch(REPORT_PATH);
+    expect(sentRequests()).toHaveLength(spentOnFirst);
+    expect(location(second)).not.toBe(location(first));
+  });
+
+  it('gives the second reader their own report URL', async () => {
+    installGateway(replayGolden(ANALYSED));
+    const body = () => formOf({ documentText: fixtureText(ANALYSED) });
+
+    const first = reportIdIn(await post(body()));
+    const second = reportIdIn(await post(body()));
+
+    // `/api/ask` redeems answer tokens against a report id. Sharing one id between two
+    // visits would let a question asked on one surface on the other's page.
+    expect(second).not.toBe(first);
+    expect(getReport(second, Date.now())).not.toBeNull();
+  });
+
+  it('does not serve an English analysis to a reader who asked for Hindi', async () => {
+    installGateway(replayGolden(ANALYSED));
+
+    await post(formOf({ documentText: fixtureText(ANALYSED), lang: 'en' }));
+    const spent = sentRequests().length;
+    await post(formOf({ documentText: fixtureText(ANALYSED), lang: 'hi' }));
+
+    expect(sentRequests().length).toBeGreaterThan(spent);
+  });
+
+  it('re-refuses a receipt without calling the model again', async () => {
+    installGateway(replayGolden(REFUSED));
+    const body = () => formOf({ documentText: fixtureText(REFUSED) });
+
+    await post(body());
+    const spent = sentRequests().length;
+    const second = await post(body());
+
+    expect(location(second)).toContain('refused=');
+    expect(sentRequests()).toHaveLength(spent);
   });
 });

@@ -45,6 +45,8 @@ export interface AnalysisCompleted {
   readonly durationMs: number;
   readonly model: string;
   readonly degraded: boolean;
+  /** True when the analysis cache answered and no model was called. */
+  readonly cached: boolean;
 }
 
 /**
@@ -93,6 +95,7 @@ export function createAnalysisLogger(options: LoggerOptions): AnalysisLogger {
           rejectedCount: fields.rejectedCount,
           durationMs: fields.durationMs,
           model: fields.model,
+          cached: fields.cached,
           degraded: fields.degraded,
         },
         'analysis complete',

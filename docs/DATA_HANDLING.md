@@ -53,7 +53,8 @@ it.
   exhausted `(model, key)` pairs in `src/server/genai/exhaustion.ts`, which holds a model
   id and the last eight characters of a key — no document data and no whole credential.
 
-ADR 0008 describes an `AnalysisCache` interface so a shared implementation could be added
+ADR 0008 describes an `AnalysisCache` interface, implemented in-memory in
+`src/server/store/analysis-cache.ts`, so a shared implementation could be added
 later. **No such implementation is wired up.** The interface exists; nothing behind it
 does.
 

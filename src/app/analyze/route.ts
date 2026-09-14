@@ -14,7 +14,7 @@ import { detectAndExtract, IngestError } from '@/server/ingest/detect';
 import { loadKnowledge } from '@/server/knowledge/repository';
 import { analysisLog } from '@/server/observability/analysis-log';
 import type { FailureReason } from '@/server/observability/logger';
-import { analyseDocument } from '@/server/pipeline/analyse-document';
+import { analyseDocumentCached } from '@/server/pipeline/cached-analysis';
 import type { LlmGateway } from '@/server/pipeline/stages';
 import { checkRateLimit } from '@/server/ratelimit/token-bucket';
 import { putReport } from '@/server/store/report-store';
@@ -82,7 +82,7 @@ export async function POST(request: Request): Promise<Response> {
       },
     };
 
-    const outcome = await analyseDocument(
+    const { outcome, cached } = await analyseDocumentCached(
       {
         document,
         options: { language, readingLevel: 'standard', maxFindings: LIMITS.maxFindings },
@@ -98,6 +98,7 @@ export async function POST(request: Request): Promise<Response> {
         enforceability: knowledge.enforceability,
         clock: () => new Date(),
       },
+      startedAt,
     );
 
     // Refusing is a first-class outcome. A supermarket receipt is not a failure of the
@@ -127,6 +128,7 @@ export async function POST(request: Request): Promise<Response> {
       durationMs: Date.now() - startedAt,
       model: answeredBy,
       degraded,
+      cached,
     });
 
     return redirect(withLanguage(`/report/${outcome.report.reportId}`, language));

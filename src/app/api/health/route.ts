@@ -1,6 +1,7 @@
 import { MODELS } from '@/server/genai/models';
 import { loadKnowledge } from '@/server/knowledge/repository';
 import { sampleCount } from '@/server/samples/repository';
+import { cachedAnalysisCount } from '@/server/store/analysis-cache';
 
 /**
  * `GET /api/health` — is this deployment actually able to do anything?
@@ -72,6 +73,12 @@ export async function GET(): Promise<Response> {
       limitationRules,
       samples,
       geminiKeys,
+      // How many analyses are being served without spending a model call. Reported
+      // because quota is the scarce resource here and a cache nobody can see is a
+      // cache nobody trusts -- it is also how the bundle-duplication bug that has
+      // broken process-global state twice in this project would show up: a cache that
+      // never hits stays at zero.
+      cachedAnalyses: cachedAnalysisCount(),
       model: MODELS.reasoning,
       ...(ok ? {} : { problems }),
     },

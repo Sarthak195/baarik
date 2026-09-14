@@ -137,9 +137,11 @@ read — but its state is a process-global, for the bundling reason set out in
 spread across them can draw three buckets rather than one. A shared counter would need
 the durable store this product deliberately does not have.
 
-**The analysis cache interface has no shared implementation.** ADR 0008 describes an
-`AnalysisCache` interface behind which a shared implementation could later sit. None is
-wired up; the in-memory store is per-process and is lost on restart.
+**The analysis cache is per-process.** `src/server/store/analysis-cache.ts` implements
+the `AnalysisCache` interface ADR 0008 describes, so the same document analysed twice
+costs the model nothing the second time. What it does not do is span instances: Cloud Run
+runs up to three, they share no heap, and a shared implementation would need the durable
+store this product deliberately forgoes.
 
 **Six of the seven fixtures are offered as samples.** `src/server/samples/catalogue.ts`
 lists the offer letter, the rent agreement, the loan sanction, the freelance MSA, the
@@ -206,7 +208,7 @@ excludes `types.ts` files. That is deliberate — a global figure averaging in f
 glue would overstate what is verified — but it means the reported number says nothing
 about `src/server`, `src/app` or `src/components`.
 
-**No browser or live-model test exists.** 538 test cases across 44 files, all in Node.
+**No browser or live-model test exists.** 559 test cases across 46 files, all in Node.
 Nothing drives a real browser, and nothing calls a real model — the golden suite replays
 recorded output instead, which is what makes it free to run on every push.
 

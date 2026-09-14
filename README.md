@@ -323,8 +323,11 @@ submission form answer. See [ADR 0006](docs/adr/0006-google-ai-services.md).
 | **Efficiency** | Medium | Two model calls over one cached prefix, run concurrently; the cheapest model for classification over 4,000 characters. | [`src/server/pipeline/analyse-document.ts`](src/server/pipeline/analyse-document.ts) |
 | **Efficiency** | Medium | The document is folded **once per verification pass**, not once per quote: O(document + quotes × window). | [`src/core/grounding/verify.ts`](src/core/grounding/verify.ts) |
 | **Efficiency** | Medium | The sample path makes **zero API calls** — reports recorded ahead of time, so the highest-traffic route cannot fail or cost quota. | [`src/server/samples/`](src/server/samples/) |
+| **Efficiency** | Medium | The same document analysed twice costs the model **nothing** the second time — an in-memory LRU keyed by document hash plus language, reading level and declared type, bounded to 50 entries for 30 minutes. `GET /api/health` reports how many it holds. | [`src/server/store/analysis-cache.ts`](src/server/store/analysis-cache.ts), [ADR 0008](docs/adr/0008-no-persistence.md) |
+| **Efficiency** | Medium | A refusal is cached too: a supermarket receipt rejected once is rejected instantly, not re-analysed at three model calls to reach the same answer. | [`src/server/pipeline/cached-analysis.ts`](src/server/pipeline/cached-analysis.ts) |
+| **Efficiency** | Medium | A (model, key) pair that meets its daily quota is remembered process-wide for an hour, so the next upload skips it instead of re-earning the same 429 before falling down the ladder. | [`src/server/genai/exhaustion.ts`](src/server/genai/exhaustion.ts) |
 | **Testing** | Low | Scored as *testability*: pure functions, a one-method LLM interface whose fake needs no mocking library, and CI that runs offline with no key. | [`src/server/pipeline/stages.ts`](src/server/pipeline/stages.ts) (`LlmGateway`), [`tests/setup.ts`](tests/setup.ts), [`.github/workflows/ci.yml`](.github/workflows/ci.yml) |
-| **Testing** | Low | 538 test cases across 44 files; coverage scoped to `src/core/**` and **stated as scoped**. | [`tests/`](tests/), [`vitest.config.mts`](vitest.config.mts) |
+| **Testing** | Low | 559 test cases across 46 files; coverage scoped to `src/core/**` and **stated as scoped**. | [`tests/`](tests/), [`vitest.config.mts`](vitest.config.mts) |
 | **Accessibility** | Low | Hindi is a **data** concern: two dictionaries at 127 strings each, in compiler-enforced parity. Rubric rules require `explain.hi`. | [`src/i18n/`](src/i18n/), [`src/core/rubric/schema.ts`](src/core/rubric/schema.ts) |
 | **Accessibility** | Low | The whole flow works with JavaScript off. Exactly two client components exist, and both degrade honestly. | [`src/components/upload/PasteForm.tsx`](src/components/upload/PasteForm.tsx), [`docs/ACCESSIBILITY.md`](docs/ACCESSIBILITY.md) |
 | **Accessibility** | Low | Risk is never conveyed by colour alone — shape, icon and word, with colour redundant. | [`src/components/report/SeverityChip.tsx`](src/components/report/SeverityChip.tsx) |
@@ -446,7 +449,7 @@ maintained over time"* — testability, not coverage percentage. The design answ
 - **Validation failures throw at boot, naming the file.** A malformed rule that merely
   never fired would be far worse than a crash.
 
-**538 test cases across 44 files.** Coverage is measured on the pure core only — `src/core`
+**559 test cases across 46 files.** Coverage is measured on the pure core only — `src/core`
 and nothing else — and is stated as scoped rather than reported as a global figure:
 
 ```ts
@@ -626,7 +629,7 @@ data/               THE LEGAL KNOWLEDGE BASE — reviewable without reading Type
 
 docs/adr/           8 decisions, with what each one cost
 fixtures/           7 synthetic documents, each planted to exercise something specific
-tests/              538 cases, 44 files, offline, no key
+tests/              559 cases, 46 files, offline, no key
 scripts/            3 CI guards + the Antigravity bridge + the golden recorder
 ```
 

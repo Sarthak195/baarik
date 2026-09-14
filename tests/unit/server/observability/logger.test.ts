@@ -109,6 +109,7 @@ function fieldsFor(report: AnalysisReport): AnalysisCompleted {
     durationMs: 13_412,
     model: 'gemini-3.8-flash',
     degraded: false,
+    cached: false,
   };
 }
 
@@ -176,6 +177,7 @@ describe('the allowlist', () => {
         .filter((key) => !PINO_OWN_KEYS.includes(key))
         .sort(),
     ).toEqual([
+      'cached',
       'degraded',
       'documentType',
       'durationMs',

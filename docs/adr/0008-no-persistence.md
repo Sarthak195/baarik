@@ -19,10 +19,13 @@ No accounts, no sign-in, no database, no object storage. A document exists in th
 memory of one request and is never written to disk, to a database, or to a log.
 
 - Analysis results are returned in the response and held in client state.
-- The cache sits behind an `AnalysisCache` interface with an in-memory LRU
-  implementation keyed by document hash. The interface exists so a shared
-  implementation could be added later without touching the pipeline; no such
-  implementation is wired up.
+- Analyses are cached behind an `AnalysisCache` interface with an in-memory LRU keyed
+  by document hash plus the language, reading level and any declared type — the things
+  that make two requests the same question. It holds at most 50 entries for at most 30
+  minutes, the same bounds as the report store and for the same reason. Nothing is
+  written to disk, so the promise above is unaffected: this is memory a restart erases.
+  A shared implementation could be substituted behind the interface without touching the
+  pipeline; none is, because that would require the durable store this ADR forgoes.
 - The structured logger has an allowlist of loggable fields. Document text, quotes and
   extracted facts are not among them, and a unit test asserts it.
 

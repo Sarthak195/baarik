@@ -47,6 +47,7 @@ export async function generateMetadata({ params }: ReportPageProps): Promise<Met
  * Every component below is a pure function of its props; this page is the only thing
  * that knows where a report comes from. Today that is a fixture registry, tomorrow an
  * `AnalysisCache` lookup keyed by document hash, and nothing underneath has to change.
+ * That cache now exists in `src/server/store/analysis-cache.ts`, in memory and bounded.
  *
  * The hard interrupt (ADR 0005) takes over the whole page when a limitation period is
  * close or has run, rather than sitting in a banner the reader scrolls past. It always
