@@ -1,15 +1,20 @@
 import type { Metadata, Viewport } from 'next';
+import { headers } from 'next/headers';
 import type { JSX, ReactNode } from 'react';
 
+import { LANGUAGE_HEADER, parseLanguage } from '@/i18n';
 import './globals.css';
 
 /**
  * The layout does almost nothing, and that is the design.
  *
- * A layout cannot read the URL, so it cannot know which language the reader asked for,
- * and everything that has to change with the language — the `lang` attribute, the skip
- * link, the header, the footer — lives in `PageShell` instead. What is left here is
- * the document shell and the metadata, both of which are the same in every language.
+ * A layout is still handed neither params nor a query string, so the skip link, the
+ * header and the footer stay in `PageShell`, where the dictionary is in scope. The one
+ * thing that cannot live there is the `lang` attribute on `<html>`, because `<html>` is
+ * here — and `src/proxy.ts`, which already runs in front of every request, forwards the
+ * language it parsed out of `?lang=` on the request headers so this file can read it
+ * back. The metadata below is the same in every language, which is its own gap
+ * (`docs/ACCESSIBILITY.md` §6) and not one this solves.
  */
 export const metadata: Metadata = {
   title: {
@@ -33,9 +38,22 @@ export const viewport: Viewport = {
   colorScheme: 'light dark',
 };
 
-export default function RootLayout({ children }: { readonly children: ReactNode }): JSX.Element {
+export default async function RootLayout({
+  children,
+}: {
+  readonly children: ReactNode;
+}): Promise<JSX.Element> {
+  /*
+   * Parsed again rather than trusted as-is. The proxy has already normalised this
+   * value, but a render that somehow happens without it — a route the matcher stops
+   * covering, a future rewrite, a unit render of the layout — must still produce a
+   * valid language rather than `lang=""` or `lang="undefined"`, and `parseLanguage`
+   * already defines what an absent or unrecognised value means everywhere else.
+   */
+  const language = parseLanguage((await headers()).get(LANGUAGE_HEADER) ?? undefined);
+
   return (
-    <html lang="en">
+    <html lang={language}>
       <body>{children}</body>
     </html>
   );

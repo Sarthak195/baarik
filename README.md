@@ -324,7 +324,7 @@ submission form answer. See [ADR 0006](docs/adr/0006-google-ai-services.md).
 | **Efficiency** | Medium | The document is folded **once per verification pass**, not once per quote: O(document + quotes × window). | [`src/core/grounding/verify.ts`](src/core/grounding/verify.ts) |
 | **Efficiency** | Medium | The sample path makes **zero API calls** — reports recorded ahead of time, so the highest-traffic route cannot fail or cost quota. | [`src/server/samples/`](src/server/samples/) |
 | **Testing** | Low | Scored as *testability*: pure functions, a one-method LLM interface whose fake needs no mocking library, and CI that runs offline with no key. | [`src/server/pipeline/stages.ts`](src/server/pipeline/stages.ts) (`LlmGateway`), [`tests/setup.ts`](tests/setup.ts), [`.github/workflows/ci.yml`](.github/workflows/ci.yml) |
-| **Testing** | Low | 241 test cases across 24 files; coverage scoped to `src/core/**` and **stated as scoped**. | [`tests/`](tests/), [`vitest.config.mts`](vitest.config.mts) |
+| **Testing** | Low | 538 test cases across 44 files; coverage scoped to `src/core/**` and **stated as scoped**. | [`tests/`](tests/), [`vitest.config.mts`](vitest.config.mts) |
 | **Accessibility** | Low | Hindi is a **data** concern: two dictionaries at 127 strings each, in compiler-enforced parity. Rubric rules require `explain.hi`. | [`src/i18n/`](src/i18n/), [`src/core/rubric/schema.ts`](src/core/rubric/schema.ts) |
 | **Accessibility** | Low | The whole flow works with JavaScript off. Exactly two client components exist, and both degrade honestly. | [`src/components/upload/PasteForm.tsx`](src/components/upload/PasteForm.tsx), [`docs/ACCESSIBILITY.md`](docs/ACCESSIBILITY.md) |
 | **Accessibility** | Low | Risk is never conveyed by colour alone — shape, icon and word, with colour redundant. | [`src/components/report/SeverityChip.tsx`](src/components/report/SeverityChip.tsx) |
@@ -446,7 +446,7 @@ maintained over time"* — testability, not coverage percentage. The design answ
 - **Validation failures throw at boot, naming the file.** A malformed rule that merely
   never fired would be far worse than a crash.
 
-**241 test cases across 24 files.** Coverage is measured on the pure core only — `src/core`
+**538 test cases across 44 files.** Coverage is measured on the pure core only — `src/core`
 and nothing else — and is stated as scoped rather than reported as a global figure:
 
 ```ts
@@ -485,15 +485,16 @@ with the real predicate vocabulary and the 23 field names, is in
   *"print it in greyscale, photocopy it, or view it with either common form of colour
   blindness and the two halves stay two halves."*
 - **Language lives in the URL**, so it survives JavaScript being unavailable, survives
-  being shared over WhatsApp, and needs no storage.
+  being shared over WhatsApp, and needs no storage. `src/proxy.ts` forwards it to the root
+  layout, so `<html lang>` names the language actually being served rather than a default.
 - **No webfonts, no images, no third-party scripts.** On a metered connection that is the
   accessibility feature.
 - **The sample path costs zero API calls**, so the demo works on a throttled connection,
   works when the free tier is exhausted, and works for an evaluator who arrives last.
 
-Full audit including a candid known-gaps section — `<html lang>` stays `en` with a nested
-`lang` wrapper, `/how-it-works` and `/legal-aid` prose is English-only, no contrast ratio
-has been measured — in **[`docs/ACCESSIBILITY.md`](docs/ACCESSIBILITY.md)**.
+Full audit including a candid known-gaps section — `<title>` and `<meta description>` are
+English on every route, `/how-it-works` and `/legal-aid` prose is English-only, no contrast
+ratio has been measured — in **[`docs/ACCESSIBILITY.md`](docs/ACCESSIBILITY.md)**.
 
 ---
 
@@ -625,7 +626,7 @@ data/               THE LEGAL KNOWLEDGE BASE — reviewable without reading Type
 
 docs/adr/           8 decisions, with what each one cost
 fixtures/           7 synthetic documents, each planted to exercise something specific
-tests/              241 cases, 24 files, offline, no key
+tests/              538 cases, 44 files, offline, no key
 scripts/            3 CI guards + the Antigravity bridge + the golden recorder
 ```
 

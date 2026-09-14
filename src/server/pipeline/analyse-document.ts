@@ -10,6 +10,7 @@ import type { AnalysisOutcome } from '../../core/report/types';
 import { buildFactView } from '../../core/risk/fact-view';
 import { scoreDocument } from '../../core/risk/engine';
 import { LIMITS } from '../config/limits';
+import type { DocumentType } from '../../schemas/document-type';
 import type { AnalysisOptions, PipelineDeps } from './stages';
 import { classifyDocument, extractFacts, findClauses } from './stages';
 
@@ -29,6 +30,14 @@ export interface AnalyseInput {
   readonly reportId: string;
   readonly situation?: RemedySituation;
   readonly readAsScan?: boolean;
+  /**
+   * The document type the reader chose on the landing form, if they chose one.
+   *
+   * Absent means "let Baarik work it out", which is the form's default and the only
+   * thing the golden recordings ever pass — so a recorded report is unaffected by this
+   * field existing.
+   */
+  readonly declaredType?: DocumentType | undefined;
 }
 
 export async function analyseDocument(
@@ -53,7 +62,17 @@ export async function analyseDocument(
     };
   }
 
-  const documentType = classification.documentType;
+  // The reader's own answer wins over the model's guess, because they are holding the
+  // document and the model has seen its first four thousand characters. The type decides
+  // which rubric rules apply, which baseline is compared against and which absences are
+  // worth checking, so a lease read as an offer letter is scored against the wrong
+  // questions entirely.
+  //
+  // The refusal above is deliberately NOT overridable. "Is this an agreement at all" and
+  // "which kind of agreement is it" are different questions, and someone who picks a type
+  // and then attaches the wrong file is exactly who needs to be told they uploaded a
+  // supermarket receipt.
+  const documentType = input.declaredType ?? classification.documentType;
 
   // Both calls share the identical document prefix, so the second is served largely
   // from Gemini's implicit cache. Running them concurrently also halves the wall

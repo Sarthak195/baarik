@@ -255,6 +255,11 @@ fails validation at boot rather than silently degrading the Hindi report.
 > WhatsApp, and needs no storage — which matters when the product's first claim is that
 > it stores nothing (ADR 0008)."*
 
+Every page parses it with `parseLanguage`, and so does `src/proxy.ts`, which forwards
+the result on the request as `x-baarik-language` for the one consumer that cannot see a
+query string: the root layout, which puts it on `<html lang>` (§6, gap 1). One parser,
+one source of truth, and still nothing stored.
+
 ### The sample path costs zero API calls
 
 `src/components/upload/SampleDocuments.tsx` renders plain links to `/report/<id>`, and
@@ -276,13 +281,31 @@ Stated plainly. Several of these are choices; some are defects.
 
 ### Language
 
-1. **`<html lang>` is always `en`.** `src/app/layout.tsx` hardcodes it. A root layout
-   cannot read the URL, so it cannot know which language was requested; the translated
-   subtree is instead wrapped in `<div lang={language}>` by `PageShell.tsx`. A screen
-   reader that honours the nearest `lang` ancestor gets the right voice for content; one
-   that consults only the document element does not. This is a real compromise, chosen
-   over a cookie or middleware rewrite because both would add state the product
-   otherwise does not have.
+1. ~~**`<html lang>` is always `en`.**~~ **Fixed.** `<html lang>` is now whatever
+   `?lang=` asked for — `hi` on `?lang=hi`, `en` on anything else — on `/`,
+   `/how-it-works`, `/legal-aid`, `/report/[id]` and the 404 alike, verified by curling
+   each of those ten responses out of the standalone server and reading the tag.
+
+   A root layout still cannot read the URL. What changed is that `src/proxy.ts` exists:
+   it runs in front of every request, and it was already carrying a value into the
+   render by setting a header on the *request* — that is how the CSP nonce reaches the
+   script tags. It now parses `?lang=` through the same `parseLanguage` every page uses
+   and sets `x-baarik-language` alongside it, which `src/app/layout.tsx` reads back with
+   `headers()`. No cookie, no rewrite, no client state: the query parameter is still the
+   only source of truth, and an absent or unrecognised value still means English in
+   exactly one place rather than two. The proxy *sets* rather than appends the header,
+   so a client that sends its own `x-baarik-language` cannot make a page declare a
+   language its URL never requested.
+
+   `PageShell.tsx` keeps its `<div lang={language}>` wrapper. On four of the five routes
+   it now merely repeats the document element, but on the 404 it does not: that page
+   answers in English whatever was requested (gap 4), and the wrapper is what stops
+   English prose being handed to a Hindi speech synthesiser under `<html lang="hi">`.
+
+   Residual: a reader who asks for `?lang=hi` and lands on the 404 gets a document that
+   declares Hindi and content correctly marked English inside it. The document element
+   reflects the language requested, not a promise that every string below it was
+   translated — gaps 3, 5 and 6 are the places where those still differ.
 
 2. **`<title>` and `<meta description>` are English on every route**, always. Metadata is
    generated outside the `lang` subtree and is not translated.
@@ -291,10 +314,14 @@ Stated plainly. Several of these are choices; some are defects.
    footer and skip link translate; the body copy does not. Both pages honestly re-declare
    `<div lang="en">` around that prose rather than letting a Hindi document language lie
    about English text — but the footer language switcher is visible on both pages and
-   changes very little there.
+   changes very little there. That re-declaration was a precaution when the document was
+   always `en`; since gap 1 was fixed it is load-bearing, and `/how-it-works?lang=hi`
+   serves `<html lang="hi">` → `<div lang="hi">` chrome → `<div lang="en">` prose.
 
 4. **`src/app/not-found.tsx` is English-only**, acknowledged in its own comment: it
-   cannot read the URL, so it answers in English.
+   cannot read the URL, so it answers in English. Its *document* language does follow
+   `?lang=` now (gap 1), and the English answer inside it stays marked `lang="en"` by
+   the shell, so nothing claims to be Hindi that is not.
 
 5. **The recorded sample reports are English-only.** `golden/reports/` contains no
    Devanagari. In Hindi mode a reader gets Hindi row labels around English clause

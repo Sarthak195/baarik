@@ -1,6 +1,8 @@
 import 'server-only';
 import { GoogleGenAI } from '@google/genai';
 
+import { LIMITS } from '../config/limits';
+
 /**
  * The only file in this repository that imports the Gemini SDK.
  *
@@ -25,7 +27,18 @@ export function getGenAiClient(apiKey: string): GoogleGenAI {
   const existing = clients.get(apiKey);
   if (existing !== undefined) return existing;
 
-  const created = new GoogleGenAI({ apiKey });
+  // Without this the SDK waits forever, and "forever" is a real state: a call that
+  // never returns sat until Cloud Run killed the request at its own 300-second ceiling
+  // and answered a bare 504 — no message, no log line, no fallback, because the ladder
+  // in `gateway.ts` never got control back to try another pair. `requestTimeoutMs` was
+  // declared for exactly this and its comment says so ("so the failure is ours and
+  // carries a message, rather than the platform's and carrying none"); it had only ever
+  // been wired into PDF parsing. A healthy reasoning call lands well inside it, so the
+  // budget catches a hang without cutting anything short.
+  const created = new GoogleGenAI({
+    apiKey,
+    httpOptions: { timeout: LIMITS.requestTimeoutMs },
+  });
   clients.set(apiKey, created);
   return created;
 }

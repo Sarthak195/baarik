@@ -2,8 +2,9 @@ import { randomUUID, createHash } from 'node:crypto';
 
 import { toCanonicalDocument } from '@/core/document/normalise';
 import type { RawExtraction } from '@/core/document/types';
-import type { OutputLanguage } from '@/schemas/document-type';
+import { parseDocumentType, type OutputLanguage } from '@/schemas/document-type';
 import { parseLanguage, withLanguage } from '@/i18n';
+import { malformedBody, readField, readForm } from '@/lib/form-field';
 import { buildReportView } from '@/server/report/view';
 import { getGeminiKeyPool } from '@/server/config/env';
 import { LIMITS } from '@/server/config/limits';
@@ -44,7 +45,11 @@ export async function POST(request: Request): Promise<Response> {
   const decision = checkRateLimit(request.headers, startedAt);
   if (!decision.allowed) return tooManyRequests(decision.retryAfterSeconds);
 
-  const form = await request.formData();
+  // `formData()` throws on a body whose content type it cannot parse. A browser always
+  // sends the right one, so reaching this is a hand-crafted request — but an uncaught
+  // throw here is a 500, which says the server broke when in fact the request did.
+  const form = await readForm(request);
+  if (form === null) return malformedBody();
   const language = parseLanguage(readField(form, 'lang'));
 
   try {
@@ -85,6 +90,7 @@ export async function POST(request: Request): Promise<Response> {
         limitation: knowledge.limitation,
         reportId: randomUUID(),
         readAsScan: !raw.offsetsReliable,
+        declaredType: parseDocumentType(readField(form, 'documentType')),
       },
       {
         llm,
@@ -239,12 +245,4 @@ function reasonFor(error: unknown): FailureReason {
   return 'unknown';
 }
 
-/**
- * `FormDataEntryValue` is `string | File`, and a `File` where a string was expected
- * means the request was malformed rather than that the field is empty — so it is
- * discarded rather than coerced into the string "[object File]".
- */
-function readField(form: FormData, name: string): string | undefined {
-  const value = form.get(name);
-  return typeof value === 'string' ? value : undefined;
-}
+

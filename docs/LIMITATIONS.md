@@ -130,25 +130,12 @@ summaries do reach the reader — every finding carries a `plainSummary` from
 `src/schemas/finding.ts` — but the on-demand "explain this one again, simpler" control is
 not wired.
 
-**Rate limiting is declared, not enforced.** `LIMITS.rateLimit` (capacity 12, refill
-4/minute) is defined with a comment explaining what it protects. No middleware applies
-it. `grep -rn "rateLimit" src/` returns the definition and nothing else.
-
-**The upload field name does not match the handler.** `src/components/upload/PasteForm.tsx`
-sends the file input as `documentFile`; `src/app/analyze/route.ts` reads
-`form.get('document')`. The uploaded file is therefore discarded and the handler falls
-through to the pasted-text path. **Paste works; file upload does not.** This is a defect,
-not a design choice, and it is recorded here rather than papered over.
-
-**Ingest and rate-limit error messages never reach the reader.** The route redirects to
-`/?error=…` and `/?refused=…`, but `src/app/page.tsx` reads only `lang` and `understood`.
-The carefully worded rate-limit message — *"The sample documents are fully worked and
-need no quota"* — is unreachable, and because the redirect drops `understood=1` the
-reader lands back on the blocking disclaimer with no indication that anything failed.
-
-**The language switcher discards other query parameters.**
-`src/components/ui/SiteFooter.tsx` links to `?` or `?lang=hi`, replacing the whole query
-string. Switching language after acknowledging the disclaimer re-blocks the reader.
+**The rate limiter counts per instance, not per service.** The bucket is enforced —
+`checkRateLimit` is the first thing both `/analyze` and `/api/ask` do, before the body is
+read — but its state is a process-global, for the bundling reason set out in
+`src/server/store/report-store.ts`. Cloud Run runs up to three instances, so a client
+spread across them can draw three buckets rather than one. A shared counter would need
+the durable store this product deliberately does not have.
 
 **The analysis cache interface has no shared implementation.** ADR 0008 describes an
 `AnalysisCache` interface behind which a shared implementation could later sit. None is
@@ -219,10 +206,9 @@ excludes `types.ts` files. That is deliberate — a global figure averaging in f
 glue would overstate what is verified — but it means the reported number says nothing
 about `src/server`, `src/app` or `src/components`.
 
-**No integration or end-to-end test exists.** 241 test cases across 24 files, all
-unit-level, all in Node. Nothing exercises the HTTP route, the browser, or a real model
-call. That is why the upload-field defect above survived to be documented here rather
-than caught by CI.
+**No browser or live-model test exists.** 538 test cases across 44 files, all in Node.
+Nothing drives a real browser, and nothing calls a real model — the golden suite replays
+recorded output instead, which is what makes it free to run on every push.
 
 ---
 

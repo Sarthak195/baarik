@@ -68,6 +68,19 @@ export function classifyGenAiError(error: unknown, model: string): GenAiError {
   }
 
   const lowered = message.toLowerCase();
+
+  // A timeout is transient by assumption, so it is `unavailable` rather than
+  // `rate_limited`: the pair gets penalised in the pool and the ladder moves on, but it
+  // is NOT written into the process-wide exhaustion memory. A slow minute on one model
+  // must not blacklist a working key for the next hour — that would turn a hiccup into
+  // an outage that outlives it, which is the same reasoning `gateway.ts` applies to 5xx.
+  // Both spellings: the SDK says "timed out", an AbortSignal says "aborted", and
+  // undici says "timeout". Missing one files a hang under `unknown`, which is not
+  // retryable — so the ladder would stop on the one failure it most needs to walk past.
+  const timedOut = ['timeout', 'timed out', 'abort'].some((term) => lowered.includes(term));
+  if (timedOut) {
+    return new GenAiError('unavailable', model, message, { cause: error });
+  }
   if (lowered.includes('rate limit') || lowered.includes('quota')) {
     return new GenAiError('rate_limited', model, message, { cause: error });
   }

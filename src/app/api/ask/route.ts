@@ -13,6 +13,7 @@ import { loadKnowledge } from '@/server/knowledge/repository';
 import { analysisLog } from '@/server/observability/analysis-log';
 import type { FailureReason } from '@/server/observability/logger';
 import { answerQuestion, type LlmGateway } from '@/server/pipeline/stages';
+import { malformedBody, readField, readForm } from '@/lib/form-field';
 import { checkRateLimit } from '@/server/ratelimit/token-bucket';
 import { getReport } from '@/server/store/report-store';
 import { putAnswer } from './answer-store';
@@ -59,7 +60,11 @@ export async function POST(request: Request): Promise<Response> {
   const decision = checkRateLimit(request.headers, startedAt);
   if (!decision.allowed) return tooManyRequests(decision.retryAfterSeconds);
 
-  const form = await request.formData();
+  // `formData()` throws on a body whose content type it cannot parse. A browser always
+  // sends the right one, so reaching this is a hand-crafted request — but an uncaught
+  // throw here is a 500, which says the server broke when in fact the request did.
+  const form = await readForm(request);
+  if (form === null) return malformedBody();
   const language = parseLanguage(readField(form, 'lang'));
   const reportId = readField(form, 'reportId') ?? '';
   const question = (readField(form, 'question') ?? '').trim();
@@ -229,11 +234,3 @@ function reasonFor(error: unknown): FailureReason {
   return 'unknown';
 }
 
-/**
- * A `File` where a string was expected means the request was malformed rather than
- * that the field is empty, so it is discarded rather than coerced to "[object File]".
- */
-function readField(form: FormData, name: string): string | undefined {
-  const value = form.get(name);
-  return typeof value === 'string' ? value : undefined;
-}

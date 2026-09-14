@@ -1,9 +1,11 @@
 import { NextResponse, type NextRequest } from 'next/server';
 
+import { LANGUAGE_HEADER, parseLanguage } from '@/i18n';
 import { contentSecurityPolicy } from '@/lib/content-security-policy';
 
 /**
- * The only thing in front of every request, and it exists for one reason: a nonce.
+ * The only thing in front of every request. It exists for a nonce, and it is the
+ * reason the document can also name the language it is serving.
  *
  * The rest of this project's security headers are fixed strings and live in
  * `next.config.ts`, where they cost nothing and reach static assets too. The
@@ -46,6 +48,23 @@ export function proxy(request: NextRequest): NextResponse {
    */
   const headers = new Headers(request.headers);
   headers.set('content-security-policy', policy);
+
+  /*
+   * The requested language rides along on the same mechanism, for the one consumer
+   * that cannot work it out for itself: the root layout renders `<html>` and is given
+   * no access to the URL, so before this it declared `en` on a Hindi page. `?lang=` is
+   * still the single source of truth — this reads it through the same `parseLanguage`
+   * every page uses, so an absent or mistyped value lands on English here exactly as it
+   * does there, and `<html lang>` cannot drift from the dictionary the page picked.
+   *
+   * `set`, not `append`: the header is indistinguishable from one a client sent, and
+   * overwriting is what stops a crafted `x-baarik-language` from making a page claim a
+   * language its own URL never asked for.
+   */
+  headers.set(
+    LANGUAGE_HEADER,
+    parseLanguage(request.nextUrl.searchParams.get('lang') ?? undefined),
+  );
 
   const response = NextResponse.next({ request: { headers } });
   response.headers.set('Content-Security-Policy', policy);

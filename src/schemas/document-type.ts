@@ -30,3 +30,17 @@ export type OutputLanguage = z.infer<typeof OutputLanguage>;
 /** How much the reader wants unpacked. A real prompt change, not a CSS class. */
 export const ReadingLevel = z.enum(['standard', 'simple']);
 export type ReadingLevel = z.infer<typeof ReadingLevel>;
+
+/**
+ * A document type the reader chose from the landing form, or `undefined`.
+ *
+ * The form's first option is "let Baarik work it out" and posts an empty string, so
+ * absence and "no preference" are the same answer and both arrive here as `undefined`.
+ * An unrecognised value is treated the same way rather than rejected: the field comes
+ * from a `<select>`, so anything else is a hand-crafted request, and silently falling
+ * back to classification is a better answer than a 400 for a preference.
+ */
+export function parseDocumentType(value: string | undefined): DocumentType | undefined {
+  const parsed = DocumentType.safeParse(value);
+  return parsed.success ? parsed.data : undefined;
+}
