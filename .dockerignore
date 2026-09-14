@@ -64,17 +64,16 @@ vitest.config.mts
 
 # --- sample legal documents ------------------------------------------------------------
 #
-# Excluded, though at ~84 KB keeping them would cost nothing measurable.
+# Kept. ~84 KB, and the server reads it on every request for a sample report.
 #
-# The reason is not size. `fixtures/` is read only by `src/server/samples/fixtures.ts`,
-# whose sole importer is `scripts/record-golden.ts` — the recorder that regenerates
-# `golden/` on a developer machine with a live key. Nothing under `src/app/` imports it,
-# so no request can reach it and the standalone trace never touches it.
+# It used to be excluded, on the reasoning that `fixtures/` was recorder-only and no
+# request could reach it. That stopped being true when the samples started rendering
+# through the real adapter instead of through hand-built view objects: a sample report
+# now quotes its own source text, and the source is here. Excluding it would 404 every
+# sample in production while every sample kept working locally.
 #
-# Leaving it out keeps the image a closed set: everything present is something the
-# server actually reads. That is the property which makes the two deliberate copies in
-# the Dockerfile, `data/` and `golden/`, legible as deliberate rather than as leftovers.
-fixtures
+# `golden/reports/` is the analysis, `fixtures/` is the document it was analysing.
+# Neither is useful alone, so they are shipped together.
 
 # --- prose ------------------------------------------------------------------------------
 #

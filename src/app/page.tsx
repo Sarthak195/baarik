@@ -7,7 +7,7 @@ import { PasteForm } from '@/components/upload/PasteForm';
 import { PrivacyPromise } from '@/components/upload/PrivacyPromise';
 import { SampleDocuments } from '@/components/upload/SampleDocuments';
 import { dictionaryFor, parseLanguage, withLanguage } from '@/i18n';
-import { SAMPLES } from '@/lib/demo';
+import { sampleSummaries } from '@/server/samples/view';
 import type { SearchParams } from '@/lib/page-props';
 
 /**
@@ -66,7 +66,7 @@ export default async function HomePage({
 
           <PasteForm dictionary={dictionary} language={language} />
 
-          <SampleDocuments samples={SAMPLES} dictionary={dictionary} language={language} />
+          <SampleDocuments samples={sampleSummaries()} dictionary={dictionary} language={language} />
         </div>
       ) : (
         <OnboardingNotice

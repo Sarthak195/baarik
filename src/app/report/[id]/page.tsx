@@ -18,7 +18,8 @@ import { UnverifiedFindings } from '@/components/report/UnverifiedFindings';
 import { Callout } from '@/components/ui/Callout';
 import { PageShell } from '@/components/ui/PageShell';
 import { dictionaryFor, parseLanguage, withLanguage } from '@/i18n';
-import { reportById } from '@/lib/demo';
+import { sampleEntry } from '@/server/samples/catalogue';
+import { sampleReportView } from '@/server/samples/view';
 import { LIMITS } from '@/server/config/limits';
 import { getReport } from '@/server/store/report-store';
 import { ExpiredReport } from '@/components/report/ExpiredReport';
@@ -36,7 +37,7 @@ const LIVE_REPORT_ID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f
 
 export async function generateMetadata({ params }: ReportPageProps): Promise<Metadata> {
   const { id } = await params;
-  const report = reportById(id);
+  const report = sampleReportView(id);
   return { title: report?.title ?? 'Report' };
 }
 
@@ -60,7 +61,7 @@ export default async function ReportPage({
   // A live analysis first, then the committed fixtures. The fixtures are not a
   // fallback for a failed lookup — they are separate reports with their own ids — so
   // a miss on both is genuinely a 404 rather than a silent substitution.
-  const report = getReport(id, Date.now()) ?? reportById(id);
+  const report = getReport(id, Date.now()) ?? sampleReportView(id);
 
   if (report === null) {
     // An id shaped like a generated one belonged to a live analysis that is gone: the
@@ -74,9 +75,11 @@ export default async function ReportPage({
     notFound();
   }
 
-  // A live report has no fixture entry, and only fixtures are samples. Saying
-  // "this is a sample" over someone's own contract would be worse than saying nothing.
-  const isSample = reportById(id) !== null;
+  // A live report has no catalogue entry, and only catalogued documents are samples.
+  // Saying "this is a sample" over someone's own contract would be worse than saying
+  // nothing. Asked of the catalogue rather than by rebuilding the view: the answer is
+  // a single string comparison either way, and one of them reads a file.
+  const isSample = sampleEntry(id) !== null;
 
   const language = parseLanguage(query.lang);
   const dictionary = dictionaryFor(language);

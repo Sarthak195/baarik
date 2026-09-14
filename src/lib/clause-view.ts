@@ -71,10 +71,9 @@ export interface ClauseView {
    * `src/core/risk/engine.ts` and has no benchmark field; the rule does, so the join
    * from driver back to rule happens in `report-view.ts` alongside the other joins.
    *
-   * Optional rather than nullable so that a `ClauseView` assembled from a source that
-   * never had a rubric rule — a hand-built fixture, say — is still a valid one. Most
-   * rules carry no benchmark at all, and that silence is deliberate: a threshold that
-   * is this project's own judgement must not be dressed in a citation.
+   * Optional rather than nullable because absence is the normal case: most rules carry
+   * no benchmark at all, and that silence is deliberate. A threshold that is this
+   * project's own judgement must not be dressed in a citation.
    */
   readonly benchmark?: Benchmark | undefined;
 }

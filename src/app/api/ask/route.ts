@@ -3,7 +3,7 @@ import { createHash, randomUUID } from 'node:crypto';
 import type { AnswerView, AskError } from '@/components/qa/types';
 import type { CanonicalDocument } from '@/core/document/types';
 import { parseLanguage, withLanguage } from '@/i18n';
-import { reportById } from '@/lib/demo';
+import { sampleReportView } from '@/server/samples/view';
 import type { OutputLanguage } from '@/schemas/document-type';
 import { getGeminiKeyPool } from '@/server/config/env';
 import { LIMITS } from '@/server/config/limits';
@@ -141,7 +141,7 @@ async function ask(
  * evaluating the product without uploading a contract of their own.
  */
 function documentFor(reportId: string): string | null {
-  const report = getReport(reportId, Date.now()) ?? reportById(reportId);
+  const report = getReport(reportId, Date.now()) ?? sampleReportView(reportId);
   return report === null ? null : report.documentText;
 }
 

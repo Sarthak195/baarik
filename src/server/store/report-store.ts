@@ -1,6 +1,6 @@
 import 'server-only';
 
-import type { ReportView } from '@/lib/demo/types';
+import type { ReportView } from '@/lib/report-view-types';
 
 /**
  * Where a freshly analysed report lives between the POST that created it and the GET

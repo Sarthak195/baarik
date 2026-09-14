@@ -3,7 +3,7 @@ import type { JSX } from 'react';
 
 import type { Dictionary } from '@/i18n';
 import { withLanguage } from '@/i18n';
-import type { SampleSummary } from '@/lib/demo/types';
+import type { SampleSummary } from '@/lib/report-view-types';
 import type { OutputLanguage } from '@/schemas/document-type';
 
 export interface SampleDocumentsProps {

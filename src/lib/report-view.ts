@@ -3,7 +3,6 @@ import type { GroundedFinding } from '@/core/grounding/verify';
 import type { EnforceabilityVerdict } from '@/core/enforceability/types';
 import type { RiskDriver } from '@/core/risk/types';
 import type { Benchmark, RubricRule } from '@/core/rubric/types';
-import { loadKnowledge } from '@/server/knowledge/repository';
 import {
   confidenceFor,
   type ClauseAction,
@@ -11,7 +10,7 @@ import {
   type FavoursArithmetic,
 } from './clause-view';
 import type { Party } from '@/schemas/finding';
-import type { ReportView } from './demo/types';
+import type { ReportView } from './report-view-types';
 
 /**
  * Turning a pipeline result into what the report page renders.
@@ -28,17 +27,19 @@ export function toReportView(input: {
   readonly title: string;
   readonly blurb: string;
   /**
-   * The rules the analysis was scored against. Defaults to the loaded knowledge base,
-   * because a driver records which rule fired but not what that rule is measured
-   * against, and re-reading the rules here is free — `loadKnowledge` is memoised.
+   * The rules the analysis was scored against, passed in rather than loaded
+   * here. A driver records which rule fired but not what it is measured against, so a
+   * benchmark has to come from here. Reading the knowledge base touches the filesystem
+   * and this module is reachable from a client component, so importing `@/server` here
+   * would drag server code into the browser bundle. Both callers are server-side.
    */
-  readonly rules?: readonly RubricRule[] | undefined;
+  readonly rules: readonly RubricRule[];
 }): ReportView {
   const driversByRule = new Map(input.analysis.risk.drivers.map((d) => [d.ruleId, d]));
   const lawByConstruct = new Map(
     input.analysis.enforceability.map((verdict) => [verdict.construct, verdict]),
   );
-  const benchmarks = benchmarksByRule(input.rules ?? loadKnowledge().rubric.rules);
+  const benchmarks = benchmarksByRule(input.rules);
 
   return {
     id: input.analysis.reportId,

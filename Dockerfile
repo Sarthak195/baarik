@@ -94,6 +94,10 @@ COPY --from=builder --chown=node:node /app/public ./public
 # image because nobody remembered to widen this line.
 COPY --from=builder --chown=node:node /app/data ./data
 COPY --from=builder --chown=node:node /app/golden ./golden
+# The documents those reports were recorded from. A sample report quotes its source,
+# and `fixtureDocument` resolves it relative to the working directory, so this is what
+# makes `/report/nda-mutual-but-not` render a document rather than a 404.
+COPY --from=builder --chown=node:node /app/fixtures ./fixtures
 
 USER node
 

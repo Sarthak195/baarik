@@ -4,7 +4,7 @@ import { toCanonicalDocument } from '@/core/document/normalise';
 import type { RawExtraction } from '@/core/document/types';
 import type { OutputLanguage } from '@/schemas/document-type';
 import { parseLanguage, withLanguage } from '@/i18n';
-import { toReportView } from '@/lib/report-view';
+import { buildReportView } from '@/server/report/view';
 import { getGeminiKeyPool } from '@/server/config/env';
 import { LIMITS } from '@/server/config/limits';
 import { GenAiError } from '@/server/genai/errors';
@@ -101,7 +101,7 @@ export async function POST(request: Request): Promise<Response> {
       return redirect(backToForm(outcome.reason, 'refused', language));
     }
 
-    const view = toReportView({
+    const view = buildReportView({
       analysis: outcome.report,
       documentText: document.text,
       title: 'Your document',

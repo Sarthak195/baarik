@@ -1,7 +1,7 @@
 import type { GroundingStats, RejectedFinding } from '@/core/grounding/verify';
 import type { NextStep } from '@/core/remedies/types';
 import type { RiskReport } from '@/core/risk/types';
-import type { ClauseView } from '@/lib/clause-view';
+import type { ClauseView } from './clause-view';
 import type { DocumentType } from '@/schemas/document-type';
 
 /**
