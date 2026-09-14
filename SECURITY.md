@@ -123,7 +123,7 @@ guarantee: the real defence is architectural."*
 | **Hallucinated citation** | Not an attacker — the model itself inventing a clause that is then rendered as a quotation from the reader's contract | Model returns a verbatim quote, never an offset. Three-pass location (exact → normalised → bounded fuzzy). Below `minSimilarity` 0.82 → refused; two distant candidates within `ambiguityMargin` 0.05 → refused as ambiguous; under 24 characters → refused as too short. Refusals are reported, not hidden | `src/core/grounding/verify.ts`, `src/core/grounding/locate.ts`, `src/core/grounding/types.ts` (`LOCATE_DEFAULTS`), ADR 0002 |
 | **Malicious or malformed upload** | A PDF bomb, a zip bomb, a 500 MB file, an encrypted OOXML, a `.exe` renamed `.pdf`, a `Content-Type` chosen to steer the parser | Size refused **before** any parse (`maxUploadBytes` 10 MB). Format decided by **magic bytes**, never by filename or `Content-Type` — both are attacker-controlled. Page count checked against the PDF catalogue before a single page is rendered (`maxPdfPages` 120). Encrypted ZIPs and OLE containers detected and refused. Canonical text capped at 400,000 chars and truncation is surfaced, never silent | `src/server/config/limits.ts`, `src/server/ingest/sniff.ts`, `src/server/ingest/detect.ts`, `src/server/ingest/pdf.ts` |
 | **Key exfiltration** | Reading a Gemini key out of the repository, a log line, an error message or a client bundle | No key is committed: `.env` and `.env.*` are gitignored, `.env.example` ships empty. `scripts/check-forbidden-apis.mjs` greps every tracked `src`, `scripts`, `tests`, `data`, `fixtures` and `docs` file for `AIza[0-9A-Za-z_-]{10}` and for `-----BEGIN … PRIVATE KEY-----`, and fails CI. `src/server/config/env.ts` never logs a key in whole or in part, and an invalid-environment error names only the **variable**, never the value. The SDK is imported in exactly one file, and every `src/server` module starts with `import 'server-only'`, so none of it can reach the browser bundle | `.gitignore`, `.env.example`, `scripts/check-forbidden-apis.mjs`, `src/server/config/env.ts`, `src/server/genai/client.ts` |
-| **Cost / quota exhaustion** | A scripted loop burning the free-tier Gemini quota so the demo is dead for everyone else | Quota is the scarce resource, and it is protected structurally: the sample analyses are recorded in `golden/reports/` and cost **zero** API calls, so the highest-traffic path never touches the model. A 303-redirect POST means a refresh cannot re-post the document. Classification runs on the cheapest model over the first 4,000 characters only. A rotating key pool demotes a rate-limited key and a model ladder substitutes a sibling model rather than failing. `LIMITS.rateLimit` (capacity 12, refill 4/min) is declared — see *Known gaps* below | `src/server/samples/`, `src/app/analyze/route.ts`, `src/server/config/key-pool.ts`, `src/server/genai/gateway.ts`, `src/server/config/limits.ts` |
+| **Cost / quota exhaustion** | A scripted loop burning the free-tier Gemini quota so the demo is dead for everyone else | Quota is the scarce resource, and it is protected structurally: the sample analyses are recorded in `golden/reports/` and cost **zero** API calls, so the highest-traffic path never touches the model. A 303-redirect POST means a refresh cannot re-post the document. Classification runs on the cheapest model over the first 4,000 characters only. A rotating key pool demotes a rate-limited key and a model ladder substitutes a sibling model rather than failing. A per-client token bucket (capacity 12, refill 4/min) is checked before the body is read on both `/analyze` and `/api/ask`, so a rejected client costs no quota and no parse. A (model, key) pair that answers 429 is remembered process-wide, so the next upload skips it instead of re-earning the same 429 | `src/server/samples/`, `src/app/analyze/route.ts`, `src/server/ratelimit/token-bucket.ts`, `src/server/config/key-pool.ts`, `src/server/genai/exhaustion.ts`, `src/server/genai/gateway.ts` |
 | **PII exposure** | A reader's salary, PAN, address or bank details leaking into storage, a log, or a third party | Nothing is stored: no database, no object storage, no accounts, no sessions (ADR 0008). A document exists in the memory of one request. The structured logger has an allowlist of loggable fields, and document text, quotes and extracted facts are not among them. `.env.example` states plainly that no `LOG_LEVEL` causes document text to be logged, because that is a property of what the code passes to the logger, not of the setting. **The document is still sent to the Gemini API** — see `docs/DATA_HANDLING.md`, which discloses the unpaid-tier training and human-review terms rather than eliding them | ADR 0008, `src/server/config/env.ts`, `docs/DATA_HANDLING.md` |
 | **SSRF / outbound abuse** | Persuading the server to fetch an attacker-chosen URL | The server makes exactly one kind of outbound call: `ai.interactions.create` to Gemini, from `src/server/genai/client.ts`. No URL in any document, any YAML row or any user field is ever fetched. Statute URLs in `data/` are rendered as links for the reader to click, never dereferenced server-side | `src/server/genai/client.ts`, `src/server/knowledge/repository.ts` |
 | **Injection into the deterministic layer** | Crafting a document so that consistency detection or rubric evaluation misbehaves | The pure core takes no input except `CanonicalDocument` and validated facts. It performs no `eval`, constructs no regex from document text, executes nothing, and touches no filesystem — enforced by `no-restricted-imports` in `eslint.config.mjs`, which bans `node:*`, `fs`, `path`, `crypto` and every SDK from `src/core/**` | `eslint.config.mjs`, ADR 0001 |
@@ -179,18 +179,96 @@ from absence: the cheapest way to secure a subsystem is not to have one.
 
 ---
 
-## 5. Known gaps — stated rather than implied
+## 5. Response headers
 
-- **Rate limiting is declared but not wired.** `LIMITS.rateLimit` in
-  `src/server/config/limits.ts` defines a per-client token bucket (capacity 12, refill
-  4/minute) with a comment explaining what it protects. No middleware currently applies
-  it; `grep -rn "rateLimit" src/` returns the definition and nothing else. The practical
-  protection today is the key-pool plus model-ladder in `src/server/genai/gateway.ts`
-  (which degrades rather than failing) and the zero-cost precomputed sample path. Saying
-  the bucket is enforced would be a lie an evaluator could catch with one grep.
-- **No CSP header is set.** `next.config.ts` does not currently define a Content-Security
-  Policy. The exposure is bounded — no third-party scripts, no inline user HTML, no
-  `dangerouslySetInnerHTML` — but the header should be there.
+Every document response carries this, with a fresh nonce on each one:
+
+```
+default-src 'self';
+script-src 'self' 'nonce-<128 random bits, base64>';
+style-src 'self' 'unsafe-inline';
+object-src 'none';
+base-uri 'self';
+form-action 'self';
+frame-ancestors 'none'
+```
+
+It is assembled in [`src/lib/content-security-policy.ts`](src/lib/content-security-policy.ts),
+a pure function of the nonce, and applied by [`src/proxy.ts`](src/proxy.ts), which mints one
+nonce per request from `crypto.getRandomValues`. The proxy writes the policy onto the
+*request* as well as the response: Next parses the `script-src` nonce back out of the
+incoming header and stamps it on every script tag it emits, which is what keeps the header
+and the HTML in agreement without either being generated twice. The matcher covers every
+path except `/_next/static`.
+
+A nonce only exists once a request does, so a page prerendered at build time cannot carry
+one. `src/app/not-found.tsx` was the last route still being prerendered and now calls
+`connection()`; `next build` reports every route as `ƒ (Dynamic)`. Partial Prerendering and
+ISR would reintroduce the problem and are not enabled.
+
+What each directive refuses:
+
+| Directive | What it refuses |
+| --- | --- |
+| `default-src 'self'` | Any fetch, image, font or connection to anywhere but this origin. There are no images, no web fonts and no third-party scripts, so `connect-src`, `img-src`, `font-src` and `media-src` inherit this rather than repeating it. |
+| `script-src 'self' 'nonce-…'` | Every inline script except the two Next writes itself, and every `onclick=`-style attribute, which a nonce cannot authorise. |
+| `style-src 'self' 'unsafe-inline'` | Stylesheets from anywhere else. Inline style *attributes* are permitted — see below. |
+| `object-src 'none'` | Plugin documents, which execute with the privileges of the page that embeds them. |
+| `base-uri 'self'` | An injected `<base href>` re-pointing every relative URL. Plain `<a href>` navigation has no directive of its own, so this is all that stands between a report's "read the statute" links and somewhere else. |
+| `form-action 'self'` | A rewritten `action` posting a reader's contract to a stranger. `/analyze` and `/api/ask` are plain `<form method="post">` targets, which makes this the directive that matters most here. |
+| `frame-ancestors 'none'` | Framing the site to crop the "information, not advice" notice out of view, or to harvest clicks over it. |
+
+Four fixed headers are set in [`next.config.ts`](next.config.ts) instead, because they never
+vary and can therefore also cover the static assets the proxy skips:
+`X-Content-Type-Options: nosniff`; `Referrer-Policy: same-origin`, since a report URL carries
+an id and an answer token and nalsa.gov.in has no business receiving either;
+`X-Frame-Options: DENY`, the same refusal as `frame-ancestors` in the form the out-of-date
+Android WebViews this audience runs still understand; and
+`Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()`.
+
+Verified by loading `/`, `/report/<sample>`, `/how-it-works`, `/legal-aid` and a 404 in
+headless Chrome against the standalone server, plus one client-side navigation and one real
+form POST: zero violations, hydration confirmed through a control that only renders after
+`useEffect`, and the report's bars measuring non-zero widths.
+
+### What is weaker than it looks
+
+- **`style-src` carries `'unsafe-inline'`.** `ReportSummary` and `TaraazuMeter` set bar
+  widths in a `style` attribute, and a style attribute cannot be nonced. What bounds it is
+  `default-src 'self'`: CSS exfiltrates by asking the browser to fetch a URL, and every such
+  URL still has to point back here. So this permits restyling by someone who has already
+  achieved HTML injection, and does not permit them to send anything off the page. Removing
+  it would mean emitting a nonced `<style>` element per report and addressing the bars by
+  generated class name.
+- **No `'strict-dynamic'`, deliberately.** It defends origins that serve files an attacker
+  can influence; nothing here writes a file anywhere (ADR 0008) and there is no upload path
+  to disk, so `'self'` already names exactly the build output and nothing else.
+- **No HSTS.** Cloud Run terminates TLS, and the whole `.app` top-level domain — `*.run.app`
+  with it — is on the browsers' preload list, so the guarantee is enforced before a request
+  reaches this process. Sending the header would assert something about certificate
+  lifetimes on a future custom domain that this code cannot see.
+- **`next dev` adds `'unsafe-eval'`.** React rebuilds server stack traces through `eval` in
+  development, and the error overlay throws without it. A test pins that it is absent from
+  the production policy.
+
+---
+
+## 6. Known gaps — stated rather than implied
+
+- **The rate limiter counts per instance, not per service.** The token bucket is enforced
+  — `checkRateLimit` is the first thing both `/analyze` and `/api/ask` do, before the body
+  is read — but its state is a process-global, for the bundling reason documented in
+  `src/server/store/report-store.ts`. Cloud Run is configured `maxScale: 3`, so a client
+  spread across three instances can in principle draw three buckets rather than one. A
+  shared counter would need the durable store this product deliberately does not have
+  (ADR 0008), and the quota behind it is defended a second time by the key pool, the
+  model ladder and the process-wide exhaustion memory. Stated because 3× a stated limit
+  is not the stated limit.
+- **Every route is now dynamically rendered.** That is the price of a per-request CSP
+  nonce (§5) and it is worth naming rather than burying: nothing can be served from a CDN
+  edge cache, and the 404 page in particular is rendered on demand where it used to be a
+  static file. At this project's traffic the cost is nothing; at a different scale it
+  would be the first thing to revisit, and `experimental.sri` is the documented way out.
 - **Documents reach a third party.** Not storing something is not the same as it being
   private. The document is sent to the Gemini Developer API, and on the unpaid tier
   Google's terms permit use for product improvement including human review. This is
@@ -204,7 +282,7 @@ from absence: the cheapest way to secure a subsystem is not to have one.
 
 ---
 
-## 6. Reporting a vulnerability
+## 7. Reporting a vulnerability
 
 Open a GitHub issue. This is a hackathon submission with no production users, no stored
 data and no credentials worth stealing, so there is nothing to coordinate disclosure

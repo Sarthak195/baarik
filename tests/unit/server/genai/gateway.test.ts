@@ -1,8 +1,15 @@
-import { describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { z } from 'zod';
 
 import { KeyPool } from '@/server/config/key-pool';
 import { GenAiError, type GenAiFailure } from '@/server/genai/errors';
+import {
+  clearExhausted,
+  isExhausted,
+  pairKey,
+  QUOTA_TTL_MS,
+  trackedPairs,
+} from '@/server/genai/exhaustion';
 import { callWithFallback } from '@/server/genai/gateway';
 import type { runStructured, StructuredRequest } from '@/server/genai/interactions';
 import {
@@ -54,6 +61,20 @@ const KEY_B = 'key-bravo-2';
 const KEY_C = 'key-charlie-3';
 
 const VERDICT = z.object({ verdict: z.string() });
+
+/**
+ * The clock the gateway is given. It is a parameter rather than `Date.now()` because the
+ * exhaustion memory expires bans against it, and a TTL boundary should be arithmetic in
+ * a test rather than a fake timer.
+ */
+const NOW = 1_757_800_000_000;
+const MINUTE = 60_000;
+
+// The memory the ladder writes to spans the process, which is the whole point of it and
+// also the one thing that could carry state between these tests.
+beforeEach(() => {
+  clearExhausted();
+});
 
 function analysisRequest(model: ModelId): StructuredRequest<typeof VERDICT> {
   return {
@@ -157,7 +178,11 @@ describe('callWithFallback — walking the ladder', () => {
     const gemini = fakeGemini(() => ANSWERS);
     const keys = new KeyPool([KEY_A, KEY_B, KEY_C]);
 
-    const result = await callWithFallback(analysisRequest(BEST), { keys, run: gemini.run });
+    const result = await callWithFallback(analysisRequest(BEST), {
+      keys,
+      run: gemini.run,
+      now: NOW,
+    });
 
     expect(result.model).toBe(BEST);
     expect(result.degraded).toBe(false);
@@ -174,7 +199,11 @@ describe('callWithFallback — walking the ladder', () => {
     );
     const keys = new KeyPool([KEY_A, KEY_B, KEY_C]);
 
-    const result = await callWithFallback(analysisRequest(BEST), { keys, run: gemini.run });
+    const result = await callWithFallback(analysisRequest(BEST), {
+      keys,
+      run: gemini.run,
+      now: NOW,
+    });
 
     // A rate limit on one key is a fact about that key, not about the model. Downgrading
     // on it would cost the reader quality that two other keys could still have bought.
@@ -192,7 +221,11 @@ describe('callWithFallback — walking the ladder', () => {
     const gemini = fakeGemini(({ model }) => (model === BEST ? RATE_LIMITED : ANSWERS));
     const keys = new KeyPool([KEY_A, KEY_B, KEY_C]);
 
-    const result = await callWithFallback(analysisRequest(BEST), { keys, run: gemini.run });
+    const result = await callWithFallback(analysisRequest(BEST), {
+      keys,
+      run: gemini.run,
+      now: NOW,
+    });
 
     // Reporting the requested model here would make the report dishonest about what
     // produced it, which is the one thing a substitution must never cost.
@@ -209,7 +242,11 @@ describe('callWithFallback — walking the ladder', () => {
     const gemini = fakeGemini(({ model }) => (model === THIRD ? RATE_LIMITED : ANSWERS));
     const keys = new KeyPool([KEY_A, KEY_B]);
 
-    const result = await callWithFallback(analysisRequest(THIRD), { keys, run: gemini.run });
+    const result = await callWithFallback(analysisRequest(THIRD), {
+      keys,
+      run: gemini.run,
+      now: NOW,
+    });
 
     // Asking for a cheap model is a budget decision. Silently escalating to a dearer one
     // would spend quota the caller deliberately declined to spend.
@@ -224,7 +261,11 @@ describe('callWithFallback — walking the ladder', () => {
     const gemini = fakeGemini(({ model }) => (model === CHEAPEST ? RATE_LIMITED : ANSWERS));
     const keys = new KeyPool([KEY_A, KEY_B]);
 
-    const result = await callWithFallback(analysisRequest(MODELS.cheap), { keys, run: gemini.run });
+    const result = await callWithFallback(analysisRequest(MODELS.cheap), {
+      keys,
+      run: gemini.run,
+      now: NOW,
+    });
 
     expect(result.model).toBe(CHEAP_SECOND);
     expect(modelsTried(gemini)).toEqual([CHEAPEST, CHEAPEST, CHEAP_SECOND]);
@@ -236,7 +277,11 @@ describe('callWithFallback — walking the ladder', () => {
     const gemini = fakeGemini(({ model }) => (model === UNLISTED ? RATE_LIMITED : ANSWERS));
     const keys = new KeyPool([KEY_A, KEY_B]);
 
-    const result = await callWithFallback(analysisRequest(UNLISTED), { keys, run: gemini.run });
+    const result = await callWithFallback(analysisRequest(UNLISTED), {
+      keys,
+      run: gemini.run,
+      now: NOW,
+    });
 
     expect(result.model).toBe(BEST);
     expect(result.degraded).toBe(true);
@@ -273,64 +318,85 @@ describe('tierFor', () => {
  * trip to learn the same thing again.
  */
 describe('callWithFallback — remembering what is spent', () => {
-  it('records the (model, key) pair that answered 429', async () => {
+  // A fresh pool per call, exactly as a second request in a second route handler would
+  // build one. Nothing is threaded between the calls below, so whatever they share they
+  // share through the process — which is the claim these tests are making.
+  const pool = (): KeyPool => new KeyPool([KEY_A, KEY_B]);
+
+  it('records the (model, key) pair that answered 429, and only that pair', async () => {
     const gemini = fakeGemini(({ key }) => (key === KEY_A ? RATE_LIMITED : ANSWERS));
-    const keys = new KeyPool([KEY_A, KEY_B]);
-    const exhausted = new Set<string>();
 
-    await callWithFallback(analysisRequest(BEST), { keys, run: gemini.run, exhausted });
+    await callWithFallback(analysisRequest(BEST), { keys: pool(), run: gemini.run, now: NOW });
 
-    const remembered = [...exhausted];
-    expect(remembered).toHaveLength(1);
-    const pair = remembered[0] ?? '';
-    expect(pair).toContain(BEST);
-    // The key is recorded by its tail, so the memory can be logged without leaking it.
-    expect(pair).toContain(KEY_A.slice(-8));
-    expect(pair).not.toContain(KEY_B.slice(-8));
+    expect(isExhausted(pairKey(BEST, KEY_A), NOW)).toBe(true);
+    // A 429 on one key is a fact about that key: the sibling has its own separate
+    // allowance on the same model, and banning it would throw that allowance away.
+    expect(isExhausted(pairKey(BEST, KEY_B), NOW)).toBe(false);
+    expect(trackedPairs()).toBe(1);
   });
 
-  it('skips a pair it already knows is dead rather than rediscovering it', async () => {
+  it('skips a pair an earlier request found dead rather than rediscovering it', async () => {
     const gemini = fakeGemini(({ key }) => (key === KEY_A ? RATE_LIMITED : ANSWERS));
-    const keys = new KeyPool([KEY_A, KEY_B]);
-    const exhausted = new Set<string>();
 
     const first = await callWithFallback(analysisRequest(BEST), {
-      keys,
+      keys: pool(),
       run: gemini.run,
-      exhausted,
+      now: NOW,
     });
     expect(first.model).toBe(BEST);
     expect(gemini.attempts).toHaveLength(2);
 
     const second = await callWithFallback(analysisRequest(BEST), {
-      keys,
+      keys: pool(),
       run: gemini.run,
-      exhausted,
+      now: NOW + MINUTE,
     });
 
     expect(second.model).toBe(BEST);
     expect(second.degraded).toBe(false);
     expect(second.exhaustedPairs).toBe(0);
-    // The whole point, stated as a call count: the second request costs ONE round trip,
-    // not two, because the dead pair is never dialled a second time.
+    // The whole point, stated as a call count: the second request costs ONE round trip
+    // rather than two, because the dead pair is never dialled again — and the two
+    // requests have nothing in common but the process they ran in.
     expect(gemini.attempts).toHaveLength(3);
     expect(gemini.attempts.filter((attempt) => attempt.key === KEY_A)).toHaveLength(1);
   });
 
+  it('dials the pair again once the ban has lapsed, so a daily reset is noticed', async () => {
+    // Refused this morning, refilled since. Nothing announces the reset, so the only way
+    // this process can discover it is to stop believing the 429 after a while.
+    let refusing = true;
+    const gemini = fakeGemini(({ key }) => (key === KEY_A && refusing ? RATE_LIMITED : ANSWERS));
+
+    await callWithFallback(analysisRequest(BEST), { keys: pool(), run: gemini.run, now: NOW });
+    refusing = false;
+
+    const later = await callWithFallback(analysisRequest(BEST), {
+      keys: pool(),
+      run: gemini.run,
+      now: NOW + QUOTA_TTL_MS,
+    });
+
+    expect(later.model).toBe(BEST);
+    expect(gemini.attempts.at(-1)).toEqual({ model: BEST, key: KEY_A });
+  });
+
   it('gives up without a single round trip once the whole ladder is known spent', async () => {
     const gemini = fakeGemini(() => RATE_LIMITED);
-    const keys = new KeyPool([KEY_A, KEY_B]);
-    const exhausted = new Set<string>();
     const everyPair = MODEL_LADDER.reasoning.length * 2;
 
     const discovering = await rejectionOf(
-      callWithFallback(analysisRequest(BEST), { keys, run: gemini.run, exhausted }),
+      callWithFallback(analysisRequest(BEST), { keys: pool(), run: gemini.run, now: NOW }),
     );
     expect(genAiErrorOf(discovering).failure).toBe('rate_limited');
     expect(gemini.attempts).toHaveLength(everyPair);
 
     const remembering = await rejectionOf(
-      callWithFallback(analysisRequest(BEST), { keys, run: gemini.run, exhausted }),
+      callWithFallback(analysisRequest(BEST), {
+        keys: pool(),
+        run: gemini.run,
+        now: NOW + MINUTE,
+      }),
     );
 
     expect(genAiErrorOf(remembering).failure).toBe('rate_limited');
@@ -344,12 +410,11 @@ describe('callWithFallback — failures that are not about quota', () => {
   it('stops cycling keys the moment a model turns out to be retired', async () => {
     const gemini = fakeGemini(({ model }) => (model === BEST ? RETIRED : ANSWERS));
     const keys = new KeyPool([KEY_A, KEY_B, KEY_C]);
-    const exhausted = new Set<string>();
 
     const result = await callWithFallback(analysisRequest(BEST), {
       keys,
       run: gemini.run,
-      exhausted,
+      now: NOW,
     });
 
     expect(result.model).toBe(SECOND);
@@ -357,10 +422,30 @@ describe('callWithFallback — failures that are not about quota', () => {
     // One attempt on the retired model, not one per key: a 404 is a property of the
     // model, and the other two keys would have been told exactly the same thing.
     expect(modelsTried(gemini)).toEqual([BEST, SECOND]);
-    // A retired model is not a spent quota, so nothing is written to the shared memory —
-    // it would be wrong to remember it as exhaustion that resets tomorrow.
-    expect(exhausted.size).toBe(0);
+    // Remembered against the pair that saw the 404 rather than against the model,
+    // because the keys are separate projects and access is granted per project.
+    expect(isExhausted(pairKey(BEST, KEY_A), NOW)).toBe(true);
+    expect(isExhausted(pairKey(BEST, KEY_B), NOW)).toBe(false);
+    // A retirement outlives a daily reset, so it is not counted as quota spent — that
+    // figure is what a degraded report has to be explained by.
     expect(result.exhaustedPairs).toBe(0);
+  });
+
+  it('still believes a model retired after a quota ban would have lapsed', async () => {
+    const gemini = fakeGemini(({ model }) => (model === BEST ? RETIRED : ANSWERS));
+    const keys = new KeyPool([KEY_A]);
+
+    await callWithFallback(analysisRequest(BEST), { keys, run: gemini.run, now: NOW });
+    const later = await callWithFallback(analysisRequest(BEST), {
+      keys,
+      run: gemini.run,
+      now: NOW + QUOTA_TTL_MS,
+    });
+
+    // Nothing about midnight un-retires a model, so the 404 is not re-earned on the
+    // schedule a 429 is. The second request never touches the retired model at all.
+    expect(later.model).toBe(SECOND);
+    expect(modelsTried(gemini)).toEqual([BEST, SECOND, SECOND]);
   });
 
   const permanent: readonly GenAiFailure[] = [
@@ -376,7 +461,7 @@ describe('callWithFallback — failures that are not about quota', () => {
       const keys = new KeyPool([KEY_A, KEY_B, KEY_C]);
 
       const thrown = await rejectionOf(
-        callWithFallback(analysisRequest(BEST), { keys, run: gemini.run }),
+        callWithFallback(analysisRequest(BEST), { keys, run: gemini.run, now: NOW }),
       );
 
       expect(genAiErrorOf(thrown).failure).toBe(failure);
@@ -393,7 +478,7 @@ describe('callWithFallback — failures that are not about quota', () => {
     const keys = new KeyPool([KEY_A, KEY_B, KEY_C]);
 
     const thrown = await rejectionOf(
-      callWithFallback(analysisRequest(BEST), { keys, run: gemini.run }),
+      callWithFallback(analysisRequest(BEST), { keys, run: gemini.run, now: NOW }),
     );
 
     expect(genAiErrorOf(thrown).failure).toBe('unavailable');
@@ -401,6 +486,32 @@ describe('callWithFallback — failures that are not about quota', () => {
     // Four reasoning models times three keys. Unlike a daily quota, a 5xx is expected
     // to clear, so the pair is never recorded as exhausted.
     expect(gemini.attempts).toHaveLength(12);
+    expect(trackedPairs()).toBe(0);
+  });
+
+  it('does not poison a pair for the next request when the service blips', async () => {
+    // The outage lasts exactly one request, as most 5xx bursts do.
+    let faulting = true;
+    const faulty = fakeGemini(() =>
+      faulting ? { kind: 'fails', failure: 'unavailable' } : ANSWERS,
+    );
+    const keys = new KeyPool([KEY_A, KEY_B, KEY_C]);
+
+    await rejectionOf(callWithFallback(analysisRequest(BEST), { keys, run: faulty.run, now: NOW }));
+    faulting = false;
+
+    const recovered = await callWithFallback(analysisRequest(BEST), {
+      keys: new KeyPool([KEY_A, KEY_B, KEY_C]),
+      run: faulty.run,
+      now: NOW + MINUTE,
+    });
+
+    // Writing a blip into an hour-long memory would outlive the blip and make this
+    // process the outage: every key on every model banned for something that had already
+    // fixed itself. The best model answers on the very next request instead.
+    expect(recovered.model).toBe(BEST);
+    expect(recovered.degraded).toBe(false);
+    expect(faulty.attempts.at(-1)).toEqual({ model: BEST, key: KEY_A });
   });
 
   it('lets a failure that is not a GenAiError through untouched', async () => {
@@ -409,7 +520,7 @@ describe('callWithFallback — failures that are not about quota', () => {
     const keys = new KeyPool([KEY_A, KEY_B]);
 
     const thrown = await rejectionOf(
-      callWithFallback(analysisRequest(BEST), { keys, run: gemini.run }),
+      callWithFallback(analysisRequest(BEST), { keys, run: gemini.run, now: NOW }),
     );
 
     // Not wrapped, not reclassified: a bug in our own code must arrive looking like one.

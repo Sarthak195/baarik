@@ -85,9 +85,6 @@ async function main(): Promise<void> {
   const { requested, force } = request;
 
   const knowledge = loadKnowledge();
-  // Shared across fixtures: one (model, key) pair discovered exhausted stays known for
-  // the whole run instead of being rediscovered a 429 at a time.
-  const exhausted = new Set<string>();
   let recorded = 0;
 
   for (const [index, id] of requested.entries()) {
@@ -102,8 +99,10 @@ async function main(): Promise<void> {
     const llm: LlmGateway = {
       // `callWithFallback` rather than a bare call, so recording benefits from the same
       // (model x key) ladder the product uses: a 429 costs a substitution, not a fixture.
+      // The ladder's exhaustion memory is process-wide, so one pair discovered spent
+      // stays known for the rest of the run instead of costing a 429 per fixture.
       async structured<TSchema extends z.ZodType>(request_: StructuredRequest<TSchema>) {
-        const result = await callWithFallback(request_, { keys: keyPool, exhausted });
+        const result = await callWithFallback(request_, { keys: keyPool, now: Date.now() });
         const stage = stageOf(request_.system);
         if (stage !== null) stages.set(stage, { model: result.model, value: result.value });
         return { value: result.value, model: result.model, cachedTokens: result.cachedTokens };

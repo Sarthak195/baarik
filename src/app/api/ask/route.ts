@@ -113,10 +113,12 @@ async function ask(
   // Resolved here rather than at module scope: `next build` evaluates route modules to
   // collect page data, and a build machine holds no credentials.
   const keys = getGeminiKeyPool();
-  const exhausted = new Set<string>();
 
+  // No exhaustion memory is built here: `genai/exhaustion.ts` holds one for the whole
+  // process, so a question inherits what the analysis before it learned about which
+  // (model, key) pairs are spent rather than rediscovering it one 429 at a time.
   const llm: LlmGateway = {
-    structured: (req) => callWithFallback(req, { keys, exhausted }),
+    structured: (req) => callWithFallback(req, { keys, now: Date.now() }),
   };
 
   // The Q&A stage reads only `llm`, but `PipelineDeps` is one object by design and

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { connection } from 'next/server';
 import type { JSX } from 'react';
 
 import { PageShell } from '@/components/ui/PageShell';
@@ -13,7 +14,21 @@ import { dictionaryFor } from '@/i18n';
  *
  * This cannot read the URL, so it answers in English.
  */
-export default function NotFound(): JSX.Element {
+export default async function NotFound(): Promise<JSX.Element> {
+  /*
+   * This was the only route in the application still prerendered at build time, and a
+   * page built before any request exists cannot carry that request's CSP nonce. The
+   * browser was therefore refusing the two inline scripts in the served HTML and the
+   * 404 page arrived unhydrated with a pair of policy violations in the console — a
+   * mild failure on this page in particular, which is a paragraph and a link, but a
+   * loud one, and noise in that console is exactly what hides a real violation later.
+   *
+   * `connection()` waits for a request, which is all it takes to move the render past
+   * the point where a nonce exists. The cost is server-rendering a page nobody is
+   * supposed to reach.
+   */
+  await connection();
+
   const dictionary = dictionaryFor('en');
 
   return (

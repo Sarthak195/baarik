@@ -49,8 +49,9 @@ it.
   (`src/i18n/index.ts`), specifically so that no storage is needed and a shared link
   carries its own state.
 - **No analytics, no tag manager, no third-party script.**
-- **No cross-request state** except an in-memory report map and the process-lifetime set
-  of exhausted `(model, key)` pairs in the Gemini gateway, which holds no document data.
+- **No cross-request state** except an in-memory report map and the expiring map of
+  exhausted `(model, key)` pairs in `src/server/genai/exhaustion.ts`, which holds a model
+  id and the last eight characters of a key — no document data and no whole credential.
 
 ADR 0008 describes an `AnalysisCache` interface so a shared implementation could be added
 later. **No such implementation is wired up.** The interface exists; nothing behind it

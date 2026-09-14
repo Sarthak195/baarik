@@ -55,9 +55,9 @@ export async function POST(request: Request): Promise<Response> {
 
     // The gateway is the LlmGateway, so every stage inherits the (model, key) ladder:
     // a stage that meets a daily quota substitutes a model rather than failing the
-    // whole analysis. The exhausted set is per-request here; sharing it process-wide
-    // belongs with the analysis cache and is a later change.
-    const exhausted = new Set<string>();
+    // whole analysis. Which pairs are spent is remembered in `genai/exhaustion.ts`,
+    // process-wide, so this upload skips what the last one paid a 429 to discover.
+    //
     // Asked for here rather than imported as a value: resolving the keys at module
     // load made `next build` require a credential it has no business holding.
     const keys = getGeminiKeyPool();
@@ -70,7 +70,7 @@ export async function POST(request: Request): Promise<Response> {
 
     const llm: LlmGateway = {
       structured: async (req) => {
-        const result = await callWithFallback(req, { keys, exhausted });
+        const result = await callWithFallback(req, { keys, now: Date.now() });
         answeredBy = result.model;
         if (result.degraded) degraded = true;
         return result;

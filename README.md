@@ -543,8 +543,9 @@ prepended to all five system prompts and asserted by test — are defence in dep
 that defines them says so: *"This is a mitigation, not a guarantee: the real defence is
 architectural."*
 
-Full threat model, validation boundaries and a known-gaps section — including that
-`LIMITS.rateLimit` is declared but **not yet wired** — in **[`SECURITY.md`](SECURITY.md)**.
+Full threat model, validation boundaries and a known-gaps section — including that the
+enforced token bucket counts **per instance rather than per service** — in
+**[`SECURITY.md`](SECURITY.md)**.
 
 ---
 

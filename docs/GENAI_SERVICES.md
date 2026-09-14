@@ -173,16 +173,29 @@ Six keys across four reasoning models is roughly twenty times one key's capacity
 money and no waiting. Retrying the same pair is never a strategy: the quota is daily, so
 any wait long enough to matter is longer than a person will sit in front of a page.
 
-Exhausted `(model, key)` pairs are remembered in a `Set` shared across requests, so every
-request does not re-discover this morning's exhausted models one 429 at a time. A
-`model_unavailable` error breaks out of the key loop immediately, because a retired model
-fails identically on every key. A malformed request or schema violation is rethrown at
-once — *"our bug and will reproduce everywhere. Surfacing it immediately beats burning
-quota confirming it."*
+Exhausted `(model, key)` pairs are remembered in `src/server/genai/exhaustion.ts`: a map
+hung off a `globalThis` symbol, for the reason `report-store.ts` documents at length. Next
+bundles route handlers into separate server chunks, so a module-level `Map` would give
+`/analyze` and `/api/ask` a private copy each — silently, because a memory that never hits
+looks exactly like a memory that is not needed. Sharing it process-wide is what stops every
+request re-discovering this morning's exhausted models one 429 at a time.
+
+Which failure is written into that memory is the distinction that matters:
+
+| Failure | Remembered for | Why |
+|---|---|---|
+| `rate_limited` (429) | `QUOTA_TTL_MS` — **one hour** | The allowance is daily and the reset boundary is unpublished, so an hour is simply the price of finding out whether it has turned. Erring long is deliberate: a stale ban costs one rung on a ladder built to absorb exactly that, while expiring early puts the wasted round trip back on the critical path of somebody's upload. |
+| `model_unavailable` (404) | `RETIREMENT_TTL_MS` — **six hours** | A retirement is not undone at midnight, so it deliberately outlives a quota ban. Not for ever, because the evidence is one status code from an SDK with no stable error taxonomy. Recorded against the pair that saw it rather than the model, since the keys are separate projects. |
+| `unavailable` (5xx) | **never** | A fault expected to clear in seconds, written into an hour-long memory, would outlive the blip and make this process the outage. `KeyPool.penalise` is the right-sized response, and it has already happened. |
+
+A `model_unavailable` error also breaks out of the key loop immediately, because a retired
+model fails identically on every key of the same project. A malformed request or schema
+violation is rethrown at once — *"our bug and will reproduce everywhere. Surfacing it
+immediately beats burning quota confirming it."*
 
 `MODEL_LADDER` deliberately encodes no model's limit, because those are unpublished and
-change: it discovers exhaustion by being told, and remembers it for the life of the
-process.
+change: it discovers exhaustion by being told, and keeps that belief until its TTL says it
+is stale enough to be worth re-testing.
 
 ---
 
