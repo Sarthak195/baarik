@@ -155,7 +155,7 @@ which runs exactly this, and then verifies it:
 gcloud run deploy baarik \
   --source . --region asia-south1 \
   --min-instances=0 --max-instances=3 \
-  --memory=512Mi --cpu=1 --timeout=300 \
+  --memory=512Mi --cpu=1 --timeout=600 \
   --allow-unauthenticated \
   --set-secrets=GEMINI_API_KEY=gemini-api-key:latest
 ```
@@ -171,7 +171,7 @@ gcloud run deploy baarik \
 | `--max-instances=3` | **100 per region** | The blast radius. 100 concurrent instances is how a scripted upload loop, or a crawler that found the analyse endpoint, becomes an invoice. Three serves a demo and is small enough to survive being wrong. |
 | `--allow-unauthenticated` | authenticated | The audience is the public and an evaluator holding a link. It is also precisely why the line above matters. |
 | `--memory=512Mi --cpu=1` | 512Mi / 1 | Stated rather than inherited: PDF and DOCX parsing happens in memory, and the peak is one document plus one report. |
-| `--timeout=300` | 300s | Stated for the same reason — an analysis makes two model calls in series and waits on Gemini's latency, not ours. |
+| `--timeout=600` | 600s | Not a guess. A real analysis of the smallest fixture measured 163s in `asia-south1` and 188s locally; the ceiling was 300s, and on 14 September a slower-than-usual run crossed it and every model-backed request answered a bare 504. The work waits on Gemini's latency rather than ours, so this has to clear the worst case a retry can produce, not the median. The per-call budget that stops a *hung* call is `LIMITS.requestTimeoutMs`, wired into the SDK in `src/server/genai/client.ts`; this number only has to be comfortably larger than that. |
 
 ### What gets uploaded
 
