@@ -30,8 +30,17 @@ export interface StoredReport {
 }
 
 /**
- * Small enough that a burst of uploads cannot grow the heap without bound, large
- * enough that nobody loses a report they are still reading. Eviction is oldest-first.
+ * Large enough that nobody loses a report they are still reading. Eviction is
+ * oldest-first.
+ *
+ * Note precisely what this bounds: entries, not bytes. A stored report holds the whole
+ * document text, so at `LIMITS.maxCanonicalChars` the ceiling is 50 x 400,000 characters
+ * -- 19 MiB if every character is Latin-1, and 38 MiB if even one is not, because V8
+ * stores a string two-byte the moment a single character falls outside that range. That
+ * is not a corner case here: all seven committed fixtures contain between 2 and 12
+ * em-dashes, en-dashes or rupee signs, which `normalise.ts` preserves deliberately, so
+ * one of them doubles the retained size of the whole document. Against a 512 MiB
+ * container the realistic ceiling is comfortable and the worst case is not free.
  */
 const MAX_REPORTS = 50;
 

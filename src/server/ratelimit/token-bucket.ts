@@ -61,8 +61,11 @@ const FULL_REFILL_MS = Math.ceil((CAPACITY / REFILL_PER_MINUTE) * MINUTE_MS);
 /**
  * A hard ceiling on the map, bounded for the same reason as the report store: an
  * endpoint a stranger can reach must not be able to grow the heap by being called.
- * Ten thousand hashed keys is under a megabyte, and far more concurrent clients than
- * this deployment will ever see.
+ * Ten thousand entries is about 2 MiB, measured rather than guessed: a 64-character hex
+ * digest plus `{tokens, updatedAt}` costs roughly 200 bytes once V8's map and object
+ * overheads are counted. That is far more concurrent clients than this deployment will
+ * ever see, and small against a 512 MiB container -- but it is two megabytes, not the
+ * "under a megabyte" this comment claimed before anyone measured it.
  */
 const MAX_CLIENTS = 10_000;
 

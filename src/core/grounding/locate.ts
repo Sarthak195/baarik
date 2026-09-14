@@ -35,7 +35,10 @@ export function locateQuote(
     return { status: 'unverified', reason: 'quote_too_short' };
   }
 
-  // 1. Exact. The overwhelmingly common case when the model behaves.
+  // 1. Exact. Tried first because it is free, not because it usually wins: across the
+  // committed corpus it grounds 36 of 101 findings, and 4 of 60 fact citations. Two
+  // samples are entirely exact and four are almost entirely not, which is why the
+  // normalised pass below is the workhorse rather than the fallback.
   const exactAt = document.indexOf(trimmed);
   if (exactAt !== -1) {
     return {

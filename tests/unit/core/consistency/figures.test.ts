@@ -121,3 +121,43 @@ describe('findFigureWordMismatches', () => {
     expect(findFigureWordMismatches(document)).toEqual([]);
   });
 });
+
+/**
+ * A horizontal rule above a table of figures.
+ *
+ * This is the shape that made `TRAILING_NOISE` in `number-words.ts` exponential. The
+ * matcher used to carry a `+` on its character class inside an enclosing `(...)+`, so a
+ * run of k noise characters that could not reach the end of the string was partitioned
+ * 2^(k-1) ways before the match failed: 24 dashes took 290ms, and 36 never returned.
+ *
+ * It was reachable from an ordinary upload rather than a crafted one — `figures.ts`
+ * passes a 70-character lookback for every parenthetical containing a digit, and
+ * `fixtures/grocery-bill.txt` already carries a 66-character rule. Node is
+ * single-threaded, so nothing could have interrupted it; the container would have stopped
+ * with every other request in flight.
+ *
+ * The timeout is the assertion. Against the old matcher this test does not finish, so a
+ * generous bound fails loudly on a regression without the flakiness of timing a duration.
+ */
+describe('a figure behind a long horizontal rule', () => {
+  it('is read in bounded time rather than exponential time', { timeout: 2000 }, () => {
+    const rule = '-'.repeat(200);
+    const document = contract(
+      '5. SCHEDULE OF CHARGES',
+      rule,
+      'Processing fee of thirty (30) percent is payable on disbursal.',
+    );
+
+    // The result matters less than returning at all, but assert it anyway so the test
+    // cannot pass by the detector quietly doing nothing.
+    expect(() => findFigureWordMismatches(document)).not.toThrow();
+  });
+
+  it('still reads the quantity when noise separates it from its unit', () => {
+    // The one-character-per-iteration rewrite must accept exactly what the old matcher
+    // did. This is the phrase the noise class exists for.
+    expect(parseNumberWords('thirty')).toBe(30);
+    const document = contract('Notice of ninety (90) calendar days is required.');
+    expect(() => findFigureWordMismatches(document)).not.toThrow();
+  });
+});

@@ -1,5 +1,5 @@
 import type { RawFinding } from '../../schemas/finding';
-import { foldForMatching } from '../document/fold';
+import { foldForMatching, type FoldedText } from '../document/fold';
 import { pageNumberAt, segmentIdAt } from '../document/normalise';
 import type { CanonicalDocument } from '../document/types';
 import { locateQuote } from './locate';
@@ -66,15 +66,29 @@ const EMPTY_REASON_COUNTS: Readonly<Record<UngroundedReason, number>> = {
  * we could not find it" — which turns an internal safety mechanism into visible
  * evidence of care, and makes suppression by a hostile document detectable.
  *
- * The document is folded once here and the index reused for every quote, so the pass
- * is O(document + quotes x window) rather than O(quotes x document).
+ * The document is folded once here and the index reused for every quote, rather than
+ * once per quote. The pass is O(document + quotes x document): the fold is paid once,
+ * and each quote that needs the fuzzy scan walks the document at a fixed stride.
+ *
+ * Note what that does NOT say. Cost is flat in quote width, not linear in it -- the scan
+ * visits about 8L/w coarse positions and each similarity call is O(w), so the w cancels
+ * and a quote costs roughly 24L however wide it is. Measured on a 7,374-character
+ * document: widths 40 to 640 moved the pass 18.6ms to 34.0ms, a 16x change in width for
+ * 1.8x the time. Document length is the term that matters: 7,374 to 118,014 characters
+ * took 56.8ms to 1135.2ms, 16x length for 20x the time.
  */
 export function verifyFindings(
   document: CanonicalDocument,
   findings: readonly RawFinding[],
   options: LocateOptions = LOCATE_DEFAULTS,
+  /**
+   * A fold of this document made elsewhere. Optional so a caller with one document and
+   * one concern need not know the fold exists, and so every existing test still reads
+   * the same; supplied by the orchestrator, which needs the identical fold twice.
+   */
+  folded?: FoldedText,
 ): VerificationReport {
-  const index = foldForMatching(document.text);
+  const index = folded ?? foldForMatching(document.text);
   const grounded: GroundedFinding[] = [];
   const rejected: RejectedFinding[] = [];
   const claimed = new Set<string>();

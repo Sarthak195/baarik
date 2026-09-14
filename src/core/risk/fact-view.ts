@@ -4,7 +4,7 @@ import type {
   NumericFactField,
   Presence,
 } from '../../schemas/extracted-facts';
-import { foldForMatching } from '../document/fold';
+import { foldForMatching, type FoldedText } from '../document/fold';
 import { locateQuote } from '../grounding/locate';
 import type { QuoteLocation } from '../grounding/types';
 import type { CanonicalDocument } from '../document/types';
@@ -41,8 +41,10 @@ export interface FactViewResult {
 export function buildFactView(
   document: CanonicalDocument,
   facts: ExtractedFacts,
+  /** See the note on `verifyFindings`. The orchestrator folds once and passes it here. */
+  folded?: FoldedText,
 ): FactViewResult {
-  const index = foldForMatching(document.text);
+  const index = folded ?? foldForMatching(document.text);
   const evidence = new Map<string, QuoteLocation>();
   const demoted: DemotedFact[] = [];
   const suppressed = new Set<string>();

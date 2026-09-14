@@ -1,6 +1,7 @@
 import 'server-only';
 
 import { detectInconsistencies } from '../../core/consistency/detect';
+import { foldForMatching } from '../../core/document/fold';
 import type { CanonicalDocument } from '../../core/document/types';
 import { triageEnforceability } from '../../core/enforceability/triage';
 import { verifyFindings } from '../../core/grounding/verify';
@@ -110,8 +111,15 @@ export async function analyseDocument(
   );
   // ---- Everything below is pure, offline and deterministic. ----
 
-  const verification = verifyFindings(input.document, rawFindings);
-  const { view } = buildFactView(input.document, facts);
+  // One fold, used by both. `verifyFindings` and `buildFactView` each called
+  // `foldForMatching(document.text)` on the identical input, two lines apart -- the same
+  // pure function, twice, for the same answer. At `LIMITS.maxCanonicalChars` a fold
+  // allocates roughly 58 MB and retains about 2 MB (the folded string plus its Int32Array
+  // offset map), so doing it twice spent ~116 MB of garbage and ~140ms per analysis
+  // inside a 512 MiB container running up to three instances.
+  const folded = foldForMatching(input.document.text);
+  const verification = verifyFindings(input.document, rawFindings, undefined, folded);
+  const { view } = buildFactView(input.document, facts, folded);
 
   const risk = scoreDocument({
     facts: view,
