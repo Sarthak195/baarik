@@ -72,10 +72,10 @@ const EMPTY_REASON_COUNTS: Readonly<Record<UngroundedReason, number>> = {
  *
  * Note what that does NOT say. Cost is flat in quote width, not linear in it -- the scan
  * visits about 8L/w coarse positions and each similarity call is O(w), so the w cancels
- * and a quote costs roughly 24L however wide it is. Measured on a 7,374-character
- * document: widths 40 to 640 moved the pass 18.6ms to 34.0ms, a 16x change in width for
- * 1.8x the time. Document length is the term that matters: 7,374 to 118,014 characters
- * took 56.8ms to 1135.2ms, 16x length for 20x the time.
+ * and a quote costs roughly 24L however wide it is. Measured on the 7,384-character offer
+ * letter with a quote that cannot be found, so every strategy runs to exhaustion: widths
+ * 40, 80, 160, 320 and 640 took 12.99, 12.25, 10.64, 10.49 and 10.56 ms. Sixteen times
+ * the width, and no increase. Document length is the term that costs.
  */
 export function verifyFindings(
   document: CanonicalDocument,

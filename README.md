@@ -469,6 +469,41 @@ with the real predicate vocabulary and the 23 field names, is in
 
 ---
 
+## Performance, measured
+
+Every figure here was measured on this code, and every one is reproducible from the
+repository — the command or the fixture is named. Where a number was wrong, it was
+corrected rather than quietly dropped; two of the four below replaced claims that did not
+survive being checked.
+
+| What | Before | After | How it was measured |
+|---|---|---|---|
+| **Repeat analysis** | 169 s | **0.14 s** | Same document posted twice to the deployed service; `GET /api/health` shows `cachedAnalyses` incrementing. Zero model calls on the second. |
+| **Trailing-noise matcher**, 24-character run | 290 ms | **under 0.01 ms** | `number-words.ts`. The old pattern grew ~4× for every two characters added and did not terminate at 36; the replacement does not grow at all. See the comment above `TRAILING_NOISE`. |
+| **Document folds per analysis** | 2 | **1** | The same pure function was called on the same input two lines apart in the orchestrator. One fold of 400,000 characters measures **67 ms** and retains **~1.9 MB** (0.38 MB folded text + a 1.53 MB `Int32Array` offset map), so the duplicate cost that again on every analysis. |
+| **Verification pass** | — | flat in quote width | On `offer-letter-meridian.txt` (7,384 chars), an unfindable quote at widths 40→640 measured 12.99→10.56 ms. 16× the width, no increase — the scan visits ~8L/w coarse positions at O(w) each, so the width cancels. Document length is the term that costs. |
+
+Memory is bounded by count in three places, and the byte consequence is stated rather
+than implied:
+
+- **Report store** — 50 entries, each holding the full document text. At the character cap
+  that is 19 MiB, or 38 MiB if a single character falls outside Latin-1, because V8 widens
+  the whole string to two bytes. Not hypothetical: all seven fixtures carry between 2 and
+  12 em-dashes, en-dashes or rupee signs.
+- **Analysis cache** — 50 entries, 30 minutes, keyed on document hash plus language,
+  reading level and declared type.
+- **Rate limiter** — 10,000 clients, about 2 MiB measured at the ceiling with the real key
+  shape.
+
+The container is 512 MiB with at most three instances (`docs/DEPLOYMENT.md`).
+
+**What is not fast.** A first analysis takes about 163 s against a live key: three model
+calls, two of them concurrent over one cached prefix, and nothing streams. The cache
+removes the repeat, not the first. That number is in `docs/DEPLOYMENT.md` beside the
+request timeout it determines.
+
+---
+
 ## Accessibility and reach
 
 - **Hindi is a data concern, not a code concern.** `src/i18n/en.ts` and `src/i18n/hi.ts`

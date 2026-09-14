@@ -113,10 +113,10 @@ export async function analyseDocument(
 
   // One fold, used by both. `verifyFindings` and `buildFactView` each called
   // `foldForMatching(document.text)` on the identical input, two lines apart -- the same
-  // pure function, twice, for the same answer. At `LIMITS.maxCanonicalChars` a fold
-  // allocates roughly 58 MB and retains about 2 MB (the folded string plus its Int32Array
-  // offset map), so doing it twice spent ~116 MB of garbage and ~140ms per analysis
-  // inside a 512 MiB container running up to three instances.
+  // pure function, twice, for the same answer. Measured at `LIMITS.maxCanonicalChars`:
+  // one fold takes 67 ms and retains about 1.9 MB -- 0.38 MB of folded text plus a
+  // 1.53 MB `Int32Array` offset map -- so the duplicate cost that again on every
+  // analysis, inside a 512 MiB container running up to three instances.
   const folded = foldForMatching(input.document.text);
   const verification = verifyFindings(input.document, rawFindings, undefined, folded);
   const { view } = buildFactView(input.document, facts, folded);
