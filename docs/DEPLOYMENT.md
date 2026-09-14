@@ -20,19 +20,20 @@ Baarik on Google Cloud Run, `asia-south1`.
 carrying only the modules the server's import graph traced — which is why the image is
 small, and also the whole problem.
 
-Nothing imports `data/` or `golden/`. They are opened at request time, by path, from
-`process.cwd()`:
+Nothing imports `data/`, `golden/` or `fixtures/`. They are opened at request time, by
+path, from `process.cwd()`:
 
 
 | Directory | Read by | Holds |
 |---|---|---|
 | `data/` | `src/server/knowledge/repository.ts` | 43 rubric rules, 11 enforceability rows, 9 forums, 7 limitation rules |
-| `golden/` | `src/server/samples/repository.ts` | 7 precomputed sample reports (plus 7 replay recordings), ~390 KB |
+| `golden/` | `src/server/samples/repository.ts` | 7 recorded sample reports (plus 7 replay recordings), ~390 KB |
+| `fixtures/` | `src/server/samples/fixtures.ts` | The 7 documents those reports were recorded from, ~84 KB |
 
 A container that does not copy them **builds, boots, passes Cloud Run's port probe and
 serves the landing page**. Then the rubric is empty, so every uploaded document scores
-zero and produces no findings; and `golden/reports/` is empty, so every "try a sample"
-link 404s. Nothing is red. Nothing is in the log. It looks fine right up until somebody
+zero and produces no findings; and `golden/reports/` or `fixtures/` is empty, so every
+"try a sample" link 404s. Nothing is red. Nothing is in the log. It looks fine right up until somebody
 clicks.
 
 There is a trap here worth naming. On Next 16.3.5 the file tracer *does* currently infer
@@ -45,6 +46,7 @@ Do not rely on the inference:
 ```dockerfile
 COPY --from=builder --chown=node:node /app/data ./data
 COPY --from=builder --chown=node:node /app/golden ./golden
+COPY --from=builder --chown=node:node /app/fixtures ./fixtures
 ```
 
 And `/api/health` exists to make the absence loud — see [Verify](#verify).

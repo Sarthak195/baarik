@@ -322,7 +322,7 @@ submission form answer. See [ADR 0006](docs/adr/0006-google-ai-services.md).
 | **Security** | Medium | Zero persistence, zero auth surface — no credential to steal, no session to fix, no query to inject. | [ADR 0008](docs/adr/0008-no-persistence.md), [`docs/DATA_HANDLING.md`](docs/DATA_HANDLING.md) |
 | **Efficiency** | Medium | Two model calls over one cached prefix, run concurrently; the cheapest model for classification over 4,000 characters. | [`src/server/pipeline/analyse-document.ts`](src/server/pipeline/analyse-document.ts) |
 | **Efficiency** | Medium | The document is folded **once per verification pass**, not once per quote: O(document + quotes × window). | [`src/core/grounding/verify.ts`](src/core/grounding/verify.ts) |
-| **Efficiency** | Medium | The sample path makes **zero API calls** — precomputed reports, so the highest-traffic route cannot fail or cost quota. | [`src/lib/demo/`](src/lib/demo/) |
+| **Efficiency** | Medium | The sample path makes **zero API calls** — reports recorded ahead of time, so the highest-traffic route cannot fail or cost quota. | [`src/server/samples/`](src/server/samples/) |
 | **Testing** | Low | Scored as *testability*: pure functions, a one-method LLM interface whose fake needs no mocking library, and CI that runs offline with no key. | [`src/server/pipeline/stages.ts`](src/server/pipeline/stages.ts) (`LlmGateway`), [`tests/setup.ts`](tests/setup.ts), [`.github/workflows/ci.yml`](.github/workflows/ci.yml) |
 | **Testing** | Low | 241 test cases across 24 files; coverage scoped to `src/core/**` and **stated as scoped**. | [`tests/`](tests/), [`vitest.config.mts`](vitest.config.mts) |
 | **Accessibility** | Low | Hindi is a **data** concern: two dictionaries at 127 strings each, in compiler-enforced parity. Rubric rules require `explain.hi`. | [`src/i18n/`](src/i18n/), [`src/core/rubric/schema.ts`](src/core/rubric/schema.ts) |
@@ -426,7 +426,7 @@ The CI workflow has no `GEMINI_API_KEY` and says why it never will:
 
 > *"A test that needs the network is a test that will be flaky and will cost money."*
 
-**No key at all?** Open a sample document. Those reports are precomputed in `src/lib/demo/`
+**No key at all?** Open a sample document. Those reports were recorded into `golden/reports/`
 and cost zero API calls — including the deliberately rejected finding, so the grounding
 statistics on screen are real rather than idealised.
 
@@ -609,7 +609,8 @@ src/server/         I/O lives here, and only here.
   prompts/            five system prompts, all composed through shared/guardrails.ts
   knowledge/          the only module that reads data/
   config/             limits, env validation, key pool
-  samples/, store/    precomputed report plumbing
+  samples/, report/   recorded reports, rendered through the live adapter
+  store/              the in-memory report cache (ADR 0008: nothing is written)
 
 src/app/            Next.js App Router: 4 pages, 1 POST handler
 src/components/     server components, except two

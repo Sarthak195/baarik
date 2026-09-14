@@ -154,11 +154,11 @@ string. Switching language after acknowledging the disclaimer re-blocks the read
 `AnalysisCache` interface behind which a shared implementation could later sit. None is
 wired up; the in-memory store is per-process and is lost on restart.
 
-**Only two of the seven fixtures have precomputed reports.** `src/lib/demo/index.ts`
-exposes the offer letter and the rent agreement. The loan sanction, the NDA, the
-freelance MSA, the privacy policy and the grocery bill exist as fixtures and are exercised
-by tests, but selecting them as samples in the UI is not possible because the precomputed
-reports do not exist.
+**Six of the seven fixtures are offered as samples.** `src/server/samples/catalogue.ts`
+lists the offer letter, the rent agreement, the loan sanction, the freelance MSA, the
+NDA and the privacy policy. The grocery bill is left out deliberately: its recorded
+outcome is a refusal, which makes it a valuable fixture and a pointless thing to offer
+someone as a worked example.
 
 ---
 
@@ -172,9 +172,10 @@ that is gone by mid-morning.
 
 Three consequences, all visible in the code:
 
-1. **Sample analyses are precomputed.** `src/lib/demo/` holds fully worked reports —
-   including a deliberately rejected finding and real `GroundingStats` — so the
-   highest-traffic path costs zero quota and cannot fail.
+1. **Sample analyses are recorded, not recomputed.** `golden/reports/` holds fully worked
+   reports — including a deliberately rejected finding and real `GroundingStats` — which
+   `src/server/samples/view.ts` renders through the live adapter, so the highest-traffic
+   path costs zero quota and cannot fail.
 2. **Quota is spread across a key pool and a model ladder.** `src/server/config/key-pool.ts`
    rotates keys and demotes one that answers 429; `MODEL_LADDER` in
    `src/server/genai/models.ts` substitutes a sibling model, which has its own separate

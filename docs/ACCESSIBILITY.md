@@ -258,9 +258,11 @@ fails validation at boot rather than silently degrading the Hindi report.
 ### The sample path costs zero API calls
 
 `src/components/upload/SampleDocuments.tsx` renders plain links to `/report/<id>`, and
-`src/app/report/[id]/page.tsx` resolves them through `reportById` in
-`src/lib/demo/index.ts`, a synchronous in-memory lookup over precomputed reports. No
-model call, no key, no quota, no failure mode.
+`src/app/report/[id]/page.tsx` resolves them through `sampleReportView` in
+`src/server/samples/view.ts`, which joins a recorded report from `golden/reports/` to
+its fixture text and runs it through the same adapter a live analysis uses. Reading
+two committed files and memoised after the first reader: no model call, no key, no
+quota, no failure mode.
 
 This is an accessibility property as much as an efficiency one: the demo works on a
 throttled connection, works when the free tier is exhausted, and works for an evaluator
@@ -294,10 +296,10 @@ Stated plainly. Several of these are choices; some are defects.
 4. **`src/app/not-found.tsx` is English-only**, acknowledged in its own comment: it
    cannot read the URL, so it answers in English.
 
-5. **The precomputed sample reports are English-only.** `src/lib/demo/` contains no
+5. **The recorded sample reports are English-only.** `golden/reports/` contains no
    Devanagari. In Hindi mode a reader gets Hindi row labels around English clause
    explanations. The live pipeline is better provisioned than the demo — `data/rubric/*.yaml`
-   carries `hi:` templates for every rule — but the demo is the path that runs without a
+   carries `hi:` templates for every rule — but the samples are the path that runs without a
    key, so it is the path most readers will see.
 
 6. **Some English fragments are concatenated into otherwise-translated output**:

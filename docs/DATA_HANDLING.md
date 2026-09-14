@@ -106,7 +106,7 @@ That is disclosed here, in ADR 0006 and in ADR 0008, in those words, because:
 
 | | Effect |
 |---|---|
-| Using the **sample documents** | Zero API calls. Nothing leaves the machine at all — `src/lib/demo/` reports are precomputed. This is the genuinely private path. |
+| Using the **sample documents** | Zero API calls. Nothing leaves the machine at all — the reports under `golden/reports/` were recorded ahead of time. This is the genuinely private path. |
 | **Redacting before pasting** | Works. The grounding verifier matches against whatever text you supply, so replacing a name with `XXXX` costs nothing in analysis quality. |
 | A **paid-tier key** | Changes the terms materially. A deployment that sets a billed key is not covered by the unpaid-tier training permission. |
 | "We don't store it" | Does **not** reduce what Google receives. |
