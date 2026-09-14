@@ -2,15 +2,15 @@
 
 Baarik on Google Cloud Run, `asia-south1`.
 
-> **The container is tested. The cloud is not.**
+> **This is now a record of what was done, not a plan for what to do.**
 >
-> The image has been built and run locally, and `/api/health` inside it reports the
-> right counts — so the `Dockerfile` and `.dockerignore` are verified, not hoped for.
-> Everything touching Google Cloud is written from the documented behaviour of `gcloud`
-> and has never been executed: no revision of this service exists, no secret has been
-> created, and the billing state of the target project is unconfirmed. Read
-> [Verify](#verify) before believing a deploy worked, and
-> [Still unverified](#still-unverified) for the full list.
+> The service is deployed and serving: eight revisions have been built by Cloud Build and
+> released to Cloud Run in `asia-south1`, the most recent being `baarik-00008-bcg`.
+> `/api/health` answers `ok:true` with 43 rubric rules, 7 samples and 6 keys, so `data/`,
+> `golden/` and `fixtures/` all reached the image. Latency has been measured against a
+> live key rather than estimated — see the `--timeout` row below. The list of things that
+> remain genuinely unexercised is at [Still unverified](#still-unverified), and it is now
+> short.
 
 ---
 
@@ -355,16 +355,23 @@ Stated plainly, because the rest of this document reads like it has all been don
 - A single comma-separated `GEMINI_API_KEY` produces a pool of six, which is the shape
   the recommended secret uses.
 
-**Not verified** — nothing below has been executed against Google Cloud:
+**Verified in production** — executed, not inferred:
 
-- No deploy has been performed. Every `gcloud` command here comes from documented
-  behaviour, not from a transcript.
-- The project's billing status, quota and enabled APIs are unconfirmed.
-- The secret `gemini-api-key` does not exist yet, and neither does the IAM binding.
-- The budget-alert command's exact flag spelling has not been exercised;
-  `gcloud billing budgets create --help` is the authority if it rejects one.
-- `geminiKeys: 6` assumes six *distinct* keys reach the container. The pool
-  de-duplicates, so what the endpoint reports is the authority on what the service has.
-- Cold-start latency in `asia-south1` has not been measured.
-- The local `docker build` excludes `tests/` via `.dockerignore`, so a green image build
-  is not a green CI. Run `npm run verify` before deploying.
+- Eight revisions deployed via `gcloud run deploy --source .`; `baarik-00008-bcg` serves
+  100% of traffic. Cloud Build compiles the image; no Docker daemon is involved locally.
+- `/api/health` returns `ok:true` with `rubricRules: 43`, `samples: 7`, `geminiKeys: 6`.
+  The pool de-duplicates, so that endpoint remains the authority on what the service has.
+- A full analysis of the smallest fixture: **163s**. The same document again: **0.14s**,
+  served by the analysis cache with no model call, with `cachedAnalyses` incrementing.
+- Security headers and a per-request CSP nonce confirmed on live responses; every
+  `<script>` on five routes carries the nonce from its own response header.
+- A malformed request body answers 400; the request ceiling is 600s.
+
+**Still not verified:**
+
+- No budget alert exists. `gcloud billing budgets create --help` is the authority if the
+  flag spelling below is rejected; the Cloud Billing API is not enabled on the project.
+- Cold-start latency has not been isolated from analysis latency — the 163s figure is a
+  warm-path measurement and includes the model calls.
+- The local `docker build` path in this document is unexercised: Docker is deliberately
+  not installed on the author's machine, and Cloud Build is the only build route used.

@@ -851,7 +851,8 @@
     "meta": {
       "rubricVersion": "2026.09.13",
       "modelsUsed": [
-        "gemini-3.8-flash"
+        "gemini-3.1-flash-lite",
+        "gemini-3.7-flash"
       ],
       "stageTimingsMs": {
         "classify": 0,

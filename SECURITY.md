@@ -264,11 +264,27 @@ form POST: zero violations, hydration confirmed through a control that only rend
   (ADR 0008), and the quota behind it is defended a second time by the key pool, the
   model ladder and the process-wide exhaustion memory. Stated because 3× a stated limit
   is not the stated limit.
-- **Every route is now dynamically rendered.** That is the price of a per-request CSP
-  nonce (§5) and it is worth naming rather than burying: nothing can be served from a CDN
-  edge cache, and the 404 page in particular is rendered on demand where it used to be a
-  static file. At this project's traffic the cost is nothing; at a different scale it
-  would be the first thing to revisit, and `experimental.sri` is the documented way out.
+
+  The second weakening is larger and belongs in the same breath: the bucket is keyed on a
+  client identity derived from `x-forwarded-for`, and this service is reachable directly
+  at `*.run.app`, so a caller who rotates that header mints a fresh bucket per request.
+  The per-client bound is therefore advisory, not enforced. It is left as it is on
+  purpose. Reading the client from the *end* of the chain instead would collapse all
+  traffic into one bucket if the trailing entry is a front-end address — a silent global
+  throttle, strictly worse than the problem. What actually bounds the blast radius is
+  `--max-instances=3` and the free-tier quota itself: at `capacity 12, refill 4/minute`
+  the limiter permits about 5,760 analyses a day from one honest address, against a real
+  daily budget of perhaps sixty. The limiter protects against accidental floods and
+  bursts; it is not, and is not claimed to be, an anti-abuse control.
+- **Every route is dynamically rendered**, and the CSP nonce is not the reason. Every
+  page awaits `searchParams` to read `?lang` and `?understood`, the root layout awaits
+  `headers()`, and `not-found.tsx` calls `connection()` — each one is independently a
+  Dynamic API. The nonce changed exactly one route, the 404 page, from static to dynamic.
+  Removing it would restore **zero** static routes, so `experimental.sri` is not a way
+  out of anything here; the `?lang=` query-parameter approach to i18n is what makes the
+  whole site dynamic, and that is a deliberate trade for working without JavaScript and
+  without a cookie. At this project's traffic the cost is nothing. The thing that
+  actually removes repeated work is the analysis cache (§5), not edge caching.
 - **Documents reach a third party.** Not storing something is not the same as it being
   private. The document is sent to the Gemini Developer API, and on the unpaid tier
   Google's terms permit use for product improvement including human review. This is

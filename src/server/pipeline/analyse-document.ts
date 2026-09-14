@@ -17,7 +17,8 @@ import { classifyDocument, extractFacts, findClauses } from './stages';
 /**
  * The orchestrator.
  *
- * Two model calls, then everything else offline. Steps 3 onward take the model's raw
+ * Three model calls -- a cheap classification, then two reasoning calls run
+ * concurrently -- and everything else offline. Steps 3 onward take the model's raw
  * output all the way to the reader's answer with no network access and no
  * non-determinism — which is what lets the whole composition be tested by replaying
  * recorded output, and what makes the committed golden reports assertable exactly.
@@ -48,8 +49,26 @@ export async function analyseDocument(
   const models = new Set<string>();
   const startedAt = deps.clock();
 
+  // Every stage calls the model through this, so `modelsUsed` records what actually
+  // answered rather than what was asked for. It used to be the single hardcoded string
+  // `gemini-3.8-flash`, which was wrong twice over: the ladder in `gateway.ts` substitutes
+  // a sibling model when one meets its daily quota, and classification runs on the cheap
+  // model and was never recorded at all. `gateway.ts` states as a design principle that
+  // "the report names the model that answered rather than hiding it"; this is what makes
+  // that true.
+  const observed: PipelineDeps = {
+    ...deps,
+    llm: {
+      structured: async (request) => {
+        const result = await deps.llm.structured(request);
+        models.add(result.model);
+        return result;
+      },
+    },
+  };
+
   const classification = await timed(timings, 'classify', () =>
-    classifyDocument(input.document, deps),
+    classifyDocument(input.document, observed),
   );
 
   // Refusing is a first-class outcome, not an error. A supermarket receipt is not a
@@ -75,16 +94,20 @@ export async function analyseDocument(
   const documentType = input.declaredType ?? classification.documentType;
 
   // Both calls share the identical document prefix, so the second is served largely
-  // from Gemini's implicit cache. Running them concurrently also halves the wall
-  // clock, which is what keeps a first finding on screen inside ten seconds.
+  // from Gemini's implicit cache. Running them concurrently rather than in series is
+  // what keeps the reasoning stage to the slower of the two instead of their sum.
+  //
+  // It does not make the analysis fast. A measured run is 163s in `asia-south1`, and
+  // nothing streams -- `interactions.ts` sends `stream: false` and the route awaits the
+  // whole pipeline before its 303 -- so nothing reaches the screen until it finishes.
+  // The wall clock a reader actually feels is addressed by the analysis cache, which
+  // serves the same document again in 0.14s, not by this.
   const [facts, rawFindings] = await timed(timings, 'extract', () =>
     Promise.all([
-      extractFacts(input.document, documentType, deps),
-      findClauses(input.document, documentType, input.options, deps),
+      extractFacts(input.document, documentType, observed),
+      findClauses(input.document, documentType, input.options, observed),
     ]),
   );
-  models.add('gemini-3.8-flash');
-
   // ---- Everything below is pure, offline and deterministic. ----
 
   const verification = verifyFindings(input.document, rawFindings);
@@ -131,7 +154,9 @@ export async function analyseDocument(
       nextSteps,
       meta: {
         rubricVersion: deps.knowledge.version,
-        modelsUsed: [...models],
+        // Sorted, because the two reasoning calls race inside `Promise.all` and
+        // whichever answers first would otherwise decide the order of a committed field.
+        modelsUsed: [...models].sort(),
         stageTimingsMs: timings,
         truncated: input.document.truncated,
         readAsScan: input.readAsScan ?? false,

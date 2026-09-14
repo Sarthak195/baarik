@@ -80,7 +80,7 @@ disclaimer, and where each rule is enforced in code.
                                  │  src/core/document/normalise.ts → CanonicalDocument
                                  ▼
   ┌─────────────────────────────────────────────────────────────────────────┐
-  │  3. TWO MODEL CALLS, CONCURRENT, ONE CACHED PREFIX      ◄── the only    │
+  │  3. THREE MODEL CALLS: CHEAP CLASSIFY, THEN TWO         ◄── the only    │
   │     extractFacts (thinking: high)  ║  findClauses (thinking: medium)    │
   │     23 bounded numbers,            ║  verbatim quotes +                 │
   │     20 constructs present/absent/  ║  plain-language summaries          │
@@ -320,7 +320,7 @@ submission form answer. See [ADR 0006](docs/adr/0006-google-ai-services.md).
 | **Security** | Medium | A hostile document cannot change the risk score, because the score is computed in TypeScript from a rubric the model has no path to. | [`SECURITY.md`](SECURITY.md) §1, [`src/core/risk/engine.ts`](src/core/risk/engine.ts) |
 | **Security** | Medium | Caps are enforced **before** parsing; format comes from magic bytes, never from a filename or `Content-Type`. | [`src/server/config/limits.ts`](src/server/config/limits.ts), [`src/server/ingest/sniff.ts`](src/server/ingest/sniff.ts) |
 | **Security** | Medium | Zero persistence, zero auth surface — no credential to steal, no session to fix, no query to inject. | [ADR 0008](docs/adr/0008-no-persistence.md), [`docs/DATA_HANDLING.md`](docs/DATA_HANDLING.md) |
-| **Efficiency** | Medium | Two model calls over one cached prefix, run concurrently; the cheapest model for classification over 4,000 characters. | [`src/server/pipeline/analyse-document.ts`](src/server/pipeline/analyse-document.ts) |
+| **Efficiency** | Medium | Three model calls: classification on the cheapest model over 4,000 characters, then two reasoning calls run concurrently over one cached prefix, so the stage costs the slower of the two rather than their sum. | [`src/server/pipeline/analyse-document.ts`](src/server/pipeline/analyse-document.ts) |
 | **Efficiency** | Medium | The document is folded **once per verification pass**, not once per quote: O(document + quotes × window). | [`src/core/grounding/verify.ts`](src/core/grounding/verify.ts) |
 | **Efficiency** | Medium | The sample path makes **zero API calls** — reports recorded ahead of time, so the highest-traffic route cannot fail or cost quota. | [`src/server/samples/`](src/server/samples/) |
 | **Efficiency** | Medium | The same document analysed twice costs the model **nothing** the second time — an in-memory LRU keyed by document hash plus language, reading level and declared type, bounded to 50 entries for 30 minutes. `GET /api/health` reports how many it holds. | [`src/server/store/analysis-cache.ts`](src/server/store/analysis-cache.ts), [ADR 0008](docs/adr/0008-no-persistence.md) |
